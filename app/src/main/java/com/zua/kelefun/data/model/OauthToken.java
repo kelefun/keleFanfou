@@ -4,7 +4,7 @@ package com.zua.kelefun.data.model;
  * Created by liukaiyang on 2017/2/6.
  */
 
-public class OauthToken {
+public class OAuthToken {
 
     /**
      * access_token
@@ -17,7 +17,7 @@ public class OauthToken {
     /**
      * token 有效时间
      */
-    private long expiresIn;
+    private long expiresAt;
     private String userId;
     private String userName;
 
@@ -37,12 +37,12 @@ public class OauthToken {
         this.secret = secret;
     }
 
-    public long getExpiresIn() {
-        return expiresIn;
+    public long getExpiresAt() {
+        return expiresAt;
     }
 
-    public void setExpiresIn(long expiresIn) {
-        this.expiresIn = expiresIn;
+    public void setExpiresAt(long expiresAt) {
+        this.expiresAt = expiresAt;
     }
 
     public String getUserId() {
@@ -64,9 +64,9 @@ public class OauthToken {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("OauthToken{token=").append(token)
+        sb.append("OAuthToken{token=").append(token)
                 .append(",secret=").append(secret)
-                .append(",expiresIn=").append(expiresIn)
+                .append(",expiresAt=").append(expiresAt)
                 .append(",userId=").append(userId).
                 append(",userName=").append(userName)
                 .append("}");

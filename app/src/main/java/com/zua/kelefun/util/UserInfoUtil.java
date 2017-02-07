@@ -3,8 +3,6 @@ package com.zua.kelefun.util;
 import android.content.Context;
 import android.support.v4.util.ArrayMap;
 
-import com.zua.kelefun.config.Constants;
-
 
 /**
  *
@@ -14,7 +12,7 @@ import com.zua.kelefun.config.Constants;
 public class UserInfoUtil {
 
     private SharedPreferencesUtil spUtil;
-
+    private static final String SP_LOGIN_INFO ="loginInfo";
     private Context mContext;
 
     public UserInfoUtil(Context context) {
@@ -34,7 +32,7 @@ public class UserInfoUtil {
         map.put("access_token", access_token);
         map.put("user_id", douban_user_id);
         map.put("refresh_token", refresh_token);
-        spUtil.save(mContext, Constants.SP_LOGIN_INFO, map);
+        spUtil.save(mContext, "", map);
     }
 
     /**
@@ -43,7 +41,7 @@ public class UserInfoUtil {
      * @return 返回用户 Id
      */
     public String readUserId() {
-        return spUtil.read(mContext, Constants.SP_LOGIN_INFO, "user_id", "");
+        return spUtil.read(mContext, SP_LOGIN_INFO, "user_id", "");
     }
 
     /**
@@ -52,7 +50,7 @@ public class UserInfoUtil {
      * @return 返回用户 refresh token
      */
     public String readRefreshToken() {
-        return spUtil.read(mContext, Constants.SP_LOGIN_INFO, "refresh_token", "");
+        return spUtil.read(mContext, SP_LOGIN_INFO, "refresh_token", "");
     }
 
     /**
@@ -61,11 +59,11 @@ public class UserInfoUtil {
      * @return 返回用户 access token
      */
     public String readAccessToken() {
-        return spUtil.read(mContext, Constants.SP_LOGIN_INFO, "access_token", "");
+        return spUtil.read(mContext, SP_LOGIN_INFO, "access_token", "");
     }
 
     public void removeInfo() {
-        spUtil.removeAll(mContext, Constants.SP_LOGIN_INFO);
+        spUtil.removeAll(mContext, SP_LOGIN_INFO);
     }
 
 }

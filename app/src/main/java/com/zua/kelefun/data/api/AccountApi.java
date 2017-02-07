@@ -1,65 +1,32 @@
 package com.zua.kelefun.data.api;
 
 
-import com.zua.kelefun.data.model.OauthToken;
+import com.zua.kelefun.data.model.OAuthToken;
 import com.zua.kelefun.data.model.UserInfo;
 
-import okhttp3.ResponseBody;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.Headers;
-import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;
 
 /**
- * All Rights Reserved by Company.
- * Created by DongYuHui on 2016/9/14.
- * 账户相关请求
+ *账户相关
+ *@author liukaiyang
+ *@since 2017/2/7 18:15
  */
 public interface AccountApi {
 
-    @GET("user/{userId}")
-    Observable<UserInfo> getUserData(
+    @GET("http://api2.fanfou.com/users/{userId}")
+    Observable<UserInfo> getUserInfo(
             @Path("userId") String userId,
-            @Query("apiKey") String appKey
+            @Query("oauth_token") String oauthToken
     );
 
-    @Headers({"Content-Type: application/x-www-form-urlencoded"})
-    @POST("https://www.douban.com/service/auth2/token")
-    Observable<OauthToken> getToken(
-            @Query("client_id") String clientId,
-            @Query("client_secret") String clientSecret,
-            @Query("redirect_uri") String redirectUri,
-            @Query("grant_type") String grantType,
-            @Query("code") String code
+    //xauth授权认证
+    @GET("http://fanfou.com/oauth/request_token")
+    Observable<OAuthToken> getAccessToken(
+            @Query("x_auth_username") String username,
+            @Query("x_auth_password") String password,
+            @Query("x_auth_mode") String mode
     );
-
-    @FormUrlEncoded
-    @POST("https://www.douban.com/service/auth2/auth")
-    Observable<ResponseBody> getCode(
-            @Query("client_id") String clientId,
-            @Query("redirect_uri") String redirectUri,
-            @Query("response_type") String responseTypeFirst,
-            @Query("scope") String scope,
-            @Field("confirm") String confirm,
-            @Field("response_type") String responseTypeSecond,
-            @Field("redirect_url") String redirectUrl,
-            @Field("client_id") String clientIdSecond,
-            @Field("user_alias") String account,
-            @Field("user_passwd") String password
-    );
-
-    @Headers({"Content-Type: application/x-www-form-urlencoded"})
-    @POST("https://www.douban.com/service/auth2/token")
-    Observable<OauthToken> refreshToken(
-            @Query("client_id") String clientId,
-            @Query("client_secret") String clientSecret,
-            @Query("redirect_uri") String redirectUri,
-            @Query("grant_type") String grantType,
-            @Query("refresh_token") String refreshToken
-    );
-
 }
