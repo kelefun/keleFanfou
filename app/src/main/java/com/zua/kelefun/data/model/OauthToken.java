@@ -1,4 +1,4 @@
-package com.zua.kelefun.data;
+package com.zua.kelefun.data.model;
 
 /**
  * Created by liukaiyang on 2017/2/6.
