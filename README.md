@@ -1,6 +1,4 @@
-# keleFanfou
-
-fanfou 饭否第三方android客户端
+# keleFanfou - 饭否第三方android客户端
 ===
 参考项目
 * [蘑菇饭] (https://github.com/mcxiaoke/minicat)
