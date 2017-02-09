@@ -1,11 +1,13 @@
 package com.zua.kelefun.data.model;
 
+import com.zua.kelefun.base.BaseModel;
+
 /**
  * @author liukaiyang
  * @since 2017/2/6 17:52
  */
 
-public class Status extends BaseModel{
+public class Status extends BaseModel {
 
 
     //消息序列号(可用于排序

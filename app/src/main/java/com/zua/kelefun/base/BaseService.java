@@ -22,11 +22,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by DongYuHui on 2016/9/12.
  * 基础 Retrofit 网络封装类
  */
-public abstract class BaseApi {
+public abstract class BaseService {
 
     private BaseHost mBaseHost;
 
-    public BaseApi(BaseHost host) {
+    public BaseService(BaseHost host) {
         this.mBaseHost = host;
     }
 

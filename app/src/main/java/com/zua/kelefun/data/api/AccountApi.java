@@ -16,10 +16,15 @@ import rx.Observable;
  */
 public interface AccountApi {
 
+    /**
+     * 获取用户信息
+     * @param userId
+     * @return
+     */
     @GET("http://api2.fanfou.com/users/{userId}")
     Observable<UserInfo> getUserInfo(
-            @Path("userId") String userId,
-            @Query("oauth_token") String oauthToken
+            @Path("userId") String userId
+        //    @Query("oauth_token") String oauthToken
     );
 
     //xauth授权认证

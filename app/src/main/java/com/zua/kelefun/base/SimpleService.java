@@ -22,7 +22,7 @@ import rx.schedulers.Schedulers;
  * Created by DongYuHui on 2016/9/12.
  * 项目所需请求封装类
  */
-public abstract class SimpleApi extends BaseApi {
+public abstract class SimpleService extends BaseService {
 
     private static final String F_BREAK = " %n";
     private static final String F_URL = " %s";
@@ -37,7 +37,7 @@ public abstract class SimpleApi extends BaseApi {
     private static final String F_REQUEST_WITH_BODY = F_URL + F_TIME + F_BREAK + F_HEADERS + F_BODY + F_BREAK;
     private static final String F_RESPONSE_WITH_BODY = F_RESPONSE + F_BREAK + F_HEADERS + F_BODY + F_BREAK + F_BREAKER;
 
-    public SimpleApi() {
+    public SimpleService() {
         super(getSimpleHost());
     }
 

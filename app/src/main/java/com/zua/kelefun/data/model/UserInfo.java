@@ -1,5 +1,7 @@
 package com.zua.kelefun.data.model;
 
+import com.zua.kelefun.base.BaseModel;
+
 /**
  * 饭否用户信息
  *

@@ -1,4 +1,4 @@
-package com.zua.kelefun.data.model;
+package com.zua.kelefun.base;
 
 /**
  * @author liukaiyang
