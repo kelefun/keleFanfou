@@ -3,4 +3,15 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+
+
+    <dimen name="detail_backdrop_height">200dp</dimen>
+    <dimen name="card_margin">6dp</dimen>
+    <dimen name="list_item_avatar_size">40dp</dimen>
+
+    <dimen name="base_dimen_4dp">4dp</dimen>
+    <dimen name="base_dimen_8dp">8dp</dimen>
+
+    <dimen name="avatar_length">45dp</dimen>
+    <dimen name="status_icon">25dp</dimen>
 </resources>

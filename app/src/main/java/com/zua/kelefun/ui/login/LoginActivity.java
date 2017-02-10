@@ -1,5 +1,6 @@
 package com.zua.kelefun.ui.login;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.zua.kelefun.R;
+import com.zua.kelefun.ui.home.HomeActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -63,11 +65,14 @@ public class LoginActivity extends AppCompatActivity {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
             focusView.requestFocus();
-            System.out.println("取消登录");
+            System.out.println("输入有误,取消登录");
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
+            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+            startActivity(intent);
+            // TODO: 2017/2/10  异步执行登录调用
 //            mAuthTask = new UserLoginTask(account, password);
 //            mAuthTask.execute((Void) null);
         }
@@ -109,6 +114,7 @@ public class LoginActivity extends AppCompatActivity {
             showProgress(false);
 
             if (success) {
+
                 finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_invalid_account_password));
