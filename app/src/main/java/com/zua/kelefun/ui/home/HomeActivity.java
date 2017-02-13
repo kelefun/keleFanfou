@@ -66,6 +66,6 @@ public class HomeActivity extends AppCompatActivity {
         FragmentAdapter adapter =  new FragmentAdapter(getSupportFragmentManager(), fragments, titles);
         mViewPager.setAdapter(adapter);
         mTabLayout.setupWithViewPager(mViewPager);
-        mTabLayout.setTabsFromPagerAdapter(adapter);
+        //mTabLayout.setTabsFromPagerAdapter(adapter);
     }
 }

@@ -49,17 +49,19 @@
                     android:gravity="center">
                     <!--昵称 -->
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="154dp"
                         android:layout_height="wrap_content"
-                        android:text="二锅头"
+                        android:text="法医预备役夜傻笑同学"
+                        android:maxLines="1"
                         android:textSize="15sp"
+                        android:ellipsize="end"
                         android:textColor="@color/colorPrimary"/>
                     <!--发布时间-->
                     <TextView
                         android:layout_marginTop="8dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="5分钟前 可乐饭"
+                        android:text="5分钟前  Android客户端"
                         android:textSize="12sp"
                         android:textColor="@color/colorGrey"/>
                 </LinearLayout>
@@ -72,14 +74,14 @@
                     <ImageView
                         android:layout_width="@dimen/status_icon"
                         android:layout_height="@dimen/status_icon"
-                        android:layout_marginRight="16dp"
+                        android:layout_marginRight="10dp"
                         android:layout_gravity="center"
                         android:src="@drawable/ic_star"/>
                     <!--转发-->
                     <ImageView
                         android:layout_width="@dimen/status_icon"
                         android:layout_height="@dimen/status_icon"
-                        android:layout_marginRight="16dp"
+                        android:layout_marginRight="10dp"
                         android:layout_gravity="center"
                         android:src="@drawable/ic_star"
                         android:id="@+id/imageView2" />
