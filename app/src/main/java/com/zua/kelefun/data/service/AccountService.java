@@ -1,7 +1,6 @@
 package com.zua.kelefun.data.service;
 
 import com.zua.kelefun.data.api.AccountApi;
-import com.zua.kelefun.data.model.OAuthToken;
 import com.zua.kelefun.data.model.UserInfo;
 
 import retrofit2.Retrofit;
@@ -38,15 +37,5 @@ public class AccountService{
         return accountApi.getUserInfo(userId);
     }
 
-
-    /**
-     * 根据 账号密码 获取 AccessToken
-     *
-     * @param account 饭否账号
-     * @param password 饭否密码
-     */
-    public Observable<OAuthToken> getAccessToken(String account, String password) {
-        return accountApi.getAccessToken(account, password, X_AUTH_MODE);
-    }
 
 }

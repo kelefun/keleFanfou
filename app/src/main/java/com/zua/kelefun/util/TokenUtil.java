@@ -63,7 +63,7 @@ public class TokenUtil {
         return VERSION;
     }
 
-    public String getSignatureMethod(){
+    public static String getSignatureMethod(){
         return METHOD;
     }
 
