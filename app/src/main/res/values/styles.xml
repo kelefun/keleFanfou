@@ -21,6 +21,6 @@
     </style>
     <style name="ErrorText" parent="TextAppearance.AppCompat.Small">
         <item name="android:textStyle">bold|italic</item>
-        <item name="android:textColor">@color/ColorErrorText</item>
+        <item name="android:textColor">@color/colorErrorText</item>
     </style>
 </resources>

@@ -2,14 +2,12 @@ package com.zua.kelefun.util;
 
 import android.util.Log;
 
-import com.zua.kelefun.config.AppConfigInterface;
-
 
 /**
  * Created by Alex9Xu@hotmail.com on 2016/7/18
  */
 public class LogHelper {
-    private static boolean isLog = AppConfigInterface.isDebug;
+    private static boolean isLog = true;
 
     private static String logTag = "logTag";
 

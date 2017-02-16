@@ -36,8 +36,10 @@ public class StartActivity extends Activity {
     //启动app时判断是否已登录
     private boolean isLogin(){
         AccountStore store = new AccountStore(this);
+    //    store.clear();//测试
         AccountInfo accountInfo = store.readAccount();
         return accountInfo.isVerified();
+      //  return true;//测试
     }
     //显示登录页面
     private void showLogin(Context context) {

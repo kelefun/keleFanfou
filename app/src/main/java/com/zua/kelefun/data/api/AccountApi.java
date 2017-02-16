@@ -3,7 +3,7 @@ package com.zua.kelefun.data.api;
 
 import com.zua.kelefun.data.model.UserInfo;
 
-import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import rx.Observable;
 
@@ -19,7 +19,7 @@ public interface AccountApi {
      * @param userId
      * @return
      */
-    @GET("/users/{userId}")
+    @POST("/account/verify_credentials")
     Observable<UserInfo> getUserInfo(
             @Path("userId") String userId
         //    @Query("oauth_token") String oauthToken

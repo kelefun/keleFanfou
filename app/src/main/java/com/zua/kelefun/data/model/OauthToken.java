@@ -1,5 +1,6 @@
 package com.zua.kelefun.data.model;
 
+import com.google.gson.annotations.SerializedName;
 import com.jakewharton.rxbinding.internal.Preconditions;
 
 /**
@@ -11,10 +12,12 @@ public class OAuthToken {
     /**
      * access_token
      */
+    @SerializedName("oauth_token")
     private String token;
     /**
      * oauth 1.0: secret, oauth 2.0 refresh token
      */
+    @SerializedName("oauth_token_secret")
     private String tokenSecret;
     public OAuthToken(String token, String tokenSecret) {
         Preconditions.checkNotNull(token, "Token can't be null");

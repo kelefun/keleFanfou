@@ -15,13 +15,7 @@ import butterknife.ButterKnife;
 import rx.Subscriber;
 import rx.functions.Action1;
 
-/**
- * All rights reserved by Author<br>
- * Author: Dong YuHui<br>
- * Email: <a href="mailto:dyh920827@gmail.com">dyh920827@gmail.com</a><br>
- * <br>
- * 基础 Activity
- */
+//// TODO: 2017/2/16 暂未用到此类 
 public abstract class BaseActivity extends AppCompatActivity {
 
     // Progress Dialog

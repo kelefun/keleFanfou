@@ -54,7 +54,7 @@ public class HomeActivity extends AppCompatActivity {
     private void setupViewPager() {
         mTabLayout = (TabLayout) findViewById(R.id.tabs);
         //设置选中背景色
-        mTabLayout.setSelectedTabIndicatorColor(getColor(R.color.ColorErrorText));
+        mTabLayout.setSelectedTabIndicatorColor(getColor(R.color.colorWhite));
         List<String> titles = new ArrayList<>();
         titles.add("随便看看");
         titles.add("热门话题");
