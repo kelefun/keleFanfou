@@ -16,5 +16,5 @@ public interface OAuthTokenApi {
 
     //xauth授权认证
     @POST("/oauth/access_token")
-    Call<ResponseBody> getAccessToken(@Header("Authorization") String auth);
+    Call<ResponseBody> getAccessToken(@Header("Authorization") String header);
 }

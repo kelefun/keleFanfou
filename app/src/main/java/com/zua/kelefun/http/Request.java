@@ -10,7 +10,21 @@ import java.util.Map;
  */
 
 public class Request {
+    //请求参数
     private List<Parameter> params;
+
+    //请求方式 GET,POST,DELETE
+    private String verb;
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    private String url;
     public Request() {
         this.params = new ArrayList<Parameter>();
     }
@@ -32,5 +46,12 @@ public class Request {
      */
     public List<Parameter> getParameters() {
         return params;
+    }
+    public String getVerb() {
+        return verb;
+    }
+
+    public void setVerb(String verb) {
+        this.verb = verb;
     }
 }

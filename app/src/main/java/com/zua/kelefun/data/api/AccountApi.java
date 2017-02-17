@@ -1,11 +1,10 @@
 package com.zua.kelefun.data.api;
 
 
-import com.zua.kelefun.data.model.UserInfo;
-
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
-import rx.Observable;
 
 /**
  *账户相关
@@ -16,12 +15,9 @@ public interface AccountApi {
 
     /**
      * 获取用户信息
-     * @param userId
+     * @param
      * @return
      */
-    @POST("/account/verify_credentials")
-    Observable<UserInfo> getUserInfo(
-            @Path("userId") String userId
-        //    @Query("oauth_token") String oauthToken
-    );
+    @POST("/account/verify_credentials.json")
+    Call<ResponseBody> verifyCred(@Header("Authorization") String header);
 }

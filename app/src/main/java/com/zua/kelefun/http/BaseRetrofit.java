@@ -16,7 +16,7 @@ public class BaseRetrofit {
 
     private static OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
 
-    //默认url为
+    //默认url为 api.fanfou.com
     public static Retrofit retrofit() {
         return retrofit(AppConfig.API_HOST, null);
     }

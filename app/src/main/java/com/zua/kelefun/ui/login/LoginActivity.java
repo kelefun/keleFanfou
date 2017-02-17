@@ -5,14 +5,17 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.zua.kelefun.R;
+import com.zua.kelefun.data.model.OAuthToken;
+import com.zua.kelefun.data.model.UserInfo;
+import com.zua.kelefun.data.service.AccountService;
 import com.zua.kelefun.data.service.OAuthTokenService;
+import com.zua.kelefun.util.LogHelper;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -94,9 +97,10 @@ public class LoginActivity extends AppCompatActivity {
         protected Boolean doInBackground(Void... params) {
             try {
                 //xauth请求获取token
-               new OAuthTokenService().getAccessToken(username, password);
+                OAuthToken auth = new OAuthTokenService().getAccessToken(username, password);
+LogHelper.e("请求auth",auth.toString());
                 //获取用户信息
-                //getUserInfo();
+                UserInfo u =new AccountService().getUserInfo(auth);
                 //保存用户信息
                // saveAccount();
             } catch (Exception e) {
@@ -109,12 +113,11 @@ public class LoginActivity extends AppCompatActivity {
         protected void onPostExecute(final Boolean success) {
             showProgress(false);
 
-//            if (success) {
-//                finish();
-//            } else {
-//                mPasswordView.setError(getString(R.string.error_invalid_account_password));
-//                mPasswordView.requestFocus();
-//            }
+            if (success) {
+                finish();
+            }else{
+                // TODO: 2017/2/17 handle error
+            }
         }
 
         @Override
@@ -125,7 +128,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void showProgress(final boolean show) {
         // TODO: 2017/2/9
-        Log.d("logactivty", "progress开始");
+        LogHelper.d("progress开始");
     }
 }
 
