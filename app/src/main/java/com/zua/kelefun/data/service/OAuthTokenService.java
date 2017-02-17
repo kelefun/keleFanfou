@@ -18,7 +18,10 @@ import java.util.List;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 
 /**
@@ -35,22 +38,39 @@ public class OAuthTokenService {
         Retrofit retrofit = BaseRetrofit.retrofit(AppConfig.FAN_FOU_HOST);
         OAuthTokenApi api = retrofit.create(OAuthTokenApi.class);
 
-        Call<OAuthToken> call = api.getAccessToken(extractHeader(request));
+        Call<ResponseBody> call = api.getAccessToken(extractHeader(request));
+        call.enqueue(new Callback<ResponseBody>()
+        {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response)
+            {
+                try {
+                    System.out.println(response.body().string());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
 
-        try {
-            OAuthToken oAuthToken =  call.execute().body();
-            System.out.println(oAuthToken.toString());
-            return  oAuthToken;
-        } catch (Exception e) {
-            // handle errors
-            e.printStackTrace();
-        }
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t)
+            {
+                t.printStackTrace();
+            }
+        });
+//        try {
+//           Response response =  call.execute();
+//            System.out.println(response.toString());
+//            return  null;
+//        } catch (Exception e) {
+//            // handle errors
+//            e.printStackTrace();
+//        }
          return null;
     }
     private static final String PARAM_SEPARATOR = ", ";
     private static final String PREAMBLE = "OAuth ";
-    public static final int ESTIMATED_PARAM_LENGTH = 20;
-    public String extractHeader(OAuthRequest request) {
+    private static final int ESTIMATED_PARAM_LENGTH = 20;
+    private String extractHeader(OAuthRequest request) {
         List<Parameter> parameters = request.getOauthParameters();
         // Map<String, String> parameters = request.getOauthParameters();
         StringBuilder header = new StringBuilder(parameters.size() * ESTIMATED_PARAM_LENGTH);
@@ -100,7 +120,7 @@ public class OAuthTokenService {
     }
 
     private String getSortedAndEncodedParams(OAuthRequest request) {
-        List<Parameter> params = new ArrayList<Parameter>();
+        List<Parameter> params = new ArrayList<>();
 //		if (request.isFormEncodedContent()) {
         params.addAll(request.getParameters());
 //		}
