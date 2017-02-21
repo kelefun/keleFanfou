@@ -14,8 +14,6 @@ public class AccountInfo {
     private String userId;
     private String screenName;
     private String profileImage;
-    private String userName;
-    private String password;
     private String token;
     private String tokenSecret;
     private OAuthToken accessToken;
@@ -70,22 +68,6 @@ public class AccountInfo {
         this.profileImage = profileImage;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getToken() {
         return token;
     }
@@ -115,8 +97,6 @@ public class AccountInfo {
         this.userId = null;
         this.screenName = null;
         this.profileImage = null;
-        this.userName = null;
-        this.password = null;
         this.token = null;
         this.tokenSecret = null;
     }
@@ -124,8 +104,7 @@ public class AccountInfo {
     @Override
     public String toString() {
         return "AccountInfo [userId=" + userId + ", screenName=" + screenName
-                + ", profileImage=" + profileImage + ", userName=" + userName
-                + ", password=" + password + ", token=" + token
+                + ", profileImage=" + profileImage + ", token=" + token
                 + ", tokenSecret=" + tokenSecret + ", accessToken="
                 + accessToken + "]";
     }

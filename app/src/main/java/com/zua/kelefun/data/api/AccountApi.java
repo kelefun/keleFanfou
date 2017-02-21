@@ -3,7 +3,6 @@ package com.zua.kelefun.data.api;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.http.Header;
 import retrofit2.http.POST;
 
 /**
@@ -19,5 +18,5 @@ public interface AccountApi {
      * @return
      */
     @POST("/account/verify_credentials.json")
-    Call<ResponseBody> verifyCred(@Header("Authorization") String header);
+    Call<ResponseBody> verifyCred();
 }

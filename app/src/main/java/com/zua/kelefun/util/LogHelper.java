@@ -5,21 +5,18 @@ import android.util.Log;
 import com.zua.kelefun.BuildConfig;
 
 public class LogHelper {
-    private static boolean debug = BuildConfig.DEBUG;
 
-    private static String logTag = "KeleFunLog";
+    private static String logTag = "KeleFunLog:";
 
     public static void i(String msg) {
         i(null, msg);
     }
 
     public static void i(String tag, String msg) {
-        if (debug) {
             if (tag == null) {
                 tag = logTag;
             }
             Log.i(tag, msg);
-        }
     }
 
     public static void d(String msg) {
@@ -31,7 +28,7 @@ public class LogHelper {
     }
 
     public static void d(String tag, String msg, String ext) {
-        if (debug) {
+        if (BuildConfig.DEBUG) {
             if (tag == null) {
                 tag = logTag;
             }
@@ -42,24 +39,23 @@ public class LogHelper {
             }
         }
     }
-    public static void e( String msg) {
-        e(null,msg);
-    }
-    public static void e(String tag, String msg) {
-        if (debug) {
-            if (tag == null) {
-                tag = logTag;
-            }
-            Log.e(tag, msg);
-        }
+
+    public static void e(String msg) {
+        e(null, msg);
     }
 
-    public static void e(String tag, String value, String msg) {
-        if (debug) {
-            if (tag == null) {
-                tag = logTag;
-            }
-            Log.e(tag, value + "----->" + msg);
+    public static void e(String tag, String msg) {
+        e(tag, msg, null);
+    }
+
+    public static void e(String tag, String key, String value) {
+        if (tag == null) {
+            tag = logTag;
+        }
+        if (value == null) {
+            Log.d(tag, key);
+        } else {
+            Log.d(tag, key + "----->" + value);
         }
     }
 

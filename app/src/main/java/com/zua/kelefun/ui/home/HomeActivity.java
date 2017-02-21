@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.zua.kelefun.R;
 import com.zua.kelefun.adapter.FragmentAdapter;
+import com.zua.kelefun.data.service.StatusService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
+        new StatusService().getHomeLine();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -4,14 +4,14 @@ import com.zua.kelefun.config.AppConfig;
 import com.zua.kelefun.data.api.OAuthTokenApi;
 import com.zua.kelefun.data.model.OAuthToken;
 import com.zua.kelefun.http.BaseRetrofit;
-import com.zua.kelefun.http.OAuthRequest;
-import com.zua.kelefun.service.OAuthService;
 import com.zua.kelefun.util.LogHelper;
 import com.zua.kelefun.util.OAuthEncoder;
+import com.zua.kelefun.util.OAuthUtil;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import okhttp3.Request;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -24,16 +24,27 @@ import retrofit2.Retrofit;
 public class OAuthTokenService {
 
     public OAuthToken getAccessToken(String username, String password) {
-        OAuthRequest request = new OAuthRequest();
-        request.setVerb("POST");
-        request.setUrl(AppConfig.FAN_FOU_HOST+"/oauth/access_token");
-        OAuthService oAuthService = new OAuthService();
-        oAuthService.addXAuthParams(request, username, password);
-        //   appendSignature(request);
-        Retrofit retrofit = BaseRetrofit.retrofit(AppConfig.FAN_FOU_HOST);
+        Retrofit retrofit = BaseRetrofit.retrofit(AppConfig.FAN_FOU_HOST, chain -> {
+            Request original = chain.request();
+//            HttpUrl url = original.url().newBuilder()
+//                    .addQueryParameter("count", "5")
+//                    .addQueryParameter("start", "0")
+//                    .build();
+
+            Request request = original.newBuilder()
+                    .addHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8")
+                    .addHeader("Authorization", OAuthUtil.getInstance().extractHeader(original, username, password))
+                    .method(original.method(), original.body())
+                    .url(original.url())
+                    .build();
+
+            return chain.proceed(request);
+        });
         OAuthTokenApi api = retrofit.create(OAuthTokenApi.class);
-        Call<ResponseBody> call = api.getAccessToken(oAuthService.extractHeader(request));
+        Call<ResponseBody> call = api.getAccessToken();
+        //@Header("Authorization") String header
         try {
+            //因需返回请求结果,所以用同步请求方法 execute()
             Response<ResponseBody> response = call.execute();
             return extract(response.body().string());
         } catch (Exception e) {
@@ -41,24 +52,6 @@ public class OAuthTokenService {
             e.printStackTrace();
         }
 
-//        call.enqueue(new Callback<ResponseBody>()
-//        {
-//            @Override
-//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response)
-//            {
-//                try {
-//                    System.out.println(response.body().string());
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ResponseBody> call, Throwable t)
-//            {
-//                t.printStackTrace();
-//            }
-//        });
         return null;
     }
 
@@ -67,9 +60,6 @@ public class OAuthTokenService {
     private static final Pattern SECRET_REGEX = Pattern
             .compile("oauth_token_secret=([^&]*)");
 
-    /**
-     * {@inheritDoc}
-     */
     public OAuthToken extract(String response) {
         String token = extract(response, TOKEN_REGEX);
         String secret = extract(response, SECRET_REGEX);

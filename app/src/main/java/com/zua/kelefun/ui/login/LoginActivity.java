@@ -1,6 +1,7 @@
 package com.zua.kelefun.ui.login;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,10 +12,12 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.zua.kelefun.R;
+import com.zua.kelefun.config.AccountStore;
 import com.zua.kelefun.data.model.OAuthToken;
 import com.zua.kelefun.data.model.UserInfo;
 import com.zua.kelefun.data.service.AccountService;
 import com.zua.kelefun.data.service.OAuthTokenService;
+import com.zua.kelefun.ui.home.HomeActivity;
 import com.zua.kelefun.util.LogHelper;
 
 public class LoginActivity extends AppCompatActivity {
@@ -72,6 +75,7 @@ public class LoginActivity extends AppCompatActivity {
 
     /**
      * 隐藏软键盘
+     *
      * @param context
      * @param input
      */
@@ -98,12 +102,15 @@ public class LoginActivity extends AppCompatActivity {
             try {
                 //xauth请求获取token
                 OAuthToken auth = new OAuthTokenService().getAccessToken(username, password);
-LogHelper.e("请求auth",auth.toString());
                 //获取用户信息
-                UserInfo u =new AccountService().getUserInfo(auth);
+                UserInfo u = new AccountService().getUserInfo(auth);
+                // TODO: 2017/2/20  测试
+                u= new UserInfo();
+                u.setId("king_lau");
                 //保存用户信息
-               // saveAccount();
+                saveAccount(auth,u);
             } catch (Exception e) {
+                LogHelper.e("UserLoginTask异常",e.getMessage());
                 return false;
             }
             return true;
@@ -112,10 +119,11 @@ LogHelper.e("请求auth",auth.toString());
         @Override
         protected void onPostExecute(final Boolean success) {
             showProgress(false);
-
             if (success) {
+                showHome(LoginActivity.this);
                 finish();
-            }else{
+            } else {
+                LogHelper.e("onPostExecute错误");
                 // TODO: 2017/2/17 handle error
             }
         }
@@ -128,7 +136,22 @@ LogHelper.e("请求auth",auth.toString());
 
     private void showProgress(final boolean show) {
         // TODO: 2017/2/9
-        LogHelper.d("progress开始");
+        if(show){
+            LogHelper.d("progress开始");
+        }else {
+            LogHelper.d("progress结束");
+        }
+    }
+    private void  saveAccount(OAuthToken auth,UserInfo info){
+        AccountStore store = new AccountStore(this);
+        store.saveAccount(auth,info);
+    }
+
+    //显示主页
+    private void showHome(Context context) {
+        Intent intent = new Intent(context, HomeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        context.startActivity(intent);
     }
 }
 

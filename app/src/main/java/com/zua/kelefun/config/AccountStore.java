@@ -9,6 +9,7 @@ import android.content.SharedPreferences.Editor;
 import android.text.TextUtils;
 
 import com.zua.kelefun.data.model.OAuthToken;
+import com.zua.kelefun.data.model.UserInfo;
 
 /**
  * 账号信息存储(SharedPreferences进行数据存储)
@@ -20,10 +21,8 @@ public class AccountStore {
     private static final String KEY_PROFILE_IMAGE = "profile_image";
     private static final String KEY_ACCESS_TOKEN = "access_token";
     private static final String KEY_ACCESS_TOKEN_SECRET = "access_token_secret";
-    private static final String KEY_LOGIN_NAME = "user_name";
-    private static final String KEY_LOGIN_PASSWORD = "password";
     private Context mContext;
-    private SharedPreferences mPreferences;
+    private static SharedPreferences mPreferences;
 
     public AccountStore(Context context) {
         this.mContext = context;
@@ -47,7 +46,7 @@ public class AccountStore {
         saveAccessToken(token.getToken(), token.getTokenSecret());
     }
 
-    public synchronized OAuthToken readAccessToken() {
+    public static synchronized OAuthToken readAccessToken() {
         String token = mPreferences.getString(KEY_ACCESS_TOKEN, null);
         String tokenSecret = mPreferences.getString(KEY_ACCESS_TOKEN_SECRET,
                 null);
@@ -74,36 +73,28 @@ public class AccountStore {
         editor.putString(KEY_SCREEN_NAME, info.getScreenName());
         editor.putString(KEY_PROFILE_IMAGE, info.getProfileImage());
 
-        editor.putString(KEY_LOGIN_NAME, info.getUserName());
-        editor.putString(KEY_LOGIN_PASSWORD, info.getPassword());
 
         editor.putString(KEY_ACCESS_TOKEN, info.getToken());
         editor.putString(KEY_ACCESS_TOKEN_SECRET, info.getTokenSecret());
 
         editor.commit();
     }
-    public synchronized void saveAccount(
-            String userId, String screenName,String profileImage,
-            String userName, String password,String token,String tokenSecret) {
+    public synchronized void saveAccount(OAuthToken token, UserInfo userInfo) {
         Editor editor = mPreferences.edit();
 
-        editor.putString(KEY_USER_ID, userId);
-        editor.putString(KEY_SCREEN_NAME, screenName);
-        editor.putString(KEY_PROFILE_IMAGE, profileImage);
-        editor.putString(KEY_LOGIN_NAME, userName);
-        editor.putString(KEY_LOGIN_PASSWORD, password);
+        editor.putString(KEY_USER_ID, userInfo.getId());
+        editor.putString(KEY_SCREEN_NAME, userInfo.getScreenName());
+        editor.putString(KEY_PROFILE_IMAGE, userInfo.getProfileImageUrl());
 
-        editor.putString(KEY_ACCESS_TOKEN, token);
-        editor.putString(KEY_ACCESS_TOKEN_SECRET, tokenSecret);
+        editor.putString(KEY_ACCESS_TOKEN, token.getToken());
+        editor.putString(KEY_ACCESS_TOKEN_SECRET, token.getTokenSecret());
         editor.commit();
     }
-    public AccountInfo readAccount() {
+    public static AccountInfo readAccount() {
         AccountInfo info = new AccountInfo();
         info.setUserId(mPreferences.getString(KEY_USER_ID, null));
         info.setScreenName(mPreferences.getString(KEY_SCREEN_NAME, null));
         info.setProfileImage(mPreferences.getString(KEY_PROFILE_IMAGE, null));
-        info.setUserName(mPreferences.getString(KEY_LOGIN_NAME, null));
-        info.setPassword(mPreferences.getString(KEY_LOGIN_PASSWORD, null));
         info.setTokenAndSecret(mPreferences.getString(KEY_ACCESS_TOKEN, null),
                 mPreferences.getString(KEY_ACCESS_TOKEN_SECRET, null));
 
