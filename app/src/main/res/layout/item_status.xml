@@ -1,112 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:clickable="true"
-    android:foreground="?android:attr/selectableItemBackground"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="6dp"
-    android:layout_marginRight="6dp"
-    android:layout_marginBottom="6dp">
+    android:layout_marginLeft="@dimen/base_dimen_6dp"
+    android:layout_marginRight="@dimen/base_dimen_6dp"
+    android:layout_marginTop="@dimen/base_dimen_8dp"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_margin="@dimen/base_dimen_8dp"
         android:orientation="horizontal">
 
         <!--头像 -->
         <LinearLayout
             android:layout_width="@dimen/avatar_length"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="top">
+            android:gravity="top"
+            android:orientation="vertical">
 
             <ImageView
-                android:layout_marginTop="2dp"
+                android:id="@+id/imageView"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/avatar_length"
-                android:background="@drawable/ic_user"
-                android:id="@+id/imageView" />
+                android:layout_marginTop="2dp"
+                android:background="@drawable/ic_user" />
         </LinearLayout>
         <!--消息体 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="left"
+            android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/avatar_length"
-                android:layout_marginLeft="6dp"
-                android:layout_gravity="right"
-                android:orientation="horizontal"
-                android:gravity="left"
-                >
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="6dp"
-                    android:orientation="vertical"
-                    android:gravity="center">
-                    <!--昵称 -->
-                    <TextView
-                        android:layout_width="154dp"
-                        android:layout_height="wrap_content"
-                        android:text="法医预备役夜傻笑同学"
-                        android:maxLines="1"
-                        android:textSize="15sp"
-                        android:ellipsize="end"
-                        android:textColor="@color/colorPrimary"/>
-                    <!--发布时间-->
-                    <TextView
-                        android:layout_marginTop="8dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="5分钟前  Android客户端"
-                        android:textSize="12sp"
-                        android:textColor="@color/colorGrey"/>
-                </LinearLayout>
-                <LinearLayout
+                android:layout_marginLeft="@dimen/base_dimen_8dp"
+                android:orientation="vertical">
+                <!--昵称 -->
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:gravity="right">
-                    <!--收藏-->
-                    <ImageView
-                        android:layout_width="@dimen/status_icon"
-                        android:layout_height="@dimen/status_icon"
-                        android:layout_marginRight="10dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_star"/>
-                    <!--转发-->
-                    <ImageView
-                        android:layout_width="@dimen/status_icon"
-                        android:layout_height="@dimen/status_icon"
-                        android:layout_marginRight="10dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_star"
-                        android:id="@+id/imageView2" />
-
-                    <ImageView
-                        android:layout_width="@dimen/status_icon"
-                        android:layout_height="@dimen/status_icon"
-                        android:layout_marginRight="4dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_star"/>
-                </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/base_dimen_4dp"
+                    android:text="法医预备役夜傻笑同学同学"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="12sp" />
+                <!--发布时间-->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/base_dimen_4dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="1秒前 可乐饭"
+                    android:textColor="@color/colorGrey"
+                    android:textSize="10sp" />
             </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="8dp"
-                android:textSize="14sp"
+                android:layout_marginTop="10dp"
                 android:ellipsize="end"
-                android:text="故事，启迪你的人生；美文，陶冶你的情操，有声朗读，刚才看了一说法，说单位的报销制度，其实就是把员工当成信用卡了。我觉得非常精准"/>
+                android:text="故事，启迪你的人生；美文，陶冶你的情操，有声朗读，刚才看了一说法，说单位的报销制度，其实就是把员工当成信用卡了。我觉得非常精准"
+                android:textSize="14sp" />
 
         </LinearLayout>
-
 
 
     </LinearLayout>
