@@ -1,72 +1,88 @@
 package com.zua.kelefun.ui.home;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Toast;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import com.zua.kelefun.R;
-import com.zua.kelefun.adapter.FragmentAdapter;
-import com.zua.kelefun.data.service.StatusService;
+import com.zua.kelefun.adapter.RecyclerViewAdapter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private DrawerLayout mDrawerLayout;
-    private ViewPager mViewPager;
-    private TabLayout mTabLayout;
-
+  //  private CoordinatorLayout coordinatorLayout;
+    private RecyclerView recyclerview;
+    private LinearLayoutManager mLayoutManager;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private Handler handler = new Handler();
+    private List<Map<String, Object>> data = new ArrayList<>();
+    private RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, data);
+  //  private RecyclerViewAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        new StatusService().getHomeLine();
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        mLayoutManager=new LinearLayoutManager(this);
+        recyclerview=(RecyclerView)findViewById(R.id.line_recycler);
+        recyclerview.setLayoutManager(mLayoutManager);
+        recyclerview.setAdapter(adapter);
+        initView();
+        initData();
+        //   new StatusService().getHomeLine();
+    }
+    private void initView(){
+      //  coordinatorLayout=(CoordinatorLayout)findViewById(R.id.line_coordinatorLayout);
+
+        swipeRefreshLayout=(SwipeRefreshLayout) findViewById(R.id.line_swipe_refresh) ;
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary,R.color.colorPrimaryDark);
+        swipeRefreshLayout.post(new Runnable() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Snackbar comes out", Snackbar.LENGTH_LONG)
-                        .setAction("Action", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Toast.makeText(
-                                        HomeActivity.this,
-                                        "Toast comes out",
-                                        Toast.LENGTH_SHORT).show();
-                            }
-                        }).show();
+            public void run() {
+                swipeRefreshLayout.setRefreshing(true);
+            }
+        });
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        data.clear();
+                        getData();
+                    }
+                }, 2000);
             }
         });
 
-        mViewPager = (ViewPager) findViewById(R.id.viewpager);
-        setupViewPager();
 
     }
+    /**
+     * 获取测试数据
+     */
+    private void getData() {
+        for (int i = 0; i < 6; i++) {
+            Map<String, Object> map = new HashMap<>();
+            data.add(map);
+        }
+        adapter.notifyDataSetChanged();
+        swipeRefreshLayout.setRefreshing(false);
+        adapter.notifyItemRemoved(adapter.getItemCount());
+    }
 
+    public void initData() {
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getData();
+            }
+        }, 1500);
 
-    private void setupViewPager() {
-        mTabLayout = (TabLayout) findViewById(R.id.tabs);
-        //设置选中背景色
-        mTabLayout.setSelectedTabIndicatorColor(getColor(R.color.colorWhite));
-        List<String> titles = new ArrayList<>();
-        titles.add("随便看看");
-        titles.add("热门话题");
-        mTabLayout.addTab(mTabLayout.newTab().setText(titles.get(0)));
-        mTabLayout.addTab(mTabLayout.newTab().setText(titles.get(1)));
-        List<Fragment> fragments = new ArrayList<>();
-        fragments.add(new ListFragment());
-        fragments.add(new ListFragment());
-        FragmentAdapter adapter =  new FragmentAdapter(getSupportFragmentManager(), fragments, titles);
-        mViewPager.setAdapter(adapter);
-        mTabLayout.setupWithViewPager(mViewPager);
-        //mTabLayout.setTabsFromPagerAdapter(adapter);
     }
 }
