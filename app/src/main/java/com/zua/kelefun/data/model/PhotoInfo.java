@@ -1,36 +1,41 @@
 package com.zua.kelefun.data.model;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * @author liukaiyang
  * @since 2017/2/7 10:05
  */
 
 public class PhotoInfo {
-    private String photoImageUrl;
-    private String photoThumbUrl;
-    private String photoLargeUrl;
+    @SerializedName("imageurl")
+    private String imageurl;
+    @SerializedName("thumburl")
+    private String thumburl;
+    @SerializedName("largeurl")
+    private String largeurl;
 
-    public String getPhotoImageUrl() {
-        return photoImageUrl;
+    public String getImageurl() {
+        return imageurl;
     }
 
-    public void setPhotoImageUrl(String photoImageUrl) {
-        this.photoImageUrl = photoImageUrl;
+    public void setImageurl(String imageurl) {
+        this.imageurl = imageurl;
     }
 
-    public String getPhotoThumbUrl() {
-        return photoThumbUrl;
+    public String getThumburl() {
+        return thumburl;
     }
 
-    public void setPhotoThumbUrl(String photoThumbUrl) {
-        this.photoThumbUrl = photoThumbUrl;
+    public void setThumburl(String thumburl) {
+        this.thumburl = thumburl;
     }
 
-    public String getPhotoLargeUrl() {
-        return photoLargeUrl;
+    public String getLargeurl() {
+        return largeurl;
     }
 
-    public void setPhotoLargeUrl(String photoLargeUrl) {
-        this.photoLargeUrl = photoLargeUrl;
+    public void setLargeurl(String largeurl) {
+        this.largeurl = largeurl;
     }
 }

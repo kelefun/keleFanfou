@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/base_dimen_6dp"
-    android:layout_marginRight="@dimen/base_dimen_6dp"
-    android:layout_marginTop="@dimen/base_dimen_8dp"
+    android:layout_marginRight="@dimen/base_dimen_4dp"
+    android:layout_marginLeft="@dimen/base_dimen_4dp"
+    android:layout_marginTop="@dimen/base_dimen_6dp"
     android:clickable="true"
-    android:foreground="?android:attr/selectableItemBackground">
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardElevation="1dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,7 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/avatar_length"
                 android:layout_marginTop="2dp"
-                android:background="@drawable/ic_user" />
+                android:background="@drawable/ic_fanfou" />
         </LinearLayout>
         <!--消息体 -->
         <LinearLayout
@@ -42,17 +44,19 @@
                 android:orientation="vertical">
                 <!--昵称 -->
                 <TextView
+                    android:id="@+id/screenNameView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/base_dimen_4dp"
-                    android:text="法医预备役夜傻笑同学同学"
+                    android:layout_marginTop="2dp"
+                    android:text="昵称"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="12sp" />
-                <!--发布时间-->
+                    android:textSize="14sp" />
+                <!--发布时间及发布平台-->
                 <TextView
+                    android:id="@+id/timeSourceView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/base_dimen_4dp"
+                    android:layout_marginTop="2dp"
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:text="1秒前 可乐饭"
@@ -61,12 +65,13 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/statusView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="10dp"
-                android:ellipsize="end"
-                android:text="故事，启迪你的人生；美文，陶冶你的情操，有声朗读，刚才看了一说法，说单位的报销制度，其实就是把员工当成信用卡了。我觉得非常精准"
+                android:layout_marginLeft="@dimen/base_dimen_8dp"
+                android:layout_marginTop="@dimen/base_dimen_4dp"
+                android:textColor="@color/colorBlack"
+                android:text="饭否是一个 140 字的迷你博客目前，饭否支持 饭否网页、手机上网、手机短信、手机彩信（发照片）、QQ、MSN、GTalk机器人 和 API 等方式来发布消息以及同步个人签名，发布一句话博客"
                 android:textSize="14sp" />
 
         </LinearLayout>

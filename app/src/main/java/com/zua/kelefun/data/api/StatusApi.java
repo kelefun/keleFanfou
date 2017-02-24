@@ -1,7 +1,10 @@
 package com.zua.kelefun.data.api;
 
 
-import okhttp3.ResponseBody;
+import com.zua.kelefun.data.model.Status;
+
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -15,5 +18,5 @@ public interface StatusApi {
 
     //获取用户主页timeline
     @GET("/statuses/home_timeline.json")
-    Call<ResponseBody> getHomeTimeLine(@Query("count") int count);
+    Call<List<Status>> getHomeTimeLine(@Query("count") int count);
 }

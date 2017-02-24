@@ -1,5 +1,6 @@
 package com.zua.kelefun.http;
 
+import com.zua.kelefun.util.LogHelper;
 import com.zua.kelefun.util.OAuthUtil;
 
 import java.io.IOException;
@@ -28,7 +29,7 @@ public class SignInterceptor implements Interceptor {
                 .method(original.method(), original.body())
                 .url(original.url())
                 .build();
-
+        LogHelper.d("请求头",request.headers().toString());
         return chain.proceed(request);
     }
 }

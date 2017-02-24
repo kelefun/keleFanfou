@@ -1,48 +1,69 @@
 package com.zua.kelefun.data.model;
 
-import com.zua.kelefun.base.BaseModel;
+import com.google.gson.annotations.SerializedName;
 
 /**
  * @author liukaiyang
  * @since 2017/2/6 17:52
  */
 
-public class Status extends BaseModel {
+public class Status{
 
-
-    //消息序列号(可用于排序
-    private long rawId;
-    //消息内容
-    private String text; // html format text
-    //
-    private String simpleText; // plain text
-    //消息来源
-    private String source; // source
-    //消息是否被截断
+    @SerializedName("created_at")
+    private String createdAt;
+    @SerializedName("id")
+    private String id;
+    @SerializedName("rawid")
+    private int rawid;
+    @SerializedName("text")
+    private String text;
+    @SerializedName("source")
+    private String source;
+    @SerializedName("truncated")
     private boolean truncated;
-    //回复的消息id
+    @SerializedName("in_reply_to_status_id")
     private String inReplyToStatusId;
-    //回复的用户id
+    @SerializedName("in_reply_to_user_id")
     private String inReplyToUserId;
-    //回复的用户名称
+    @SerializedName("in_reply_to_screen_name")
     private String inReplyToScreenName;
-    //转发的消息id
+    @SerializedName("repost_status_id")
     private String repostStatusId;
-    //转发的用户id
+    @SerializedName("repost_status")
+    private Status repostStatus;
+    @SerializedName("repost_user_id")
     private String repostUserId;
-    //转发的用户名称
+    @SerializedName("repost_screen_name")
     private String repostScreenName;
-    //消息的位置(格式可能是"北京 朝阳区"也可能是"234.333,47.9"
-    private String location;
-    private UserInfo userInfo;
-    private PhotoInfo photoInfo;
+    @SerializedName("favorited")
+    private boolean favorited;
+    @SerializedName("user")
+    private UserInfo user;
+    @SerializedName("photo")
+    private PhotoInfo photo;
 
-    public long getRawId() {
-        return rawId;
+    public String getCreatedAt() {
+        return createdAt;
     }
 
-    public void setRawId(long rawId) {
-        this.rawId = rawId;
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public int getRawid() {
+        return rawid;
+    }
+
+    public void setRawid(int rawid) {
+        this.rawid = rawid;
     }
 
     public String getText() {
@@ -51,14 +72,6 @@ public class Status extends BaseModel {
 
     public void setText(String text) {
         this.text = text;
-    }
-
-    public String getSimpleText() {
-        return simpleText;
-    }
-
-    public void setSimpleText(String simpleText) {
-        this.simpleText = simpleText;
     }
 
     public String getSource() {
@@ -109,6 +122,14 @@ public class Status extends BaseModel {
         this.repostStatusId = repostStatusId;
     }
 
+    public Status getRepostStatus() {
+        return repostStatus;
+    }
+
+    public void setRepostStatus(Status repostStatus) {
+        this.repostStatus = repostStatus;
+    }
+
     public String getRepostUserId() {
         return repostUserId;
     }
@@ -125,28 +146,27 @@ public class Status extends BaseModel {
         this.repostScreenName = repostScreenName;
     }
 
-    public String getLocation() {
-        return location;
+    public boolean isFavorited() {
+        return favorited;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setFavorited(boolean favorited) {
+        this.favorited = favorited;
     }
 
-    public UserInfo getUserInfo() {
-        return userInfo;
+    public UserInfo getUser() {
+        return user;
     }
 
-    public void setUserInfo(UserInfo userInfo) {
-        this.userInfo = userInfo;
+    public void setUser(UserInfo user) {
+        this.user = user;
     }
 
-    public PhotoInfo getPhotoInfo() {
-        return photoInfo;
+    public PhotoInfo getPhoto() {
+        return photo;
     }
 
-    public void setPhotoInfo(PhotoInfo photoInfo) {
-        this.photoInfo = photoInfo;
+    public void setPhoto(PhotoInfo photo) {
+        this.photo = photo;
     }
-
 }

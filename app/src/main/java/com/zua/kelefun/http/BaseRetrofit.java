@@ -2,19 +2,14 @@ package com.zua.kelefun.http;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.zua.kelefun.BuildConfig;
 import com.zua.kelefun.config.AppConfig;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class BaseRetrofit {
-
-
-    private static OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
 
     //默认url为 api.fanfou.com
     public static Retrofit retrofit() {
@@ -30,14 +25,16 @@ public class BaseRetrofit {
     }
 
     public static Retrofit retrofit(String baseUrl, Interceptor interceptor) {
+        OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
         // debug模式下打印请求日志
-        if (BuildConfig.DEBUG) {
-            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-            okHttpBuilder.addInterceptor(logging);
-        }
+//        if (BuildConfig.DEBUG) {
+//            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+//            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+//            okHttpBuilder.addInterceptor(logging);
+//        }
         //添加拦截器
         if (interceptor != null) {
+            okHttpBuilder.build();
             okHttpBuilder.addInterceptor(interceptor);
         }
 

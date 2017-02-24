@@ -1,6 +1,6 @@
 package com.zua.kelefun.data.model;
 
-import com.zua.kelefun.base.BaseModel;
+import com.google.gson.annotations.SerializedName;
 
 /**
  * 饭否用户信息
@@ -9,57 +9,91 @@ import com.zua.kelefun.base.BaseModel;
  * @since 2017/2/6 18:02
  */
 
-public class UserInfo extends BaseModel {
+public class UserInfo {
+    @SerializedName("id")
+    private String id;
     //用户姓名
+    @SerializedName("name")
     private String name;
     //用户昵称
+    @SerializedName("screen_name")
     private String screenName;
     //用户地址
+    @SerializedName("location")
     private String location;
     //用户性别
+    @SerializedName("gender")
     private String gender;
     //用户生日
+    @SerializedName("birthday")
     private String birthday;
     //用户自述
+    @SerializedName("description")
     private String description;
     //用户头像地址
+    @SerializedName("profile_image_url")
     private String profileImageUrl;
     //用户高清头像地址
+    @SerializedName("profile_image_url_large")
     private String profileImageUrlLarge;
     //用户页面地址
+    @SerializedName("url")
     private String url;
     //用户是否设置隐私保护
+    @SerializedName("protected")
     private boolean protect;
     //粉丝数
+    @SerializedName("followers_count")
     private int followersCount;
     //好友数
+    @SerializedName("friends_count")
     private int friendsCount;
     //收藏消息数
+    @SerializedName("favourites_count")
     private int favouritesCount;
     //消息数
+    @SerializedName("statuses_count")
     private int statusesCount;
     //该用户是否被当前登录用户关注
+    @SerializedName("following")
     private boolean following;
     //当前登录用户是否已对该用户发出关注请求
+    @SerializedName("notifications")
     private boolean notifications;
     //用户注册时间
+    @SerializedName("created_at")
     private String createdAt;
-    //
-    private String utcOffset;
+    @SerializedName("utc_offset")
+    private int utcOffset;
     //用户用户自定义页面背景颜色
+    @SerializedName("profile_background_color")
     private String profileBackgroundColor;
     //用户用户自定义文字颜色
+    @SerializedName("profile_text_color")
     private String profileTextColor;
     //用户用户自定义链接颜色
+    @SerializedName("profile_link_color")
     private String profileLinkColor;
     //用户用户自定义侧边栏颜色
+    @SerializedName("profile_sidebar_fill_color")
     private String profileSidebarFillColor;
     //用户用户自定义侧边栏边框颜色
+    @SerializedName("profile_sidebar_border_color")
     private String profileSidebarBorderColor;
     //用户用户自定义背景图片地址
+    @SerializedName("profile_background_image_url")
     private String profileBackgroundImageUrl;
     //是否平铺用户用户自定义背景图片地址
+    @SerializedName("profile_background_tile")
     private boolean profileBackgroundTile;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -197,11 +231,11 @@ public class UserInfo extends BaseModel {
         this.createdAt = createdAt;
     }
 
-    public String getUtcOffset() {
+    public int getUtcOffset() {
         return utcOffset;
     }
 
-    public void setUtcOffset(String utcOffset) {
+    public void setUtcOffset(int utcOffset) {
         this.utcOffset = utcOffset;
     }
 
