@@ -1,7 +1,5 @@
 package com.zua.kelefun.http;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.zua.kelefun.config.AppConfig;
 
 import okhttp3.Interceptor;
@@ -34,13 +32,12 @@ public class BaseRetrofit {
 //        }
         //添加拦截器
         if (interceptor != null) {
-            okHttpBuilder.build();
             okHttpBuilder.addInterceptor(interceptor);
         }
 
         OkHttpClient okHttpClient = okHttpBuilder.build();
         // com.google.gson.stream.MalformedJsonException
-        Gson gson = new GsonBuilder().setLenient().create();
+//        Gson gson = new GsonBuilder().setLenient().create();
         //GsonConverterFactory.create(gson)
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)

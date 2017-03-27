@@ -4,10 +4,11 @@ package com.zua.kelefun.data.api;
 import com.zua.kelefun.data.model.Status;
 
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 /**
  *消息相关
@@ -18,5 +19,6 @@ public interface StatusApi {
 
     //获取用户主页timeline
     @GET("/statuses/home_timeline.json")
-    Call<List<Status>> getHomeTimeLine(@Query("count") int count);
+    Call<List<Status>> getHomeTimeLine(@QueryMap Map<String,String> paramMap);
+    //获取用户主页timeline
 }

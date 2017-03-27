@@ -163,14 +163,14 @@ package com.zua.kelefun.util;
  * href="http://iharder.net/base64">http://iharder.net/base64</a> periodically
  * to check for updates or to contribute improvements.
  * </p>
- *
+ * 
  * @author Robert Harder
  * @author rob@iharder.net
  * @version 2.3.7
  */
 public class Base64 {
-
-	/* ******** P U B L I C F I E L D S ******** */
+// TODO: 2017/2/25 后期需测试此类能否用组件自带的base64类替换 
+    /* ******** P U B L I C F I E L D S ******** */
 
     /** No options specified. Value is zero. */
     public final static int NO_OPTIONS = 0;

@@ -33,6 +33,7 @@ public class OAuthUtil {
     public static OAuthUtil getInstance(){
         return SingletonHolder.instance;
     }
+
     private final String PARAM_SEPARATOR = ", ";
     private final String PREAMBLE = "OAuth ";
     private final int ESTIMATED_PARAM_LENGTH = 20;
@@ -63,7 +64,7 @@ public class OAuthUtil {
 
         //oauth
         addOAuthParams(oAuthRequest);
-        return extract(oAuthRequest);
+        return extractHeader(oAuthRequest);
     }
 
     /**
@@ -75,7 +76,6 @@ public class OAuthUtil {
      * @return
      */
     public String extractHeader(Request request, String username, String password) {
-        //获取请求参数
         HttpUrl url = request.url();
         OAuthRequest oAuthRequest = new OAuthRequest();
         for (int i = 0; i < url.querySize(); i++) {
@@ -85,10 +85,10 @@ public class OAuthUtil {
         oAuthRequest.setBaseUrl(extractBaseUrl(url));
         //xauth
         addXAuthParams(oAuthRequest, username, password);
-        return extract(oAuthRequest);
+        return extractHeader(oAuthRequest);
     }
 
-    private String extract(OAuthRequest oAuthRequest) {
+    private String extractHeader(OAuthRequest oAuthRequest) {
         List<Parameter> parameters = oAuthRequest.getOauthParameters();
         StringBuilder header = new StringBuilder(parameters.size() * ESTIMATED_PARAM_LENGTH);
         header.append(PREAMBLE);
@@ -125,10 +125,8 @@ public class OAuthUtil {
 
     private void addOAuthParams(OAuthRequest request) {
         OAuthToken token = AccountStore.readAccessToken();
-        //
+        // TODO: 2017/3/27 如果 token == null
         request.setOauthParameter(OAuthConst.TOKEN, token.getToken());
-
-
         request.setOauthParameter(OAuthConst.TIMESTAMP, getTimestampInSeconds());
         request.setOauthParameter(OAuthConst.NONCE, getNonce());
         request.setOauthParameter(OAuthConst.CONSUMER_KEY, AppConfig.CONSUMER_KEY);
@@ -138,8 +136,7 @@ public class OAuthUtil {
     }
 
     //添加authorize 参数
-    public void addXAuthParams(OAuthRequest request, String userName,
-                               String password) {
+    public void addXAuthParams(OAuthRequest request, String userName, String password) {
         request.setOauthParameter(OAuthConst.X_AUTH_USERNAME, userName);
         request.setOauthParameter(OAuthConst.X_AUTH_PASSWORD, password);
         request.setOauthParameter(OAuthConst.X_AUTH_MODE, "client_auth");

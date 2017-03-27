@@ -2,20 +2,23 @@ package com.zua.kelefun.ui.home;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.ArrayMap;
 
 import com.zua.kelefun.R;
 import com.zua.kelefun.adapter.RecyclerViewAdapter;
+import com.zua.kelefun.data.api.StatusApi;
 import com.zua.kelefun.data.model.Status;
-import com.zua.kelefun.data.service.StatusService;
+import com.zua.kelefun.http.BaseRetrofit;
+import com.zua.kelefun.http.SignInterceptor;
 import com.zua.kelefun.util.LogHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -23,7 +26,7 @@ import retrofit2.Response;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private CoordinatorLayout coordinatorLayout;
+    //    private CoordinatorLayout coordinatorLayout;
     private RecyclerView recyclerview;
     private LinearLayoutManager mLayoutManager;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -38,12 +41,11 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         initView();
-        //   new StatusService().getHomeLine();
         getData();
     }
 
     private void initView() {
-          coordinatorLayout=(CoordinatorLayout)findViewById(R.id.coordinatorLayout);
+//        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
         mLayoutManager = new LinearLayoutManager(this);
         recyclerview = (RecyclerView) findViewById(R.id.line_recycler);
         recyclerview.setLayoutManager(mLayoutManager);
@@ -66,15 +68,26 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     /**
-     * 获取测试数据
+     * 请求home_timeline数据
      */
     private void getData() {
-        new StatusService().getHomeLine().enqueue(new Callback<List<Status>>() {
+        StatusApi api = BaseRetrofit.retrofit(new SignInterceptor()).create(StatusApi.class);
+        Map<String,String> map = new ArrayMap<>();
+        map.put("count","20");
+        Call<List<Status>> call = api.getHomeTimeLine(map);
+        call.enqueue(new Callback<List<Status>>() {
             @Override
             public void onResponse(Call<List<Status>> call, Response<List<Status>> response) {
                 LogHelper.d("请求响应code", String.valueOf(response.code()));
                 if (response.code() == 200) {
                     data.addAll(response.body());
+                    //测试数据
+//                    Gson gson = new Gson();
+//                    for(int i=0 ;i<data.size();i++){
+//                        String jsonObject = gson.toJson(data.get(i));
+//                        LogHelper.d("序号:"+i,"消息id:"+data.get(i).getId());
+//                        LogHelper.d(jsonObject);
+//                    }
                 }
                 adapter.notifyDataSetChanged();
                 swipeRefreshLayout.setRefreshing(false);

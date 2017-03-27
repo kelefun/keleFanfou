@@ -5,9 +5,6 @@
     <dimen name="fab_margin">16dp</dimen>
 
 
-    <dimen name="detail_backdrop_height">200dp</dimen>
-    <dimen name="list_item_avatar_size">40dp</dimen>
-
     <dimen name="base_dimen_4dp">4dp</dimen>
     <dimen name="base_dimen_6dp">6dp</dimen>
     <dimen name="base_dimen_8dp">8dp</dimen>

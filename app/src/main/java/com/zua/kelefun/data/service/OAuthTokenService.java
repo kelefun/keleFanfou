@@ -42,7 +42,6 @@ public class OAuthTokenService {
         });
         OAuthTokenApi api = retrofit.create(OAuthTokenApi.class);
         Call<ResponseBody> call = api.getAccessToken();
-        //@Header("Authorization") String header
         try {
             //因需返回请求结果,所以用同步请求方法 execute()
             Response<ResponseBody> response = call.execute();
@@ -50,6 +49,7 @@ public class OAuthTokenService {
         } catch (Exception e) {
             //TODO handle errors
             e.printStackTrace();
+
         }
 
         return null;

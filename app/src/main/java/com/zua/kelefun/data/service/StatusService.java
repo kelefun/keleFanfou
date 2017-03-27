@@ -6,6 +6,7 @@ import com.zua.kelefun.http.BaseRetrofit;
 import com.zua.kelefun.http.SignInterceptor;
 
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -17,10 +18,10 @@ import retrofit2.Retrofit;
 
 public class StatusService {
 
-    public Call<List<Status>> getHomeLine() {
+    public Call<List<Status>> getHomeLine(Map<String,String> map) {
         Retrofit retrofit = BaseRetrofit.retrofit(new SignInterceptor());
         StatusApi api = retrofit.create(StatusApi.class);
-        Call<List<Status>> call = api.getHomeTimeLine(8);
+        Call<List<Status>> call = api.getHomeTimeLine(map);
         return call;
     }
 

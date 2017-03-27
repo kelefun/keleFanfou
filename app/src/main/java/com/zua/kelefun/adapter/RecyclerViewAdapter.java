@@ -3,13 +3,17 @@ package com.zua.kelefun.adapter;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.zua.kelefun.R;
 import com.zua.kelefun.data.model.Status;
+import com.zua.kelefun.util.DateAgo;
 import com.zua.kelefun.util.LogHelper;
 
 import java.util.List;
@@ -50,8 +54,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         if(data.size()!=0){
             Status status= data.get(position);
             holder.screenNameView.setText(status.getUser().getScreenName());
-            holder.timeSourceView.setText(Html.fromHtml(status.getSource()).toString());
+            holder.timeSourceView.setText(DateAgo.toAgo(status.getCreatedAt())+Html.fromHtml(status.getSource()).toString());
             holder.statusView.setText(status.getText());
+            Picasso.with(mContext)
+                    .load(status.getUser().getProfileImageUrl())
+//                    .placeholder(R.drawable.tab_item_bg)
+                    .into(holder.avatarView);
+            if(status.getPhoto() != null){
+                Picasso.with(mContext)
+                        .load(status.getPhoto().getImageurl())
+//                    .placeholder(R.drawable.tab_item_bg)
+                        .into(holder.photoView);
+            }else {
+                holder.photoView.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -65,6 +81,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public TextView screenNameView;
         public TextView timeSourceView;
         public TextView statusView;
+        public ImageView avatarView;
+        public ImageView photoView;
+        public Layout status_right_side;
 //        public TextView replyUserView;
 
         public ViewHolder(View view) {
@@ -73,6 +92,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             screenNameView = (TextView) itemView.findViewById(R.id.screenNameView);
             timeSourceView = (TextView) itemView.findViewById(R.id.timeSourceView);
             statusView = (TextView) itemView.findViewById(R.id.statusView);
+            avatarView = (ImageView) itemView.findViewById(R.id.avatarView);
+            photoView = (ImageView) itemView.findViewById(R.id.photoView);
         }
     }
 }

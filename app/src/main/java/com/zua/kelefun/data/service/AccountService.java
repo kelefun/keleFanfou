@@ -5,6 +5,7 @@ import com.zua.kelefun.data.model.OAuthToken;
 import com.zua.kelefun.data.model.UserInfo;
 import com.zua.kelefun.http.BaseRetrofit;
 import com.zua.kelefun.http.SignInterceptor;
+import com.zua.kelefun.util.LogHelper;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -31,6 +32,7 @@ public class AccountService{
         } catch (Exception e) {
             //TODO handle errors
             e.printStackTrace();
+            LogHelper.e(e.getMessage());
         }
         return null;
     }

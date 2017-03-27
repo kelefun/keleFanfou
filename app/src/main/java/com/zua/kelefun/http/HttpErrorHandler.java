@@ -8,8 +8,6 @@ import com.zua.kelefun.util.ToastUtil;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 
-import retrofit2.adapter.rxjava.HttpException;
-
 /**
  * All rights reserved by Author<br>
  * Author: Dong YuHui<br>
@@ -29,8 +27,6 @@ public class HttpErrorHandler {
             ToastUtil.showToast(context, ERROR_CONNECTION);
         } else if (e instanceof SocketTimeoutException) {
             ToastUtil.showToast(context, ERROR_TIMEOUT);
-        } else if (e instanceof HttpException) {
-            ToastUtil.showToast(context, ERROR_HTTP);
         } else {
             ToastUtil.showToast(context, e.getMessage());
         }
