@@ -3,7 +3,6 @@ package com.zua.kelefun.adapter;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +17,7 @@ import com.zua.kelefun.util.LogHelper;
 
 import java.util.List;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.StatusViewHolder> {
 
     private Context mContext;
     private List<Status> data;
@@ -29,13 +28,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     @Override
-    public RecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public StatusViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.item_status, parent, false);
-        return new ViewHolder(view);
+        return new StatusViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final RecyclerViewAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(final StatusViewHolder holder, int position) {
         final View view = holder.mView;
         view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,6 +52,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         });
         if(data.size()!=0){
             Status status= data.get(position);
+            holder.statusIdView.setText(status.getId());
             holder.screenNameView.setText(status.getUser().getScreenName());
             holder.timeSourceView.setText(DateAgo.toAgo(status.getCreatedAt())+Html.fromHtml(status.getSource()).toString());
             holder.statusView.setText(status.getText());
@@ -61,6 +61,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 //                    .placeholder(R.drawable.tab_item_bg)
                     .into(holder.avatarView);
             if(status.getPhoto() != null){
+                holder.photoView.setVisibility(View.VISIBLE);
                 Picasso.with(mContext)
                         .load(status.getPhoto().getImageurl())
 //                    .placeholder(R.drawable.tab_item_bg)
@@ -76,19 +77,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return data == null ? 0 : data.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class StatusViewHolder extends RecyclerView.ViewHolder {
         final View mView;
+        public TextView statusIdView;
         public TextView screenNameView;
         public TextView timeSourceView;
         public TextView statusView;
         public ImageView avatarView;
         public ImageView photoView;
-        public Layout status_right_side;
 //        public TextView replyUserView;
 
-        public ViewHolder(View view) {
+        public StatusViewHolder(View view) {
             super(view);
             mView = view;
+            statusIdView = (TextView) itemView.findViewById(R.id.statusIdView);
             screenNameView = (TextView) itemView.findViewById(R.id.screenNameView);
             timeSourceView = (TextView) itemView.findViewById(R.id.timeSourceView);
             statusView = (TextView) itemView.findViewById(R.id.statusView);

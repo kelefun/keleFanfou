@@ -29,10 +29,14 @@
                 android:layout_height="@dimen/avatar_length"
                 android:layout_marginTop="2dp"
                 android:background="@drawable/ic_fanfou" />
+            <TextView
+                android:id="@+id/statusIdView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"/>
         </LinearLayout>
         <!--消息体 -->
         <LinearLayout
-            android:id="@+id/status_right_side"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="left"
