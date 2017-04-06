@@ -1,7 +1,6 @@
 package com.zua.kelefun.ui.home;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,15 +27,11 @@ import retrofit2.Response;
 
 public class HomeActivity extends AppCompatActivity {
 
-    //    private CoordinatorLayout coordinatorLayout;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private Handler handler = new Handler();
     private List<Status> data = new ArrayList<>();
     private RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, data);
-
-    //  private RecyclerViewAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +44,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void initView() {
-//        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView = (RecyclerView) findViewById(R.id.line_recycler);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -68,10 +62,10 @@ public class HomeActivity extends AppCompatActivity {
             public void onRefresh() {
                 int firstItemPosition = mLayoutManager.findFirstVisibleItemPosition();
                 View view = mRecyclerView.getChildAt(firstItemPosition);
-                    RecyclerViewAdapter.StatusViewHolder viewHolder = (RecyclerViewAdapter.StatusViewHolder)mRecyclerView.getChildViewHolder(view);
+                RecyclerViewAdapter.StatusViewHolder viewHolder = (RecyclerViewAdapter.StatusViewHolder)mRecyclerView.getChildViewHolder(view);
                 Map<String,String> map = new ArrayMap<>();
                 map.put("since_id",viewHolder.statusIdView.getText().toString());
-                LogHelper.d("消息id ",viewHolder.statusIdView.getText().toString());
+                LogHelper.d("消息id ",map.get("since_id"));
                 getHomeLineStatus(map);
             }
         });

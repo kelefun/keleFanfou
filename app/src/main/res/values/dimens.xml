@@ -11,4 +11,5 @@
 
     <dimen name="avatar_length">36dp</dimen>
     <dimen name="status_icon">25dp</dimen>
+    <dimen name="bottombar_height">48dp</dimen>
 </resources>

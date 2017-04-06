@@ -7,7 +7,6 @@ import android.os.Bundle;
 
 import com.zua.kelefun.config.AccountInfo;
 import com.zua.kelefun.config.AccountStore;
-import com.zua.kelefun.ui.home.HomeActivity;
 import com.zua.kelefun.ui.login.LoginActivity;
 
 public class StartActivity extends Activity {
@@ -47,7 +46,7 @@ public class StartActivity extends Activity {
     }
     //显示主页
     private void showHome(Context context) {
-        Intent intent = new Intent(context, HomeActivity.class);
+        Intent intent = new Intent(context, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity(intent);
     }
