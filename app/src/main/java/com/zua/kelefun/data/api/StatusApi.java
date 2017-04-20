@@ -6,9 +6,14 @@ import com.zua.kelefun.data.model.Status;
 import java.util.List;
 import java.util.Map;
 
+import okhttp3.MultipartBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.QueryMap;
 
 /**
@@ -24,8 +29,9 @@ public interface StatusApi {
 
     /**
      * 发送状态
-     * @param paramMap
+     * @param partMap
      * status
+     * photo
      * in_reply_to_status_id
      * in_reply_to_user_id
      * repost_status_id
@@ -33,6 +39,11 @@ public interface StatusApi {
      * location
      * @return
      */
+    @Multipart
     @POST("/statuses/update.json")
-    Call<Status> postStatus(@QueryMap Map<String,String> paramMap);
+    Call<Status> postStatus(@PartMap Map<String,Object> partMap);
+
+    @Multipart
+    @POST("/upload/image")
+    Call<ResponseBody> test(@Part MultipartBody.Part file);
 }

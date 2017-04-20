@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 
 import com.zua.kelefun.R;
 import com.zua.kelefun.adapter.StatusAdapter;
-import com.zua.kelefun.base.BaseFragment;
 import com.zua.kelefun.data.api.StatusApi;
 import com.zua.kelefun.data.model.Status;
 import com.zua.kelefun.event.TabSelectedEvent;
@@ -30,11 +29,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import me.yokeyword.fragmentation.SupportFragment;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HomeLineFragmentChild extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
+public class HomeLineFragmentChild extends SupportFragment implements SwipeRefreshLayout.OnRefreshListener {
     private Toolbar mToolbar;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
@@ -101,7 +101,7 @@ public class HomeLineFragmentChild extends BaseFragment implements SwipeRefreshL
         mRefreshLayout.post(() -> mRefreshLayout.setRefreshing(true));
         int firstItemPosition = mLayoutManager.findFirstVisibleItemPosition();
         View view = mRecyclerView.getChildAt(firstItemPosition);
-        StatusAdapter.StatusViewHolder viewHolder = (StatusAdapter.StatusViewHolder) mRecyclerView.getChildViewHolder(view);
+        StatusAdapter.ViewHolder viewHolder = (StatusAdapter.ViewHolder) mRecyclerView.getChildViewHolder(view);
         Map<String,String> map = new ArrayMap<>();
         map.put("since_id",viewHolder.statusIdView.getText().toString());
         LogHelper.d("消息id ",map.get("since_id"));

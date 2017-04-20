@@ -4,6 +4,7 @@ import com.zua.kelefun.config.AppConfig;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -26,9 +27,9 @@ public class BaseRetrofit {
         OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
         // debug模式下打印请求日志
 //        if (BuildConfig.DEBUG) {
-//            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-//            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-//            okHttpBuilder.addInterceptor(logging);
+            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+            okHttpBuilder.addInterceptor(logging);
 //        }
         //添加拦截器
         if (interceptor != null) {

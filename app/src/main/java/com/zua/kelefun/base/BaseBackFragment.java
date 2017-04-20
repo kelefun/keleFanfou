@@ -5,8 +5,10 @@ import android.view.View;
 
 import com.zua.kelefun.R;
 
+import me.yokeyword.fragmentation.SupportFragment;
 
-public class BaseBackFragment extends BaseFragment {
+
+public class BaseBackFragment extends SupportFragment {
 
     protected void initToolbarNav(Toolbar toolbar) {
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);

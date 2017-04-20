@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 
 import com.zua.kelefun.R;
 import com.zua.kelefun.adapter.HomeAdapter;
-import com.zua.kelefun.base.BaseFragment;
 import com.zua.kelefun.entity.Article;
 import com.zua.kelefun.event.TabSelectedEvent;
 import com.zua.kelefun.listener.OnItemClickListener;
@@ -29,7 +28,7 @@ import me.yokeyword.fragmentation.SupportFragment;
 /**
  * Created by YoKeyword on 16/6/3.
  */
-public class FirstPagerFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
+public class FirstPagerFragment extends SupportFragment implements SwipeRefreshLayout.OnRefreshListener {
     private RecyclerView mRecy;
     private SwipeRefreshLayout mRefreshLayout;
 

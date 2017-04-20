@@ -15,4 +15,7 @@ public final class OAuthConst {
 
     public static final String TOKEN = "oauth_token";
 
+    public static final int SELECT_FROM_PHOTO = 0x100;
+    public static final int PIC_EDIT_REQUEST_DATA = 0x110;
+
 }

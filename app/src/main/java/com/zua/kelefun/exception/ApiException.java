@@ -3,10 +3,6 @@
  */
 package com.zua.kelefun.exception;
 
-/**
- * @author mcxiaoke
- * @version 1.4 2012.02.21
- */
 public class ApiException extends Exception {
     public static final int IO_ERROR = -1001;
     public static final int DATA_ERROR = -1002;

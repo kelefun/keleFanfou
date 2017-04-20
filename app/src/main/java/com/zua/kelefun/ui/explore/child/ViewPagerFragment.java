@@ -10,13 +10,14 @@ import android.view.ViewGroup;
 
 import com.zua.kelefun.R;
 import com.zua.kelefun.adapter.ZhihuPagerFragmentAdapter;
-import com.zua.kelefun.base.BaseFragment;
+
+import me.yokeyword.fragmentation.SupportFragment;
 
 
 /**
  * Created by YoKeyword on 16/6/5.
  */
-public class ViewPagerFragment extends BaseFragment {
+public class ViewPagerFragment extends SupportFragment {
     private TabLayout mTab;
     private ViewPager mViewPager;
 

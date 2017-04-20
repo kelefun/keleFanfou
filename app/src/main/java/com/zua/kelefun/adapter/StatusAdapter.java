@@ -18,7 +18,7 @@ import com.zua.kelefun.util.DateAgo;
 
 import java.util.List;
 
-public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.StatusViewHolder> {
+public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder> {
 
     private Context mContext;
     private List<Status> data;
@@ -30,9 +30,9 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.StatusView
     }
 
     @Override
-    public StatusViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.item_status, parent, false);
-        final StatusViewHolder holder = new StatusViewHolder(view);
+        final ViewHolder holder = new ViewHolder(view);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,7 +46,7 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.StatusView
     }
 
     @Override
-    public void onBindViewHolder(final StatusViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
 //        final View view = holder.mView;
         // 把每个图片视图设置不同的Transition名称, 防止在一个视图内有多个相同的名称, 在变换的时候造成混乱
         // Fragment支持多个View进行变换, 使用适配器时, 需要加以区分
@@ -88,7 +88,7 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.StatusView
         this.mClickListener = itemClickListener;
     }
 
-    public static class StatusViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         final View mView;
         public TextView statusIdView;
         public TextView screenNameView;
@@ -98,7 +98,7 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.StatusView
         public ImageView photoView;
 //        public TextView replyUserView;
 
-        public StatusViewHolder(View view) {
+        public ViewHolder(View view) {
             super(view);
             mView = view;
             statusIdView = (TextView) itemView.findViewById(R.id.statusIdView);
