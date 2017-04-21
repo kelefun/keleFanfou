@@ -64,7 +64,7 @@ public class ExploreFragmentChild extends SupportFragment implements SwipeRefres
 
     private void initView(View view) {
         mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        mToolbar.setTitle("饭否");
+        mToolbar.setTitle("随便看看");
         mRecyclerView = (RecyclerView) view.findViewById(R.id.line_recycler);
         mLayoutManager = new LinearLayoutManager(_mActivity);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -83,8 +83,8 @@ public class ExploreFragmentChild extends SupportFragment implements SwipeRefres
 
         //初始化数据
         Map<String,String> map = new ArrayMap<>();
-        map.put("page","1");
-        getHomeLineStatus(map);
+        map.put("count","20");
+        getPublicTimeLineStatus(map);
 
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -98,15 +98,14 @@ public class ExploreFragmentChild extends SupportFragment implements SwipeRefres
 
     @Override
     public void onRefresh() {
-        // TODO: 2017/4/21 如果第一次没加载出来,则刷新 
+        // TODO: 2017/4/21 如果第一次没加载出来,则刷新
         mRefreshLayout.post(() -> mRefreshLayout.setRefreshing(true));
         int firstItemPosition = mLayoutManager.findFirstVisibleItemPosition();
         View view = mRecyclerView.getChildAt(firstItemPosition);
         StatusAdapter.ViewHolder viewHolder = (StatusAdapter.ViewHolder) mRecyclerView.getChildViewHolder(view);
         Map<String,String> map = new ArrayMap<>();
         map.put("since_id",viewHolder.statusIdView.getText().toString());
-        LogHelper.d("消息id ",map.get("since_id"));
-        getHomeLineStatus(map);
+        getPublicTimeLineStatus(map);
     }
 
     private void scrollToTop() {
@@ -139,9 +138,9 @@ public class ExploreFragmentChild extends SupportFragment implements SwipeRefres
     /**
      * 请求home_timeline数据
      */
-    private void getHomeLineStatus(Map<String,String> param) {
+    private void getPublicTimeLineStatus(Map<String,String> param) {
         StatusApi api = BaseRetrofit.retrofit(new SignInterceptor()).create(StatusApi.class);
-        Call<List<Status>> call = api.getHomeTimeLine(param);
+        Call<List<Status>> call = api.getPublicTimeLine(param);
         call.enqueue(new Callback<List<Status>>() {
             @Override
             public void onResponse(Call<List<Status>> call, Response<List<Status>> response) {
