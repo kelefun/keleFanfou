@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.util.ArrayMap;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,45 +15,52 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.yancy.gallerypick.config.GalleryConfig;
 import com.yancy.gallerypick.config.GalleryPick;
 import com.yancy.gallerypick.inter.IHandlerCallBack;
 import com.zua.kelefun.R;
 import com.zua.kelefun.adapter.PhotoAdapter;
 import com.zua.kelefun.data.api.StatusApi;
+import com.zua.kelefun.data.model.Status;
 import com.zua.kelefun.event.TabSelectedEvent;
 import com.zua.kelefun.gallery.PicassoImageLoader;
 import com.zua.kelefun.http.BaseRetrofit;
+import com.zua.kelefun.http.SignInterceptor;
 import com.zua.kelefun.util.LogHelper;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.io.IOException;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import me.yokeyword.fragmentation.SupportFragment;
+import okhttp3.MediaType;
 import okhttp3.MultipartBody;
-import okhttp3.ResponseBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SendStatusFragmentChild extends SupportFragment {
     private final static String TAG = "SendStatusFragmentChild";
-    private final int PERMISSIONS_REQUEST_READ_CONTACTS = 8;
-    private PhotoAdapter photoAdapter;
     private Toolbar mToolbar;
+    private Button actionSubmit;
 
+    private final int PERMISSIONS_REQUEST_READ_CONTACTS = 8;
     private List<String> path = new ArrayList<>();
-    private ImageButton select_image;
+    private ImageButton selectImage;
     private GalleryConfig galleryConfig;
     private IHandlerCallBack iHandlerCallBack;
     private RecyclerView rvResultPhoto;
+    private PhotoAdapter photoAdapter;
 
 
     public static SendStatusFragmentChild newInstance() {
@@ -76,9 +84,13 @@ public class SendStatusFragmentChild extends SupportFragment {
         mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
         mToolbar.setTitle("+Fun");
         mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
-        select_image = (ImageButton) view.findViewById(R.id.select_image);
         rvResultPhoto = (RecyclerView) view.findViewById(R.id.rvResultPhoto);
-        select_image.setOnClickListener(v -> {
+        actionSubmit = (Button) view.findViewById(R.id.action_commit);
+        actionSubmit.setOnClickListener(v -> {
+            postStatus();
+        });
+        selectImage = (ImageButton) view.findViewById(R.id.select_image);
+        selectImage.setOnClickListener(v -> {
             galleryConfig.getBuilder().isOpenCamera(false).build();
             initPermissions();
         });
@@ -97,7 +109,6 @@ public class SendStatusFragmentChild extends SupportFragment {
                 .build();
 
 
-
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 3);
         gridLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rvResultPhoto.setLayoutManager(gridLayoutManager);
@@ -107,6 +118,7 @@ public class SendStatusFragmentChild extends SupportFragment {
 
 
     }
+
     // 授权管理
     private void initPermissions() {
         if (ContextCompat.checkSelfPermission(_mActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -123,6 +135,7 @@ public class SendStatusFragmentChild extends SupportFragment {
             GalleryPick.getInstance().setGalleryConfig(galleryConfig).open(_mActivity);
         }
     }
+
     /**
      * 选择tab事件
      */
@@ -141,21 +154,33 @@ public class SendStatusFragmentChild extends SupportFragment {
     /**
      * 发送
      */
-    private void test(MultipartBody.Part body) {
-        StatusApi api = BaseRetrofit.retrofit("http://172.16.150.30:80").create(StatusApi.class);
-        Call<ResponseBody> call = api.test(body);
-        call.enqueue(new Callback<ResponseBody>() {
+    private void postStatus() {
+        StatusApi api = BaseRetrofit.retrofit(new SignInterceptor()).create(StatusApi.class);
+        Call<Status> call;
+        if (path.size() > 0) {
+            RequestBody status = RequestBody.create(MediaType.parse("text/plain"), "测试上传图");
+            File file = new File(path.get(0));
+            RequestBody photo = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+            MultipartBody.Part body =
+                    MultipartBody.Part.createFormData("photo", file.getName(), photo);
+            call = api.uploadPhoto(status,body);
+        } else {
+            Map<String, RequestBody> partMap = new ArrayMap<>();
+            RequestBody status = RequestBody.create(MediaType.parse("text/plain"), "测试sdf");
+            partMap.put("status", status);
+            call = api.postStatus(partMap);
+        }
+        call.enqueue(new Callback<Status>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                try {
-                    LogHelper.i(response.body().string());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            public void onResponse(Call<Status> call, Response<Status> response) {
+                Gson gson = new Gson();
+                gson.toJson(response.body());
+                LogHelper.i(gson.toJson(response.body()));
+                //TODO 清除页面已填数据
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<Status> call, Throwable t) {
             }
         });
     }

@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import okhttp3.MultipartBody;
-import okhttp3.ResponseBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
@@ -17,33 +17,31 @@ import retrofit2.http.PartMap;
 import retrofit2.http.QueryMap;
 
 /**
- *消息相关
- *@author liukaiyang
- *@since 2017/2/7 18:15
+ * 消息相关
+ *
+ * @author liukaiyang
+ * @since 2017/2/7 18:15
  */
 public interface StatusApi {
 
     //获取用户主页timeline
-    @GET("/statuses/home_timeline.json")
-    Call<List<Status>> getHomeTimeLine(@QueryMap Map<String,String> paramMap);
+    @GET("/statuses/home_timeline.json?mode=lite")
+    Call<List<Status>> getHomeTimeLine(@QueryMap Map<String, String> paramMap);
 
     /**
      * 发送状态
-     * @param partMap
-     * status
-     * photo
-     * in_reply_to_status_id
-     * in_reply_to_user_id
-     * repost_status_id
-     * source
-     * location
+     *
+     * @param photo
+     * @param status
      * @return
+     * @link https://github.com/FanfouAPI/FanFouAPIDoc/wiki/photos.upload
      */
     @Multipart
-    @POST("/statuses/update.json")
-    Call<Status> postStatus(@PartMap Map<String,Object> partMap);
+    @POST("/photos/upload.json")
+    Call<Status> uploadPhoto(@Part("status") RequestBody status,
+                             @Part MultipartBody.Part photo);
 
     @Multipart
-    @POST("/upload/image")
-    Call<ResponseBody> test(@Part MultipartBody.Part file);
+    @POST("/statuses/update.json")
+    Call<Status> postStatus(@PartMap Map<String, RequestBody> partMap);
 }

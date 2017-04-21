@@ -98,6 +98,7 @@ public class HomeLineFragmentChild extends SupportFragment implements SwipeRefre
 
     @Override
     public void onRefresh() {
+        // TODO: 2017/4/21 如果第一次没加载出来,则刷新 
         mRefreshLayout.post(() -> mRefreshLayout.setRefreshing(true));
         int firstItemPosition = mLayoutManager.findFirstVisibleItemPosition();
         View view = mRecyclerView.getChildAt(firstItemPosition);
