@@ -1,4 +1,4 @@
-package com.zua.kelefun.ui.explore;
+package com.zua.kelefun.ui.notice;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,14 +8,15 @@ import android.view.ViewGroup;
 
 import com.zua.kelefun.R;
 import com.zua.kelefun.base.BaseMainFragment;
+import com.zua.kelefun.ui.home.HomeLineFragmentChild;
 
-public class ExploreFragment extends BaseMainFragment {
+public class NoticeFragment extends BaseMainFragment {
 
-    public static ExploreFragment newInstance() {
+    public static NoticeFragment newInstance() {
 
         Bundle args = new Bundle();
 
-        ExploreFragment fragment = new ExploreFragment();
+        NoticeFragment fragment = new NoticeFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -31,7 +32,7 @@ public class ExploreFragment extends BaseMainFragment {
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
         if (savedInstanceState == null) {//加载子页面
-            loadRootFragment(R.id.fl_explore_container, ExploreFragmentChild.newInstance());
+            loadRootFragment(R.id.fl_second_container, HomeLineFragmentChild.newInstance());
         }
     }
 }

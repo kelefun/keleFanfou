@@ -9,11 +9,11 @@ import com.zua.kelefun.event.TabSelectedEvent;
 import com.zua.kelefun.ui.bottombar.BottomBar;
 import com.zua.kelefun.ui.bottombar.BottomBarTab;
 import com.zua.kelefun.ui.explore.ExploreFragment;
-import com.zua.kelefun.ui.explore.child.ViewPagerFragment;
+import com.zua.kelefun.ui.explore.ExploreFragmentChild;
 import com.zua.kelefun.ui.home.HomeLineFragment;
-import com.zua.kelefun.ui.home.child.HomeLineFragmentChild;
+import com.zua.kelefun.ui.home.HomeLineFragmentChild;
 import com.zua.kelefun.ui.send.SendStatusFragment;
-import com.zua.kelefun.ui.send.child.SendStatusFragmentChild;
+import com.zua.kelefun.ui.send.SendStatusFragmentChild;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -106,7 +106,7 @@ public class MainActivity extends SupportActivity implements BaseMainFragment.On
                     if (currentFragment instanceof HomeLineFragment) {
                         currentFragment.popToChild(HomeLineFragmentChild.class, false);
                     } else if (currentFragment instanceof ExploreFragment) {
-                        currentFragment.popToChild(ViewPagerFragment.class, false);
+                        currentFragment.popToChild(ExploreFragmentChild.class, false);
                     } else if (currentFragment instanceof SendStatusFragment) {
                         currentFragment.popToChild(SendStatusFragmentChild.class, false);
                     }

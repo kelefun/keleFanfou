@@ -7,7 +7,6 @@ import android.os.Bundle;
 
 import com.zua.kelefun.config.AccountInfo;
 import com.zua.kelefun.config.AccountStore;
-import com.zua.kelefun.ui.login.LoginActivity;
 
 public class StartActivity extends Activity {
 

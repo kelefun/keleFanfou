@@ -1,4 +1,4 @@
-package com.zua.kelefun.ui.explore.childpager;
+package com.zua.kelefun.ui.notice.page;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,7 +15,7 @@ import com.zua.kelefun.entity.Article;
 import com.zua.kelefun.event.TabSelectedEvent;
 import com.zua.kelefun.listener.OnItemClickListener;
 import com.zua.kelefun.ui.MainActivity;
-import com.zua.kelefun.ui.explore.child.DetailFragment;
+import com.zua.kelefun.ui.notice.child.DetailFragment;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

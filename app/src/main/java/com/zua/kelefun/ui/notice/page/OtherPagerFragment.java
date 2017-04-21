@@ -1,4 +1,4 @@
-package com.zua.kelefun.ui.explore.childpager;
+package com.zua.kelefun.ui.notice.page;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 
 import com.zua.kelefun.R;
 import com.zua.kelefun.base.BaseMainFragment;
-import com.zua.kelefun.ui.home.child.HomeLineFragmentChild;
 
 public class HomeLineFragment extends BaseMainFragment {
 

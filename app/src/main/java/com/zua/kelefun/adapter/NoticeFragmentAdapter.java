@@ -4,17 +4,17 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.zua.kelefun.ui.explore.childpager.FirstPagerFragment;
-import com.zua.kelefun.ui.explore.childpager.OtherPagerFragment;
+import com.zua.kelefun.ui.notice.page.FirstPagerFragment;
+import com.zua.kelefun.ui.notice.page.OtherPagerFragment;
 
 
 /**
  * Created by YoKeyword on 16/6/5.
  */
-public class ZhihuPagerFragmentAdapter extends FragmentPagerAdapter {
-    private String[] mTab = new String[]{"推荐", "热门", "收藏"};
+public class NoticeFragmentAdapter extends FragmentPagerAdapter {
+    private String[] mTab = new String[]{ "@我","私信", "通知"};
 
-    public ZhihuPagerFragmentAdapter(FragmentManager fm) {
+    public NoticeFragmentAdapter(FragmentManager fm) {
         super(fm);
     }
 

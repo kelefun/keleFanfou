@@ -1,4 +1,4 @@
-package com.zua.kelefun.ui.home.child;
+package com.zua.kelefun.ui.home;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

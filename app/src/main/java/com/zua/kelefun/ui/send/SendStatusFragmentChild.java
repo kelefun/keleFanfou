@@ -1,4 +1,4 @@
-package com.zua.kelefun.ui.send.child;
+package com.zua.kelefun.ui.send;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -73,7 +73,7 @@ public class SendStatusFragmentChild extends SupportFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_send_child, container, false);
+        View view = inflater.inflate(R.layout.fragment_send_status_child, container, false);
         EventBus.getDefault().register(this);
         initGallery();
         initView(view);

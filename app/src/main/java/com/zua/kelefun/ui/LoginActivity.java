@@ -1,4 +1,4 @@
-package com.zua.kelefun.ui.login;
+package com.zua.kelefun.ui;
 
 import android.content.Context;
 import android.content.Intent;

@@ -1,4 +1,4 @@
-package com.zua.kelefun.ui.explore.child;
+package com.zua.kelefun.ui.notice;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.zua.kelefun.R;
-import com.zua.kelefun.adapter.ZhihuPagerFragmentAdapter;
+import com.zua.kelefun.adapter.NoticeFragmentAdapter;
 
 import me.yokeyword.fragmentation.SupportFragment;
 
@@ -17,15 +17,15 @@ import me.yokeyword.fragmentation.SupportFragment;
 /**
  * Created by YoKeyword on 16/6/5.
  */
-public class ViewPagerFragment extends SupportFragment {
+public class NoticeFragmentChild extends SupportFragment {
     private TabLayout mTab;
     private ViewPager mViewPager;
 
-    public static ViewPagerFragment newInstance() {
+    public static NoticeFragmentChild newInstance() {
 
         Bundle args = new Bundle();
 
-        ViewPagerFragment fragment = new ViewPagerFragment();
+        NoticeFragmentChild fragment = new NoticeFragmentChild();
         fragment.setArguments(args);
         return fragment;
     }
@@ -33,7 +33,7 @@ public class ViewPagerFragment extends SupportFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.zhihu_fragment_second_pager, container, false);
+        View view = inflater.inflate(R.layout.fragment_explore_child, container, false);
         initView(view);
         return view;
     }
@@ -46,7 +46,7 @@ public class ViewPagerFragment extends SupportFragment {
         mTab.addTab(mTab.newTab());
         mTab.addTab(mTab.newTab());
 
-        mViewPager.setAdapter(new ZhihuPagerFragmentAdapter(getChildFragmentManager()));
+        mViewPager.setAdapter(new NoticeFragmentAdapter(getChildFragmentManager()));
         mTab.setupWithViewPager(mViewPager);
     }
 }
