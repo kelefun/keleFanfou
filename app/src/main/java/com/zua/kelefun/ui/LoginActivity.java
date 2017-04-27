@@ -149,7 +149,7 @@ public class LoginActivity extends AppCompatActivity {
 
     //显示主页
     private void showHome(Context context) {
-        Intent intent = new Intent(context, HomeActivity.class);
+        Intent intent = new Intent(context, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity(intent);
     }

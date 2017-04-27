@@ -16,22 +16,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.yancy.gallerypick.config.GalleryConfig;
-import com.yancy.gallerypick.config.GalleryPick;
-import com.yancy.gallerypick.inter.IHandlerCallBack;
+import com.zua.imageselector.config.GalleryPick;
+import com.zua.imageselector.config.SeclectorConfig;
+import com.zua.imageselector.inter.IHandlerCallBack;
 import com.zua.kelefun.R;
 import com.zua.kelefun.adapter.PhotoAdapter;
 import com.zua.kelefun.data.api.StatusApi;
 import com.zua.kelefun.data.model.Status;
 import com.zua.kelefun.event.TabSelectedEvent;
-import com.zua.kelefun.gallery.PicassoImageLoader;
 import com.zua.kelefun.http.BaseRetrofit;
 import com.zua.kelefun.http.SignInterceptor;
 import com.zua.kelefun.util.LogHelper;
+import com.zua.kelefun.util.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -53,11 +54,11 @@ public class SendStatusFragmentChild extends SupportFragment {
     private final static String TAG = "SendStatusFragmentChild";
     private Toolbar mToolbar;
     private Button actionSubmit;
-
+    private EditText editText;
     private final int PERMISSIONS_REQUEST_READ_CONTACTS = 8;
     private List<String> path = new ArrayList<>();
     private ImageButton selectImage;
-    private GalleryConfig galleryConfig;
+    private SeclectorConfig galleryConfig;
     private IHandlerCallBack iHandlerCallBack;
     private RecyclerView rvResultPhoto;
     private PhotoAdapter photoAdapter;
@@ -84,6 +85,7 @@ public class SendStatusFragmentChild extends SupportFragment {
         mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
         mToolbar.setTitle("+Fun");
         mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
+        editText =(EditText) view.findViewById(R.id.statusEdit);
         rvResultPhoto = (RecyclerView) view.findViewById(R.id.rvResultPhoto);
         actionSubmit = (Button) view.findViewById(R.id.action_commit);
         actionSubmit.setOnClickListener(v -> {
@@ -94,12 +96,11 @@ public class SendStatusFragmentChild extends SupportFragment {
             galleryConfig.getBuilder().isOpenCamera(false).build();
             initPermissions();
         });
-        galleryConfig = new GalleryConfig.Builder()
-                .imageLoader(new PicassoImageLoader())    // ImageLoader 加载框架（必填）
+        galleryConfig = new SeclectorConfig.Builder()
                 .iHandlerCallBack(iHandlerCallBack)     // 监听接口（必填）
                 .provider("com.zua.kelefun.photo.fileprovider")   // provider(必填)
                 .pathList(path)                         // 记录已选的图片
-                .multiSelect(false)                      // 是否多选   默认：false
+                .multiSelect(true,3)                      // 是否多选   默认：false
 //                .multiSelect(false, 9)                   // 配置是否多选的同时 配置多选数量   默认：false ， 9
 //                .maxSize(9)                             // 配置多选时 的多选数量。    默认：9
                 .crop(false)                             // 快捷开启裁剪功能，仅当单选 或直接开启相机时有效
@@ -158,15 +159,19 @@ public class SendStatusFragmentChild extends SupportFragment {
         StatusApi api = BaseRetrofit.retrofit(new SignInterceptor()).create(StatusApi.class);
         Call<Status> call;
         if (path.size() > 0) {
-            RequestBody status = RequestBody.create(MediaType.parse("text/plain"), "测试上传图");
+            RequestBody status = RequestBody.create(MediaType.parse("text/plain"), editText.getText().toString());
             File file = new File(path.get(0));
             RequestBody photo = RequestBody.create(MediaType.parse("multipart/form-data"), file);
             MultipartBody.Part body =
                     MultipartBody.Part.createFormData("photo", file.getName(), photo);
             call = api.uploadPhoto(status,body);
         } else {
+            if( "".equals(editText.getText().toString())){
+                ToastUtil.showToast(_mActivity,"输入不能为空");
+                return;
+            }
+            RequestBody status = RequestBody.create(MediaType.parse("text/plain"), editText.getText().toString());
             Map<String, RequestBody> partMap = new ArrayMap<>();
-            RequestBody status = RequestBody.create(MediaType.parse("text/plain"), "测试sdf");
             partMap.put("status", status);
             call = api.postStatus(partMap);
         }

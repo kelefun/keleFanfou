@@ -24,13 +24,12 @@
                 android:orientation="vertical">
 
                 <EditText
-                    android:id="@+id/status_edit"
+                    android:id="@+id/statusEdit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
                     android:hint="今天你Fun了嘛"
                     android:maxLength="140"
-                    android:minLines="2"
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"
                     android:textColorHint="@color/colorGrey" />
@@ -39,6 +38,7 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvResultPhoto"
+            android:layout_marginTop="120dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/rl_text"/>

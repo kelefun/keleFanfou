@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 import com.zua.kelefun.R;
 import com.zua.kelefun.util.LogHelper;
 
@@ -37,8 +37,8 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         LogHelper.e(result.get(position));
-        Picasso.with(context)
-                .load("file://"+result.get(position))
+        Glide.with(context)
+                .load(result.get(position))
                 .into(holder.ivPhoto);
     }
 

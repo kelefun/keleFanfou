@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 import com.zua.kelefun.R;
 import com.zua.kelefun.data.model.Status;
 import com.zua.kelefun.util.DateAgo;
@@ -56,13 +56,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             holder.screenNameView.setText(status.getUser().getScreenName());
             holder.timeSourceView.setText(DateAgo.toAgo(status.getCreatedAt())+Html.fromHtml(status.getSource()).toString());
             holder.statusView.setText(status.getText());
-            Picasso.with(mContext)
+            Glide.with(mContext)
                     .load(status.getUser().getProfileImageUrl())
 //                    .placeholder(R.drawable.tab_item_bg)
                     .into(holder.avatarView);
             if(status.getPhoto() != null){
                 holder.photoView.setVisibility(View.VISIBLE);
-                Picasso.with(mContext)
+                Glide.with(mContext)
                         .load(status.getPhoto().getImageurl())
 //                    .placeholder(R.drawable.tab_item_bg)
                         .into(holder.photoView);

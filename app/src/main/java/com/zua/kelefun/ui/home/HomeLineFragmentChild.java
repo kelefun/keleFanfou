@@ -64,7 +64,7 @@ public class HomeLineFragmentChild extends SupportFragment implements SwipeRefre
 
     private void initView(View view) {
         mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        mToolbar.setTitle("TIME LINE");
+        mToolbar.setTitle("饭否");
         mRecyclerView = (RecyclerView) view.findViewById(R.id.line_recycler);
         mLayoutManager = new LinearLayoutManager(_mActivity);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -78,7 +78,7 @@ public class HomeLineFragmentChild extends SupportFragment implements SwipeRefre
         mRecyclerView.setAdapter(mAdapter);
 
         mAdapter.setOnItemClickListener((position, view1, vh) -> {
-            LogHelper.d("点击了card");
+            ToastUtil.showToast(_mActivity,"点击了卡片");
         });
 
         //初始化数据
@@ -94,6 +94,7 @@ public class HomeLineFragmentChild extends SupportFragment implements SwipeRefre
                 mInAtTop = mScrollTotal <= 0;
             }
         });
+
     }
 
     @Override

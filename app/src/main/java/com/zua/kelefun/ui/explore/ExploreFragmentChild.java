@@ -78,7 +78,7 @@ public class ExploreFragmentChild extends SupportFragment implements SwipeRefres
         mRecyclerView.setAdapter(mAdapter);
 
         mAdapter.setOnItemClickListener((position, view1, vh) -> {
-            LogHelper.d("点击了card");
+            ToastUtil.showToast(_mActivity,"点击了卡片");
         });
 
         //初始化数据

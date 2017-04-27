@@ -1,2 +1,2 @@
-//include ':app', ':gallerypick'
-include ':app'
+include ':app',':imageselector'
+//include ':app'
