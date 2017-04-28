@@ -4,7 +4,7 @@
 依赖项目
 * [okhttp3](https://github.com/square/okhttp)
 * [retrofit2](https://github.com/square/retrofit)
-* [picasso](https://github.com/square/picasso)
+* [glide](https://github.com/bumptech/glide)
 * [fragmentation](https://github.com/YoKeyword/Fragmentation)
 
 参考项目
