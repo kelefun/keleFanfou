@@ -22,6 +22,7 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
 
     private Context mContext;
     private List<Status> data;
+    private OnItemClickListener photoClickListener;
     private OnItemClickListener mClickListener;
 
     public StatusAdapter(Context mContext, List data) {
@@ -41,8 +42,8 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
         });
         holder.photoView.setOnClickListener(v -> {
             int position = holder.getAdapterPosition();
-            if (mClickListener != null) {
-                mClickListener.onItemClick(position, holder);
+            if (photoClickListener != null) {
+                photoClickListener.onItemClick(position, holder);
             }
         });
         return holder;
@@ -80,6 +81,22 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
                 holder.photoView.setVisibility(View.GONE);
             }
         }
+
+//
+//        holder.photoView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.i("image----","image");
+//            }
+//        });
+//
+//        holder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.i("itemView----","itemView");
+//            }
+//        });
+
     }
 
     @Override
@@ -92,7 +109,7 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
     }
 
     public void setOnPhotoClickListener(OnItemClickListener itemClickListener) {
-        this.mClickListener = itemClickListener;
+        this.photoClickListener = itemClickListener;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

@@ -8,28 +8,27 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 
+import com.funstill.library.R;
 import com.funstill.library.model.LocalMedia;
 import com.funstill.library.model.LocalMediaFolder;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 
 /**
  * Created by dee on 15/11/19.
+ * update by kelefun 17/05/10
  */
 public class LocalMediaLoader {
     // load type
     public static final int TYPE_IMAGE = 1;
     public static final int TYPE_VIDEO = 2;
-
     private final static String[] IMAGE_PROJECTION = {
             MediaStore.Images.Media.DATA,
             MediaStore.Images.Media.DISPLAY_NAME,
+            MediaStore.Images.Media.SIZE,
             MediaStore.Images.Media.DATE_ADDED,
             MediaStore.Images.Media._ID};
 
@@ -48,7 +47,7 @@ public class LocalMediaLoader {
         this.type = type;
     }
 
-    HashSet<String> mDirPaths = new HashSet<String>();
+    HashSet<String> mDirPaths = new HashSet<>();
 
     public void loadAllImage(final LocalMediaLoadListener imageLoadListener) {
         activity.getSupportLoaderManager().initLoader(type, null, new LoaderManager.LoaderCallbacks<Cursor>() {
@@ -56,81 +55,66 @@ public class LocalMediaLoader {
             public Loader<Cursor> onCreateLoader(int id, Bundle args) {
                 CursorLoader cursorLoader = null;
                 if (id == TYPE_IMAGE) {
-                    cursorLoader = new CursorLoader(
-                            activity, MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                            IMAGE_PROJECTION, MediaStore.Images.Media.MIME_TYPE + "=? or "
-                            + MediaStore.Images.Media.MIME_TYPE + "=?",
-                            new String[]{"image/jpeg", "image/png"}, IMAGE_PROJECTION[2] + " DESC");
+                    cursorLoader = new CursorLoader(activity, MediaStore.Images.Media.EXTERNAL_CONTENT_URI, IMAGE_PROJECTION, null, null, IMAGE_PROJECTION[2] + " DESC");
                 } else if (id == TYPE_VIDEO) {
-                    cursorLoader = new CursorLoader(
-                            activity, MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
-                            VIDEO_PROJECTION, null, null, VIDEO_PROJECTION[2] + " DESC");
+                    cursorLoader = new CursorLoader( activity, MediaStore.Video.Media.EXTERNAL_CONTENT_URI,VIDEO_PROJECTION, null, null, VIDEO_PROJECTION[2] + " DESC");
                 }
                 return cursorLoader;
             }
 
             @Override
             public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-                ArrayList<LocalMediaFolder> imageFolders = new ArrayList<LocalMediaFolder>();
-                LocalMediaFolder allImageFolder = new LocalMediaFolder();
-                List<LocalMedia> allImages = new ArrayList<LocalMedia>();
+                if (data != null && data.getCount() > 0) {
+                    ArrayList<LocalMediaFolder> imageFolderList = new ArrayList<>();
 
-                while (data != null && data.moveToNext()) {
-                    // 获取图片的路径
-                    String path = data.getString(data
-                            .getColumnIndex(MediaStore.Images.Media.DATA));
-                    File file = new File(path);
-                    if (!file.exists())
-                        continue;
-                    // 获取该图片的目录路径名
-                    File parentFile = file.getParentFile();
-                    if (parentFile == null || !parentFile.exists())
-                        continue;
+                    List<LocalMedia> allImages = new ArrayList<>();//所有图片
 
-                    String dirPath = parentFile.getAbsolutePath();
-                    // 利用一个HashSet防止多次扫描同一个文件夹
-                    if (mDirPaths.contains(dirPath)) {
-                        continue;
-                    } else {
-                        mDirPaths.add(dirPath);
-                    }
+                    while (data.moveToNext()) {
+                        // 获取图片的路径
+                        String path = data.getString(data.getColumnIndexOrThrow(IMAGE_PROJECTION[0]));
+//                        String name = data.getString(data.getColumnIndexOrThrow(IMAGE_PROJECTION[1]));
+//                        long dateTime = data.getLong(data.getColumnIndexOrThrow(IMAGE_PROJECTION[2]));
+                        int size = data.getInt(data.getColumnIndexOrThrow(IMAGE_PROJECTION[3]));
+//                        Log.i("测试",path);
+                        boolean showFlag = size > 1024 * 10;//图片大于10KB
 
-                    if (parentFile.list() == null)
-                        continue;
-                    LocalMediaFolder localMediaFolder = getImageFolder(path, imageFolders);
-
-                    File[] files = parentFile.listFiles(new FilenameFilter() {
-                        @Override
-                        public boolean accept(File dir, String filename) {
-                            if (filename.endsWith(".jpg")
-                                    || filename.endsWith(".png")
-                                    || filename.endsWith(".jpeg"))
-                                return true;
-                            return false;
+                        if (showFlag) {
+                            File imageFile = new File(path);                  // 获取图片文件
+                            File parentFile = imageFile.getParentFile();      // 获取图片上一级文件夹
+                            String parentFilePath = parentFile.getAbsolutePath();
+                            if (mDirPaths.contains(parentFilePath)) {
+                                continue;
+                            } else {
+                                mDirPaths.add(parentFilePath);
+                            }
+                            //TODO 代码写法需要改善
+                            LocalMediaFolder localMediaFolder = getImageFolder(imageFile, imageFolderList);
+                            File[] files = parentFile.listFiles();
+                            ArrayList<LocalMedia> images = new ArrayList<>();
+                            for (int i = files.length-1; i >=0; i--) {
+                                File f = files[i];
+                                LocalMedia localMedia = new LocalMedia(f.getAbsolutePath());
+                                allImages.add(localMedia);
+                                images.add(localMedia);
+                            }
+                            if (images.size() > 0) {
+                                localMediaFolder.setImages(images);
+                                localMediaFolder.setImageNum(localMediaFolder.getImages().size());
+                                imageFolderList.add(localMediaFolder);
+                            }
                         }
-                    });
-                    ArrayList<LocalMedia> images = new ArrayList<>();
-                    for (int i = 0; i < files.length; i++) {
-                        File f = files[i];
-                        LocalMedia localMedia = new LocalMedia(f.getAbsolutePath());
-                        allImages.add(localMedia);
-                        images.add(localMedia);
-                    }
-                    if (images.size() > 0) {
-                        localMediaFolder.setImages(images);
-                        localMediaFolder.setImageNum(localMediaFolder.getImages().size());
-                        imageFolders.add(localMediaFolder);
-                    }
+                    }//while结束
+                    LocalMediaFolder imageFolder = new LocalMediaFolder();//所有图片文件夹
+                    imageFolder.setImages(allImages);
+                    imageFolder.setImageNum(allImages.size());
+                    imageFolder.setFirstImagePath(allImages.get(0).getPath());
+                    imageFolder.setName(activity.getString(R.string.all_image));
+                    imageFolderList.add(0,imageFolder);
+//                    sortFolder(imageFolders);
+                    imageLoadListener.loadComplete(imageFolderList);
+                    if (data != null) data.close();
                 }
 
-                allImageFolder.setImages(allImages);
-                allImageFolder.setImageNum(allImageFolder.getImages().size());
-                allImageFolder.setFirstImagePath(allImages.get(0).getPath());
-                allImageFolder.setName(activity.getString(com.funstill.library.R.string.all_image));
-                imageFolders.add(allImageFolder);
-                sortFolder(imageFolders);
-                imageLoadListener.loadComplete(imageFolders);
-                if (data != null) data.close();
             }
 
             @Override
@@ -139,34 +123,33 @@ public class LocalMediaLoader {
         });
     }
 
-    private void sortFolder(List<LocalMediaFolder> imageFolders) {
-        // 文件夹按图片数量排序
-        Collections.sort(imageFolders, new Comparator<LocalMediaFolder>() {
-            @Override
-            public int compare(LocalMediaFolder lhs, LocalMediaFolder rhs) {
-                if (lhs.getImages() == null || rhs.getImages() == null) {
-                    return 0;
-                }
-                int lsize = lhs.getImageNum();
-                int rsize = rhs.getImageNum();
-                return lsize == rsize ? 0 : (lsize < rsize ? 1 : -1);
-            }
-        });
-    }
+//    private void sortFolder(List<LocalMediaFolder> imageFolders) {
+//        // 文件夹按图片数量排序
+//        Collections.sort(imageFolders, new Comparator<LocalMediaFolder>() {
+//            @Override
+//            public int compare(LocalMediaFolder lhs, LocalMediaFolder rhs) {
+//                if (lhs.getImages() == null || rhs.getImages() == null) {
+//                    return 0;
+//                }
+//                int lsize = lhs.getImageNum();
+//                int rsize = rhs.getImageNum();
+//                return lsize == rsize ? 0 : (lsize < rsize ? 1 : -1);
+//            }
+//        });
+//    }
 
-    private LocalMediaFolder getImageFolder(String path, List<LocalMediaFolder> imageFolders) {
-        File imageFile = new File(path);
+    private LocalMediaFolder getImageFolder(File imageFile, List<LocalMediaFolder> imageFolders) {
         File folderFile = imageFile.getParentFile();
-
+//        Log.i("测试",imageFile.getPath()+"###"+imageFile.getAbsolutePath());
         for (LocalMediaFolder folder : imageFolders) {
-            if (folder.getName().equals(folderFile.getName())) {
+            if (folder.getPath().equals(folderFile.getAbsolutePath())) {
                 return folder;
             }
         }
         LocalMediaFolder newFolder = new LocalMediaFolder();
         newFolder.setName(folderFile.getName());
         newFolder.setPath(folderFile.getAbsolutePath());
-        newFolder.setFirstImagePath(path);
+        newFolder.setFirstImagePath(imageFile.getPath());
         return newFolder;
     }
 

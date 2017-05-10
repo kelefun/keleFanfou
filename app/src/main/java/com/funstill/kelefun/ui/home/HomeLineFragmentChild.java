@@ -21,7 +21,6 @@ import com.funstill.kelefun.http.SignInterceptor;
 import com.funstill.kelefun.ui.MainActivity;
 import com.funstill.kelefun.util.LogHelper;
 import com.funstill.kelefun.util.ToastUtil;
-import com.funstill.library.view.ImagePreviewFragment;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -85,7 +84,7 @@ public class HomeLineFragmentChild extends SupportFragment implements SwipeRefre
         });
         mAdapter.setOnPhotoClickListener((position, vh) -> {
             ToastUtil.showToast(_mActivity,data.get(position).getPhoto().getLargeurl());
-            ImagePreviewFragment.getInstance(data.get(position).getPhoto().getLargeurl());
+//            ImagePreviewFragment.getInstance(data.get(position).getPhoto().getLargeurl());
         });
 
         //初始化数据

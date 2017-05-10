@@ -27,7 +27,7 @@ public class ImageSelector {
 
     public void open(Activity mActivity) {
         if (imageSelector.selectorConfig == null) {
-            Log.e(TAG, "请配置 GalleryConfig");
+            Log.e(TAG, "请配置 SelectorConfig");
             return;
         }
         if (imageSelector.selectorConfig.getIHandlerCallBack() == null) {

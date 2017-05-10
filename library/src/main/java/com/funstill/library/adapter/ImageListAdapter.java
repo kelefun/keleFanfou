@@ -27,8 +27,8 @@ public class ImageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private boolean enablePreview = true;
     private int maxSelectNum;
 
-    private List<LocalMedia> images = new ArrayList<LocalMedia>();
-    private List<LocalMedia> selectImages = new ArrayList<LocalMedia>();
+    private List<LocalMedia> images = new ArrayList<>();
+    private List<LocalMedia> selectImages = new ArrayList<>();
 
     private OnImageSelectChangedListener imageSelectChangedListener;
 
