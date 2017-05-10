@@ -21,6 +21,7 @@ import com.funstill.kelefun.http.SignInterceptor;
 import com.funstill.kelefun.ui.MainActivity;
 import com.funstill.kelefun.util.LogHelper;
 import com.funstill.kelefun.util.ToastUtil;
+import com.funstill.kelefun.widget.ImagePreview;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -64,7 +65,7 @@ public class HomeLineFragmentChild extends SupportFragment implements SwipeRefre
 
     private void initView(View view) {
         mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        mToolbar.setTitle("饭否");
+        mToolbar.setTitle("饭否 HOME");
         mRecyclerView = (RecyclerView) view.findViewById(R.id.line_recycler);
         mLayoutManager = new LinearLayoutManager(_mActivity);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -83,8 +84,7 @@ public class HomeLineFragmentChild extends SupportFragment implements SwipeRefre
 //            ToastUtil.showToast(_mActivity,"点击了卡片"+position+"--"+viewHolder.statusView.getText().toString().substring(0,10));
         });
         mAdapter.setOnPhotoClickListener((position, vh) -> {
-            ToastUtil.showToast(_mActivity,data.get(position).getPhoto().getLargeurl());
-//            ImagePreviewFragment.getInstance(data.get(position).getPhoto().getLargeurl());
+            ImagePreview.startPreview(_mActivity,data.get(position).getPhoto().getLargeurl());
         });
 
         //初始化数据
@@ -112,7 +112,7 @@ public class HomeLineFragmentChild extends SupportFragment implements SwipeRefre
         StatusAdapter.ViewHolder viewHolder = (StatusAdapter.ViewHolder) mRecyclerView.getChildViewHolder(view);
         Map<String,String> map = new ArrayMap<>();
         map.put("since_id",viewHolder.statusIdView.getText().toString());
-        LogHelper.d("消息id ",map.get("since_id"));
+//        LogHelper.d("消息id ",map.get("since_id"));
         getHomeLineStatus(map);
     }
 

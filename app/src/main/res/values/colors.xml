@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorWhite">#ffffff</color>
-    <color name="colorBlack">#000000</color>
     <color name="colorGrey">#c9c9c9</color>
     <color name="colorPrimary">#00CCFF</color>
     <color name="colorPrimaryDark">#05BFEE</color>
@@ -9,6 +7,4 @@
     <color name="colorGreen">#2AD6AC</color>
     <color name="colorOrange">#FF9800</color>
     <color name="colorRed">#ff0000</color>
-
-    <color name="gallery_blue">#00CCFF</color>
 </resources>

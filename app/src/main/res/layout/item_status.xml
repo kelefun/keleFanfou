@@ -73,7 +73,7 @@
                 android:layout_marginLeft="@dimen/base_dimen_8dp"
                 android:layout_marginTop="@dimen/base_dimen_4dp"
                 android:lineSpacingExtra="@dimen/base_dimen_4dp"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/black"
                 android:text="饭否是一个 140 字的迷你博客目前，饭否支持 饭否网页、手机上网、手机短信、手机彩信（发照片）、QQ、MSN、GTalk机器人 和 API 等方式来发布消息以及同步个人签名，发布一句话博客"
                 android:textSize="15sp" />
 

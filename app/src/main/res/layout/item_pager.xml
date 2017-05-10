@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:textColor="@android:color/black"
-        android:text="sdf"
+        android:text=""
         android:textSize="17sp"/>
 
     <View
