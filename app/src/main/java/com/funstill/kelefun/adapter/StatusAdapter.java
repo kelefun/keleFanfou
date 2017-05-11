@@ -56,7 +56,7 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
 //        final View view = holder.mView;
         // 把每个图片视图设置不同的Transition名称, 防止在一个视图内有多个相同的名称, 在变换的时候造成混乱
         // Fragment支持多个View进行变换, 使用适配器时, 需要加以区分
-        ViewCompat.setTransitionName(holder.statusIdView, String.valueOf(position) + "_statusIdView");
+//        ViewCompat.setTransitionName(holder.statusIdView, String.valueOf(position) + "_statusIdView");
         ViewCompat.setTransitionName(holder.screenNameView, String.valueOf(position) + "_screenNameView");
         ViewCompat.setTransitionName(holder.timeSourceView, String.valueOf(position) + "_timeSourceView");
         ViewCompat.setTransitionName(holder.statusView, String.valueOf(position) + "_statusView");
@@ -65,7 +65,7 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
 
         if(data.size()!=0){
             Status status= data.get(position);
-            holder.statusIdView.setText(status.getId());
+//            holder.statusIdView.setText(status.getId());
             holder.screenNameView.setText(status.getUser().getScreenName());
             holder.timeSourceView.setText(DateAgo.toAgo(status.getCreatedAt())+Html.fromHtml(status.getSource()).toString());
             holder.statusView.setText(status.getText());
@@ -104,7 +104,7 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         final View mView;
-        public TextView statusIdView;
+//        public TextView statusIdView;
         public TextView screenNameView;
         public TextView timeSourceView;
         public TextView statusView;
@@ -115,7 +115,7 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            statusIdView = (TextView) itemView.findViewById(R.id.statusIdView);
+//            statusIdView = (TextView) itemView.findViewById(R.id.statusIdView);
             screenNameView = (TextView) itemView.findViewById(R.id.screenNameView);
             timeSourceView = (TextView) itemView.findViewById(R.id.timeSourceView);
             statusView = (TextView) itemView.findViewById(R.id.statusView);

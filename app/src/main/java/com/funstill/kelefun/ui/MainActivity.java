@@ -80,7 +80,7 @@ public class MainActivity extends SupportActivity implements BaseMainFragment.On
     private void initView() {
         mBottomBar = (BottomBar) findViewById(R.id.bottomBar);
 
-        mBottomBar.addItem(new BottomBarTab(this, R.drawable.ic_home_white_24dp))
+        mBottomBar.addItem(new BottomBarTab(this, R.drawable.ic_bottomtabbar_homeline))
                 .addItem(new BottomBarTab(this, R.drawable.ic_bottomtabbar_explore))
                 .addItem(new BottomBarTab(this, R.drawable.ic_bottomtabbar_add))
                 .addItem(new BottomBarTab(this, R.drawable.ic_message_white_24dp));

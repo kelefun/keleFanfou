@@ -103,11 +103,9 @@ public class ExploreFragmentChild extends SupportFragment implements SwipeRefres
     public void onRefresh() {
         // TODO: 2017/4/21 如果第一次没加载出来,则刷新
         mRefreshLayout.post(() -> mRefreshLayout.setRefreshing(true));
-        int firstItemPosition = mLayoutManager.findFirstVisibleItemPosition();
-        View view = mRecyclerView.getChildAt(firstItemPosition);
-        StatusAdapter.ViewHolder viewHolder = (StatusAdapter.ViewHolder) mRecyclerView.getChildViewHolder(view);
+        mRefreshLayout.setEnabled(false);
         Map<String,String> map = new ArrayMap<>();
-        map.put("since_id",viewHolder.statusIdView.getText().toString());
+        map.put("since_id",data.get(0).getId());
         getPublicTimeLineStatus(map);
     }
 
@@ -151,6 +149,9 @@ public class ExploreFragmentChild extends SupportFragment implements SwipeRefres
                 if (response.code() == 200) {
                     List<Status> statusList = response.body();
                     if(statusList.size()>0){
+//                        for(Status status:statusList){
+//                            LogHelper.e(status.getId()+"###"+status.getText());
+//                        }
                         if(data.size()>0){ //让新增的数据在前面
                             List<Status> tempList  = new ArrayList<>();
                             tempList.addAll(data);
@@ -167,6 +168,7 @@ public class ExploreFragmentChild extends SupportFragment implements SwipeRefres
                     }
                 }
                 mRefreshLayout.setRefreshing(false);
+                mRefreshLayout.setEnabled(true);
             }
 
             @Override

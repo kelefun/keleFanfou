@@ -102,13 +102,17 @@ public class HomeLineFragmentChild extends SupportFragment implements SwipeRefre
 
     @Override
     public void onRefresh() {
-        // TODO: 2017/4/21 如果第一次没加载出来,则刷新 
-        mRefreshLayout.post(() -> mRefreshLayout.setRefreshing(true));
-        int firstItemPosition = mLayoutManager.findFirstVisibleItemPosition();
-        View view = mRecyclerView.getChildAt(firstItemPosition);
-        StatusAdapter.ViewHolder viewHolder = (StatusAdapter.ViewHolder) mRecyclerView.getChildViewHolder(view);
+        // TODO: 2017/4/21 如果第一次没加载出来,则刷新
+        mRefreshLayout.post(() -> {
+            mRefreshLayout.setRefreshing(true);
+            mRefreshLayout.setEnabled(false);
+        });
+        mRefreshLayout.setEnabled(false);
+//        int firstItemPosition = mLayoutManager.findFirstVisibleItemPosition();
+//        View view = mRecyclerView.getChildAt(firstItemPosition);
+//        StatusAdapter.ViewHolder viewHolder = (StatusAdapter.ViewHolder) mRecyclerView.getChildViewHolder(view);
         Map<String,String> map = new ArrayMap<>();
-        map.put("since_id",viewHolder.statusIdView.getText().toString());
+        map.put("since_id",data.get(0).getId());
         getHomeLineStatus(map);
     }
 
@@ -168,6 +172,7 @@ public class HomeLineFragmentChild extends SupportFragment implements SwipeRefre
                     }
                 }
                 mRefreshLayout.setRefreshing(false);
+                mRefreshLayout.setEnabled(true);
             }
 
             @Override

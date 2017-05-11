@@ -36,7 +36,7 @@ public class BottomBarTab extends FrameLayout {
         mContext = context;
         TypedArray typedArray = context.obtainStyledAttributes(new int[]{R.attr.selectableItemBackgroundBorderless});
         Drawable drawable = typedArray.getDrawable(0);
-        setBackgroundDrawable(drawable);
+        setBackground(drawable);
         typedArray.recycle();
 
         mIcon = new ImageView(context);
@@ -45,7 +45,7 @@ public class BottomBarTab extends FrameLayout {
         params.gravity = Gravity.CENTER;
         mIcon.setImageResource(icon);
         mIcon.setLayoutParams(params);
-        mIcon.setColorFilter(ContextCompat.getColor(context, R.color.colorGreen));
+        mIcon.setColorFilter(ContextCompat.getColor(context, R.color.colorGrey));
         addView(mIcon);
     }
 
@@ -55,7 +55,7 @@ public class BottomBarTab extends FrameLayout {
         if (selected) {
             mIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorPrimary));
         } else {
-            mIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorGreen));
+            mIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorGrey));
         }
     }
 
