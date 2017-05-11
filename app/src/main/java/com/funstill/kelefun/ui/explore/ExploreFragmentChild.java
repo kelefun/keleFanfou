@@ -21,6 +21,7 @@ import com.funstill.kelefun.http.SignInterceptor;
 import com.funstill.kelefun.ui.MainActivity;
 import com.funstill.kelefun.util.LogHelper;
 import com.funstill.kelefun.util.ToastUtil;
+import com.funstill.kelefun.widget.ImagePreview;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -80,7 +81,9 @@ public class ExploreFragmentChild extends SupportFragment implements SwipeRefres
         mAdapter.setOnItemClickListener((position, vh) -> {
             ToastUtil.showToast(_mActivity,"点击了卡片");
         });
-
+        mAdapter.setOnPhotoClickListener((position, vh) -> {
+            ImagePreview.startPreview(_mActivity,data.get(position).getPhoto().getLargeurl());
+        });
         //初始化数据
         Map<String,String> map = new ArrayMap<>();
         map.put("count","20");

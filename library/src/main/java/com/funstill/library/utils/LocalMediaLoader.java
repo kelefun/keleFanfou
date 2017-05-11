@@ -32,12 +32,12 @@ public class LocalMediaLoader {
             MediaStore.Images.Media.DATE_ADDED,
             MediaStore.Images.Media._ID};
 
-    private final static String[] VIDEO_PROJECTION = {
-            MediaStore.Video.Media.DATA,
-            MediaStore.Video.Media.DISPLAY_NAME,
-            MediaStore.Video.Media.DATE_ADDED,
-            MediaStore.Video.Media._ID,
-            MediaStore.Video.Media.DURATION};
+//    private final static String[] VIDEO_PROJECTION = {
+//            MediaStore.Video.Media.DATA,
+//            MediaStore.Video.Media.DISPLAY_NAME,
+//            MediaStore.Video.Media.DATE_ADDED,
+//            MediaStore.Video.Media._ID,
+//            MediaStore.Video.Media.DURATION};
 
     private int type = TYPE_IMAGE;
     private FragmentActivity activity;
@@ -53,13 +53,13 @@ public class LocalMediaLoader {
         activity.getSupportLoaderManager().initLoader(type, null, new LoaderManager.LoaderCallbacks<Cursor>() {
             @Override
             public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-                CursorLoader cursorLoader = null;
                 if (id == TYPE_IMAGE) {
-                    cursorLoader = new CursorLoader(activity, MediaStore.Images.Media.EXTERNAL_CONTENT_URI, IMAGE_PROJECTION, null, null, IMAGE_PROJECTION[2] + " DESC");
-                } else if (id == TYPE_VIDEO) {
-                    cursorLoader = new CursorLoader( activity, MediaStore.Video.Media.EXTERNAL_CONTENT_URI,VIDEO_PROJECTION, null, null, VIDEO_PROJECTION[2] + " DESC");
+                   return new CursorLoader(activity, MediaStore.Images.Media.EXTERNAL_CONTENT_URI, IMAGE_PROJECTION, null, null, IMAGE_PROJECTION[2] + " DESC");
                 }
-                return cursorLoader;
+//                else if (id == TYPE_VIDEO) {
+//                    cursorLoader = new CursorLoader( activity, MediaStore.Video.Media.EXTERNAL_CONTENT_URI,VIDEO_PROJECTION, null, null, VIDEO_PROJECTION[2] + " DESC");
+//                }
+                return null;
             }
 
             @Override
@@ -75,7 +75,6 @@ public class LocalMediaLoader {
 //                        String name = data.getString(data.getColumnIndexOrThrow(IMAGE_PROJECTION[1]));
 //                        long dateTime = data.getLong(data.getColumnIndexOrThrow(IMAGE_PROJECTION[2]));
                         int size = data.getInt(data.getColumnIndexOrThrow(IMAGE_PROJECTION[3]));
-//                        Log.i("测试",path);
                         boolean showFlag = size > 1024 * 10;//图片大于10KB
 
                         if (showFlag) {
@@ -87,9 +86,8 @@ public class LocalMediaLoader {
                             } else {
                                 mDirPaths.add(parentFilePath);
                             }
-                            //TODO 代码写法需要改善
                             LocalMediaFolder localMediaFolder = getImageFolder(imageFile, imageFolderList);
-                            File[] files = parentFile.listFiles();
+                            File[] files = parentFile.listFiles();//过滤video
                             ArrayList<LocalMedia> images = new ArrayList<>();
                             for (int i = files.length-1; i >=0; i--) {
                                 File f = files[i];
@@ -104,13 +102,13 @@ public class LocalMediaLoader {
                             }
                         }
                     }//while结束
+                    //TODO 改成最近图片
                     LocalMediaFolder imageFolder = new LocalMediaFolder();//所有图片文件夹
                     imageFolder.setImages(allImages);
                     imageFolder.setImageNum(allImages.size());
                     imageFolder.setFirstImagePath(allImages.get(0).getPath());
                     imageFolder.setName(activity.getString(R.string.all_image));
                     imageFolderList.add(0,imageFolder);
-//                    sortFolder(imageFolders);
                     imageLoadListener.loadComplete(imageFolderList);
                     if (data != null) data.close();
                 }
@@ -123,20 +121,6 @@ public class LocalMediaLoader {
         });
     }
 
-//    private void sortFolder(List<LocalMediaFolder> imageFolders) {
-//        // 文件夹按图片数量排序
-//        Collections.sort(imageFolders, new Comparator<LocalMediaFolder>() {
-//            @Override
-//            public int compare(LocalMediaFolder lhs, LocalMediaFolder rhs) {
-//                if (lhs.getImages() == null || rhs.getImages() == null) {
-//                    return 0;
-//                }
-//                int lsize = lhs.getImageNum();
-//                int rsize = rhs.getImageNum();
-//                return lsize == rsize ? 0 : (lsize < rsize ? 1 : -1);
-//            }
-//        });
-//    }
 
     private LocalMediaFolder getImageFolder(File imageFile, List<LocalMediaFolder> imageFolders) {
         File folderFile = imageFile.getParentFile();
