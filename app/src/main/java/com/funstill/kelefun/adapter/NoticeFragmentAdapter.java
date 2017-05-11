@@ -8,11 +8,8 @@ import com.funstill.kelefun.ui.notice.page.FirstPagerFragment;
 import com.funstill.kelefun.ui.notice.page.OtherPagerFragment;
 
 
-/**
- * Created by YoKeyword on 16/6/5.
- */
 public class NoticeFragmentAdapter extends FragmentPagerAdapter {
-    private String[] mTab = new String[]{ "@我","私信", "通知"};
+    private String[] mTab = new String[]{ "@我","私信","通知"};
 
     public NoticeFragmentAdapter(FragmentManager fm) {
         super(fm);

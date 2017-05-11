@@ -13,19 +13,16 @@ import com.funstill.kelefun.adapter.NoticeFragmentAdapter;
 
 import me.yokeyword.fragmentation.SupportFragment;
 
-
 /**
  * Created by YoKeyword on 16/6/5.
  */
-public class NoticeFragmentChild extends SupportFragment {
+public class ViewPagerFragment extends SupportFragment {
     private TabLayout mTab;
     private ViewPager mViewPager;
 
-    public static NoticeFragmentChild newInstance() {
-
+    public static ViewPagerFragment newInstance() {
         Bundle args = new Bundle();
-
-        NoticeFragmentChild fragment = new NoticeFragmentChild();
+        ViewPagerFragment fragment = new ViewPagerFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -33,7 +30,7 @@ public class NoticeFragmentChild extends SupportFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_explore_child, container, false);
+        View view = inflater.inflate(R.layout.fragment_notice_pager, container, false);
         initView(view);
         return view;
     }

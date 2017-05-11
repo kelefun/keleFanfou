@@ -12,6 +12,8 @@ import com.funstill.kelefun.ui.explore.ExploreFragment;
 import com.funstill.kelefun.ui.explore.ExploreFragmentChild;
 import com.funstill.kelefun.ui.home.HomeLineFragment;
 import com.funstill.kelefun.ui.home.HomeLineFragmentChild;
+import com.funstill.kelefun.ui.notice.NoticeFragment;
+import com.funstill.kelefun.ui.notice.ViewPagerFragment;
 import com.funstill.kelefun.ui.send.SendStatusFragment;
 import com.funstill.kelefun.ui.send.SendStatusFragmentChild;
 
@@ -25,9 +27,9 @@ public class MainActivity extends SupportActivity implements BaseMainFragment.On
     public static final int FIRST = 0;
     public static final int SECOND = 1;
     public static final int THIRD = 2;
-//    public static final int FOURTH = 3;
+    public static final int FOURTH = 3;
 
-    private SupportFragment[] mFragments = new SupportFragment[3];
+    private SupportFragment[] mFragments = new SupportFragment[4];
 
     private BottomBar mBottomBar;
     @Override
@@ -40,13 +42,13 @@ public class MainActivity extends SupportActivity implements BaseMainFragment.On
             mFragments[FIRST] = HomeLineFragment.newInstance();
             mFragments[SECOND] = ExploreFragment.newInstance();
             mFragments[THIRD] = SendStatusFragment.newInstance();
-//          mFragments[FOURTH] = HomeLineFragment.newInstance();
+            mFragments[FOURTH] = NoticeFragment.newInstance();
 
             loadMultipleRootFragment(R.id.fl_container, FIRST,
                     mFragments[FIRST],
                     mFragments[SECOND],
-                    mFragments[THIRD]);
-//                    mFragments[FOURTH]);
+                    mFragments[THIRD],
+                    mFragments[FOURTH]);
         } else {
             // 这里库已经做了Fragment恢复,所有不需要额外的处理了, 不会出现重叠问题
 
@@ -54,7 +56,7 @@ public class MainActivity extends SupportActivity implements BaseMainFragment.On
             mFragments[FIRST] = findFragment(HomeLineFragment.class);
             mFragments[SECOND] = findFragment(ExploreFragment.class);
             mFragments[THIRD] = findFragment(SendStatusFragment.class);
-//            mFragments[FOURTH] = findFragment(HomeLineFragment.class);
+            mFragments[FOURTH] = findFragment(NoticeFragment.class);
         }
 
         initView();
@@ -80,8 +82,8 @@ public class MainActivity extends SupportActivity implements BaseMainFragment.On
 
         mBottomBar.addItem(new BottomBarTab(this, R.drawable.ic_home_white_24dp))
                 .addItem(new BottomBarTab(this, R.drawable.ic_bottomtabbar_explore))
-//                .addItem(new BottomBarTab(this, R.drawable.ic_message_white_24dp))
-                .addItem(new BottomBarTab(this, R.drawable.ic_bottomtabbar_add));
+                .addItem(new BottomBarTab(this, R.drawable.ic_bottomtabbar_add))
+                .addItem(new BottomBarTab(this, R.drawable.ic_message_white_24dp));
 
         mBottomBar.setOnTabSelectedListener(new BottomBar.OnTabSelectedListener() {
             @Override
@@ -107,10 +109,9 @@ public class MainActivity extends SupportActivity implements BaseMainFragment.On
                         currentFragment.popToChild(ExploreFragmentChild.class, false);
                     } else if (currentFragment instanceof SendStatusFragment) {
                         currentFragment.popToChild(SendStatusFragmentChild.class, false);
+                    }else if (currentFragment instanceof NoticeFragment) {
+                        currentFragment.popToChild(ViewPagerFragment.class, false);
                     }
-//                    else if (currentFragment instanceof ZhihuFourthFragment) {
-//                        currentFragment.popToChild(MeFragment.class, false);
-//                    }
                     return;
                 }
 
@@ -127,7 +128,6 @@ public class MainActivity extends SupportActivity implements BaseMainFragment.On
 
     @Override
     public void onBackPressedSupport() {
-        // 对于 4个类别的主Fragment内的回退back逻辑,已经在其onBackPressedSupport里各自处理了
         super.onBackPressedSupport();
     }
 
@@ -136,17 +136,6 @@ public class MainActivity extends SupportActivity implements BaseMainFragment.On
         mBottomBar.setCurrentItem(0);
     }
 
-    /**
-     * 这里暂没实现,忽略
-     */
-//    @Subscribe
-//    public void onHiddenBottombarEvent(boolean hidden) {
-//        if (hidden) {
-//            mBottomBar.hide();
-//        } else {
-//            mBottomBar.show();
-//        }
-//    }
     @Override
     protected void onDestroy() {
         super.onDestroy();

@@ -8,14 +8,11 @@ import android.view.ViewGroup;
 
 import com.funstill.kelefun.R;
 import com.funstill.kelefun.base.BaseMainFragment;
-import com.funstill.kelefun.ui.home.HomeLineFragmentChild;
 
 public class NoticeFragment extends BaseMainFragment {
 
     public static NoticeFragment newInstance() {
-
         Bundle args = new Bundle();
-
         NoticeFragment fragment = new NoticeFragment();
         fragment.setArguments(args);
         return fragment;
@@ -24,15 +21,20 @@ public class NoticeFragment extends BaseMainFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_explore, container, false);
+        View view = inflater.inflate(R.layout.fragment_notice, container, false);
+        initView(savedInstanceState);
         return view;
+    }
+
+    private void initView(Bundle savedInstanceState) {
+        if (savedInstanceState == null) {
+            loadRootFragment(R.id.fl_notice_container, ViewPagerFragment.newInstance());
+        }
     }
 
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-        if (savedInstanceState == null) {//加载子页面
-            loadRootFragment(R.id.fl_second_container, HomeLineFragmentChild.newInstance());
-        }
+        // 这里可以不用懒加载,因为Adapter的场景下,Adapter内的子Fragment只有在父Fragment是show状态时,才会被Attach,Create
     }
 }
