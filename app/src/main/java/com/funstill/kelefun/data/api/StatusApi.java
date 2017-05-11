@@ -13,7 +13,6 @@ import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
-import retrofit2.http.PartMap;
 import retrofit2.http.QueryMap;
 
 /**
@@ -33,7 +32,7 @@ public interface StatusApi {
     Call<List<Status>> getPublicTimeLine(@QueryMap Map<String, String> paramMap);
 
     /**
-     * 发送状态
+     * 发布消息
      *
      * @param photo
      * @param status
@@ -45,7 +44,6 @@ public interface StatusApi {
     Call<Status> uploadPhoto(@Part("status") RequestBody status,
                              @Part MultipartBody.Part photo);
 
-    @Multipart
     @POST("/statuses/update.json")
-    Call<Status> postStatus(@PartMap Map<String, RequestBody> partMap);
+    Call<Status> postStatus(@QueryMap Map<String, String> paramMap);
 }

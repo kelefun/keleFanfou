@@ -20,8 +20,12 @@ import java.util.List;
 public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> {
 
     private Context context;
+
     private List<String> result;
 
+    public void setResult(List<String> result) {
+        this.result = result;
+    }
     public PhotoAdapter(Context context, List<String> result) {
         this.context = context;
         this.result = result;

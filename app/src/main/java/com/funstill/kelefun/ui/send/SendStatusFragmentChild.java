@@ -20,19 +20,18 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.funstill.library.config.IHandlerCallBack;
-import com.funstill.library.config.ImageSelector;
-import com.funstill.library.config.SelectorConfig;
-import com.google.gson.Gson;
 import com.funstill.kelefun.R;
 import com.funstill.kelefun.adapter.PhotoAdapter;
+import com.funstill.kelefun.base.BaseBackFragment;
 import com.funstill.kelefun.data.api.StatusApi;
 import com.funstill.kelefun.data.model.Status;
 import com.funstill.kelefun.event.TabSelectedEvent;
 import com.funstill.kelefun.http.BaseRetrofit;
 import com.funstill.kelefun.http.SignInterceptor;
-import com.funstill.kelefun.util.LogHelper;
 import com.funstill.kelefun.util.ToastUtil;
+import com.funstill.library.config.IHandlerCallBack;
+import com.funstill.library.config.ImageSelector;
+import com.funstill.library.config.SelectorConfig;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -42,7 +41,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import me.yokeyword.fragmentation.SupportFragment;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -50,7 +48,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SendStatusFragmentChild extends SupportFragment {
+public class SendStatusFragmentChild extends BaseBackFragment {
     private final static String TAG = "SendStatusFragmentChild";
     private Toolbar mToolbar;
     private Button actionSubmit;
@@ -58,11 +56,10 @@ public class SendStatusFragmentChild extends SupportFragment {
     private final int PERMISSIONS_REQUEST_READ_CONTACTS = 8;
     private List<String> path = new ArrayList<>();
     private ImageButton selectImage;
-    private SelectorConfig galleryConfig;
+    private SelectorConfig selectorConfig;
     private IHandlerCallBack iHandlerCallBack;
     private RecyclerView rvResultPhoto;
     private PhotoAdapter photoAdapter;
-
 
     public static SendStatusFragmentChild newInstance() {
         Bundle args = new Bundle();
@@ -85,7 +82,8 @@ public class SendStatusFragmentChild extends SupportFragment {
         mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
         mToolbar.setTitle("+Fun");
         mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
-        editText =(EditText) view.findViewById(R.id.statusEdit);
+        initToolbarNav(mToolbar);
+        editText = (EditText) view.findViewById(R.id.statusEdit);
         rvResultPhoto = (RecyclerView) view.findViewById(R.id.rvResultPhoto);
         actionSubmit = (Button) view.findViewById(R.id.action_commit);
         actionSubmit.setOnClickListener(v -> {
@@ -94,19 +92,14 @@ public class SendStatusFragmentChild extends SupportFragment {
         selectImage = (ImageButton) view.findViewById(R.id.select_image);
         selectImage.setOnClickListener(v -> {
             initPermissions();
-            ImageSelector.getInstance().setSelectorConfig(galleryConfig).open(_mActivity);
+            selectorConfig.getPathList().clear();//清除已选择的图片
+            ImageSelector.getInstance().setSelectorConfig(selectorConfig).open(_mActivity);
         });
-        galleryConfig = new SelectorConfig.Builder()
+        selectorConfig = new SelectorConfig.Builder()
                 .iHandlerCallBack(iHandlerCallBack)     // 监听接口（必填）
                 .provider("com.zua.kelefun.photo.fileprovider")   // provider(必填)
                 .pathList(path)                         // 记录已选的图片
-                .multiSelect(true,3)                      // 是否多选   默认：false
-//                .multiSelect(false, 9)                   // 配置是否多选的同时 配置多选数量   默认：false ， 9
-//                .maxSize(9)                             // 配置多选时 的多选数量。    默认：9
-//                .crop(false)                             // 快捷开启裁剪功能，仅当单选 或直接开启相机时有效
-//                .crop(false, 1, 1, 500, 500)             // 配置裁剪功能的参数，   默认裁剪比例 1:1
                 .showCamera(true)                     // 是否现实相机按钮  默认：false
-//                .filePath("/Gallery/Pictures")          // 图片存放路径
                 .build();
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 3);
@@ -118,19 +111,20 @@ public class SendStatusFragmentChild extends SupportFragment {
 
 
     }
+
     // 授权管理
     private void initPermissions() {
         if (ContextCompat.checkSelfPermission(_mActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            Log.i(TAG, "需要授权 ");
+            Log.d(TAG, "需要授权 ");
             if (ActivityCompat.shouldShowRequestPermissionRationale(_mActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                Log.i(TAG, "拒绝过了");
+                Log.d(TAG, "拒绝过了");
                 Toast.makeText(_mActivity, "请在 设置-应用管理 中开启此应用的储存授权。", Toast.LENGTH_SHORT).show();
             } else {
-                Log.i(TAG, "进行授权");
+                Log.d(TAG, "进行授权");
                 ActivityCompat.requestPermissions(_mActivity, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSIONS_REQUEST_READ_CONTACTS);
             }
         } else {
-            Log.i(TAG, "不需要授权 ");
+            Log.d(TAG, "不需要授权 ");
         }
     }
 
@@ -153,37 +147,45 @@ public class SendStatusFragmentChild extends SupportFragment {
      * 发送
      */
     private void postStatus() {
+        //发送按钮置灰
         StatusApi api = BaseRetrofit.retrofit(new SignInterceptor()).create(StatusApi.class);
         Call<Status> call;
         if (path.size() > 0) {
             RequestBody status = RequestBody.create(MediaType.parse("text/plain"), editText.getText().toString());
             File file = new File(path.get(0));
             RequestBody photo = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-            MultipartBody.Part body =
-                    MultipartBody.Part.createFormData("photo", file.getName(), photo);
-            call = api.uploadPhoto(status,body);
+            MultipartBody.Part body = MultipartBody.Part.createFormData("photo", file.getName(), photo);
+            call = api.uploadPhoto(status, body);
         } else {
-            if( "".equals(editText.getText().toString())){
-                ToastUtil.showToast(_mActivity,"输入不能为空");
+            if ("".equals(editText.getText().toString())) {
+                ToastUtil.showToast(_mActivity, "输入不能为空");
                 return;
             }
-            RequestBody status = RequestBody.create(MediaType.parse("text/plain"), editText.getText().toString());
-            Map<String, RequestBody> partMap = new ArrayMap<>();
+            String status = editText.getText().toString();
+            Map<String, String> partMap = new ArrayMap<>();
             partMap.put("status", status);
             call = api.postStatus(partMap);
         }
+        backToHome();
         call.enqueue(new Callback<Status>() {
             @Override
             public void onResponse(Call<Status> call, Response<Status> response) {
-                Gson gson = new Gson();
-                gson.toJson(response.body());
-                LogHelper.i(gson.toJson(response.body()));
-                //TODO 清除页面已填数据
+//                Gson gson = new Gson();
+//                gson.toJson(response.body());
+//                LogHelper.d(gson.toJson(response.body()));
+                //清除页面已填数据
+                editText.setText("");
+                path.clear();
+                photoAdapter.setResult(path);
+                photoAdapter.notifyDataSetChanged();
+                ToastUtil.showToast(_mActivity, "发布消息成功");
             }
 
             @Override
             public void onFailure(Call<Status> call, Throwable t) {
+                ToastUtil.showToast(_mActivity, "发布消息失败");
             }
+
         });
     }
 
@@ -220,6 +222,14 @@ public class SendStatusFragmentChild extends SupportFragment {
                 Log.i(TAG, "onError: 出错");
             }
         };
-
     }
+
+    /**
+     * 返回首页
+     */
+    private void backToHome() {
+        _mActivity.onBackPressed();
+    }
+
+
 }

@@ -30,7 +30,6 @@ public class MainActivity extends SupportActivity implements BaseMainFragment.On
     private SupportFragment[] mFragments = new SupportFragment[3];
 
     private BottomBar mBottomBar;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,8 +78,7 @@ public class MainActivity extends SupportActivity implements BaseMainFragment.On
     private void initView() {
         mBottomBar = (BottomBar) findViewById(R.id.bottomBar);
 
-        mBottomBar
-                .addItem(new BottomBarTab(this, R.drawable.ic_home_white_24dp))
+        mBottomBar.addItem(new BottomBarTab(this, R.drawable.ic_home_white_24dp))
                 .addItem(new BottomBarTab(this, R.drawable.ic_bottomtabbar_explore))
 //                .addItem(new BottomBarTab(this, R.drawable.ic_message_white_24dp))
                 .addItem(new BottomBarTab(this, R.drawable.ic_bottomtabbar_add));
@@ -154,4 +152,5 @@ public class MainActivity extends SupportActivity implements BaseMainFragment.On
         super.onDestroy();
 //        EventBus.getDefault().unregister(this);
     }
+
 }

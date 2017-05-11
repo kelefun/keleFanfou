@@ -7,7 +7,9 @@ import com.funstill.kelefun.R;
 
 import me.yokeyword.fragmentation.SupportFragment;
 
-
+/**
+ * Created by YoKeyword on 16/2/7.
+ */
 public class BaseBackFragment extends SupportFragment {
 
     protected void initToolbarNav(Toolbar toolbar) {

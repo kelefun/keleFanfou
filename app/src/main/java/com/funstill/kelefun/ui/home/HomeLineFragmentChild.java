@@ -54,7 +54,6 @@ public class HomeLineFragmentChild extends SupportFragment implements SwipeRefre
         return fragment;
     }
 
-    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_homeline_child, container, false);
@@ -80,8 +79,6 @@ public class HomeLineFragmentChild extends SupportFragment implements SwipeRefre
 
         mAdapter.setOnItemClickListener((position,  vh) -> {
             ToastUtil.showToast(_mActivity,"点击了卡片"+position+"--"+data.get(position).toString().substring(0,10));
-//            StatusAdapter.ViewHolder viewHolder = (StatusAdapter.ViewHolder)vh;
-//            ToastUtil.showToast(_mActivity,"点击了卡片"+position+"--"+viewHolder.statusView.getText().toString().substring(0,10));
         });
         mAdapter.setOnPhotoClickListener((position, vh) -> {
             ImagePreview.startPreview(_mActivity,data.get(position).getPhoto().getLargeurl());
@@ -112,7 +109,6 @@ public class HomeLineFragmentChild extends SupportFragment implements SwipeRefre
         StatusAdapter.ViewHolder viewHolder = (StatusAdapter.ViewHolder) mRecyclerView.getChildViewHolder(view);
         Map<String,String> map = new ArrayMap<>();
         map.put("since_id",viewHolder.statusIdView.getText().toString());
-//        LogHelper.d("消息id ",map.get("since_id"));
         getHomeLineStatus(map);
     }
 

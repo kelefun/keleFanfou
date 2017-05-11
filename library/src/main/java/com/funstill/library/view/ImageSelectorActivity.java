@@ -126,7 +126,6 @@ public class ImageSelectorActivity extends AppCompatActivity {
         mHandlerCallBack = selectorConfig.getIHandlerCallBack();
         mHandlerCallBack.onStart();
         resultPhoto = selectorConfig.getPathList();
-
     }
 
     public void registerListener() {
