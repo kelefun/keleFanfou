@@ -47,18 +47,14 @@ dependencies {
     //网络请求
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     //图片处理库
-//    compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
-
-    //底部菜单栏
-//    compile 'com.roughike:bottom-bar:2.2.0'
+    //图片标签
+    compile 'net.wujingchao.android.view:simple-tag-imageview:1.0.1'
 
     compile 'me.yokeyword:fragmentation-swipeback:0.7.9'
     compile 'me.yokeyword:fragmentation:0.10.1'
 
-//    // Glide : image process
-//    compile 'com.github.bumptech.glide:glide:3.7.0'
 //    // ButterKnife
 //    compile 'com.jakewharton:butterknife:8.4.0'
 //    // AutoValue
@@ -73,7 +69,5 @@ dependencies {
     compile 'com.jakewharton.rxbinding:rxbinding:1.0.0'
 //    // EventBus
     compile 'org.greenrobot:eventbus:3.0.0'
-//    compile 'com.github.YancyYe:GalleryPick:1.2.1'
-//    compile project(path: ':imageselector')
     compile project(path: ':library')
 }

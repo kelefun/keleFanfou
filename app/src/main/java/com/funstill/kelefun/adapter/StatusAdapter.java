@@ -16,6 +16,8 @@ import com.funstill.kelefun.data.model.Status;
 import com.funstill.kelefun.listener.OnItemClickListener;
 import com.funstill.kelefun.util.DateAgo;
 
+import net.wujingchao.android.view.SimpleTagImageView;
+
 import java.util.List;
 
 public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder> {
@@ -67,12 +69,16 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
             holder.screenNameView.setText(status.getUser().getScreenName());
             holder.timeSourceView.setText(DateAgo.toAgo(status.getCreatedAt())+Html.fromHtml(status.getSource()).toString());
             holder.statusView.setText(status.getText());
+
             Glide.with(mContext)
                     .load(status.getUser().getProfileImageUrl())
 //                    .placeholder(R.drawable.tab_item_bg)
                     .into(holder.avatarView);
             if(status.getPhoto() != null){
                 holder.photoView.setVisibility(View.VISIBLE);
+                if(status.getPhoto().getLargeurl().endsWith("gif")){
+                    holder.photoView.setTagEnable(true);
+                }
                 Glide.with(mContext)
                         .load(status.getPhoto().getImageurl())
 //                    .placeholder(R.drawable.tab_item_bg)
@@ -81,22 +87,6 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
                 holder.photoView.setVisibility(View.GONE);
             }
         }
-
-//
-//        holder.photoView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Log.i("image----","image");
-//            }
-//        });
-//
-//        holder.itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Log.i("itemView----","itemView");
-//            }
-//        });
-
     }
 
     @Override
@@ -119,7 +109,7 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
         public TextView timeSourceView;
         public TextView statusView;
         public ImageView avatarView;
-        public ImageView photoView;
+        public SimpleTagImageView photoView;
 //        public TextView replyUserView;
 
         public ViewHolder(View view) {
@@ -130,7 +120,7 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
             timeSourceView = (TextView) itemView.findViewById(R.id.timeSourceView);
             statusView = (TextView) itemView.findViewById(R.id.statusView);
             avatarView = (ImageView) itemView.findViewById(R.id.avatarView);
-            photoView = (ImageView) itemView.findViewById(R.id.photoView);
+            photoView = (SimpleTagImageView) itemView.findViewById(R.id.photoView);
         }
     }
 }

@@ -53,9 +53,9 @@ public class LogHelper {
             tag = logTag;
         }
         if (value == null) {
-            Log.d(tag, key);
+            Log.e(tag, key);
         } else {
-            Log.d(tag, key + "----->" + value);
+            Log.e(tag, key + "----->" + value);
         }
     }
 

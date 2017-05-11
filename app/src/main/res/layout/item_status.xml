@@ -76,13 +76,20 @@
                 android:textColor="@color/black"
                 android:text="饭否是一个 140 字的迷你博客目前，饭否支持 饭否网页、手机上网、手机短信、手机彩信（发照片）、QQ、MSN、GTalk机器人 和 API 等方式来发布消息以及同步个人签名，发布一句话博客"
                 android:textSize="15sp" />
-
-            <ImageView
+            <net.wujingchao.android.view.SimpleTagImageView
+                xmlns:simple="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/photoView"
+                android:layout_marginTop="@dimen/base_dimen_6dp"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:layout_marginTop="@dimen/base_dimen_6dp" />
-
+                simple:simple_tag_textSize="12sp"
+                simple:simple_corner_distance="30dp"
+                simple:simple_tag_text="动图"
+                simple:simple_tag_background_color="@color/colorPrimary"
+                simple:simple_tag_orientation="left_top"
+                simple:simple_tag_width="20dip"
+                simple:simple_tag_textColor="@android:color/white"
+                simple:simple_tag_enable="false"/>
         </LinearLayout>
 
 

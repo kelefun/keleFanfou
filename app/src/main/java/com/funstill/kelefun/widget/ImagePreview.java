@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.funstill.kelefun.R;
 
 /**
@@ -31,10 +32,18 @@ public class ImagePreview extends Activity {
         mImageView = (ImageView) findViewById(R.id.statusImagePreview);
         view =  findViewById(R.id.activityStatusImagePreview);
         String mImageUrl = getIntent().getStringExtra(EXTRA_IMAGE_URL);
-        Glide.with(this)
-                .load(mImageUrl)
+        if(mImageUrl.endsWith("gif")){
+            Glide.with(this)
+                    .load(mImageUrl)
+                .asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE)
 //                    .placeholder(R.drawable.tab_item_bg)
-                .into(mImageView);
+                    .into(mImageView);
+        }else {
+            Glide.with(this)
+                    .load(mImageUrl)
+//                    .placeholder(R.drawable.tab_item_bg)
+                    .into(mImageView);
+        }
         view.setOnClickListener(v -> {
             this.finish();
         });
