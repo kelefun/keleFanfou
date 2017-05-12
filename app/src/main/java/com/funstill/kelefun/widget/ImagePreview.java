@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -43,6 +44,8 @@ public class ImagePreview extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_status_image_preview);
+        Window window = this.getWindow();
+        window.setStatusBarColor(getColor(R.color.black));
         mImageView = (ImageView) findViewById(R.id.statusImagePreview);
         view = findViewById(R.id.activityStatusImagePreview);
         String mImageUrl = getIntent().getStringExtra(EXTRA_IMAGE_URL);
