@@ -45,26 +45,26 @@ public class ImageSelector {
         mActivity.startActivity(intent);
     }
 
-    public void openCamera(Activity mActivity) {
-        if (imageSelector.selectorConfig == null) {
-            Log.e(TAG, "请配置 GalleryConfig");
-            return;
-        }
-        if (imageSelector.selectorConfig.getIHandlerCallBack() == null) {
-            Log.e(TAG, "请配置 IHandlerCallBack");
-            return;
-        }
-        if (TextUtils.isEmpty(imageSelector.selectorConfig.getProvider())) {
-            Log.e(TAG, "请配置 Provider");
-            return;
-        }
-
-        FileUtils.createFile(imageSelector.selectorConfig.getFilePath());
-
-        Intent intent = new Intent(mActivity, ImageSelectorActivity.class);
-        intent.putExtra("isOpenCamera", true);
-        mActivity.startActivity(intent);
-    }
+//    public void openCamera(Activity mActivity) {
+//        if (imageSelector.selectorConfig == null) {
+//            Log.e(TAG, "请配置 GalleryConfig");
+//            return;
+//        }
+//        if (imageSelector.selectorConfig.getIHandlerCallBack() == null) {
+//            Log.e(TAG, "请配置 IHandlerCallBack");
+//            return;
+//        }
+//        if (TextUtils.isEmpty(imageSelector.selectorConfig.getProvider())) {
+//            Log.e(TAG, "请配置 Provider");
+//            return;
+//        }
+//
+//        FileUtils.createFile(imageSelector.selectorConfig.getFilePath());
+//
+//        Intent intent = new Intent(mActivity, ImageSelectorActivity.class);
+//        intent.putExtra("isOpenCamera", true);
+//        mActivity.startActivity(intent);
+//    }
 
 
     public SelectorConfig getSelectorConfig() {

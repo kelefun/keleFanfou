@@ -34,8 +34,9 @@
             android:label="@string/app_name"/>
         <activity android:name="com.funstill.kelefun.ui.MainActivity"
             android:label="@string/fan_fou"/>
-        <activity android:name="com.funstill.kelefun.widget.ImagePreview"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
+        <activity android:name="com.funstill.kelefun.widget.ImagePreview"/>
+      <!--  <activity android:name="com.funstill.kelefun.widget.ImagePreview"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>-->
     </application>
 
 </manifest>

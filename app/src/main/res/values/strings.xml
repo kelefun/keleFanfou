@@ -3,7 +3,6 @@
     <string name="fan_fou">饭否</string>
     <string name="action_settings">设置</string>
     <string name="tab_home_timeline">首页</string>
-    <string name="tab_home_mention">提到我的</string>
     <!-- Strings related to login -->
     <string name="prompt_username">饭否账号</string>
     <string name="prompt_password">饭否密码</string>

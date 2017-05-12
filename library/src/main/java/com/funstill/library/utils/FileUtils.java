@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Environment;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -45,24 +44,25 @@ public class FileUtils {
     public static void createFile(String filePath) {
         String externalStorageState = Environment.getExternalStorageState();
 
-//        File dir = new File(Environment.getExternalStorageDirectory() + filePath);
-        File cropFile = new File(Environment.getExternalStorageDirectory() + filePath + "/crop");
+        File dir = new File(Environment.getExternalStorageDirectory() + filePath);
 
         if (externalStorageState.equals(Environment.MEDIA_MOUNTED)) {
-            if (!cropFile.exists()) {
-                cropFile.mkdirs();
+            if (!dir.exists()) {
+                dir.mkdirs();
             }
 
-            File file = new File(cropFile, ".nomedia");    // 创建忽视文件。   有该文件，系统将检索不到此文件夹下的图片。
-            if (!file.exists()) {
-                try {
-                    file.createNewFile();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+//            File file = new File(cropFile, ".nomedia");    // 创建忽视文件。   有该文件，系统将检索不到此文件夹下的图片。
+//            if (!file.exists()) {
+//                try {
+//                    file.createNewFile();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
 
         }
     }
+
+
 
 }

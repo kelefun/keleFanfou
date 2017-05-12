@@ -15,21 +15,17 @@ import com.funstill.kelefun.R;
 import com.funstill.kelefun.config.AccountStore;
 import com.funstill.kelefun.data.model.OAuthToken;
 import com.funstill.kelefun.data.model.UserInfo;
-import com.funstill.kelefun.data.service.AccountService;
 import com.funstill.kelefun.data.service.OAuthTokenService;
 import com.funstill.kelefun.util.LogHelper;
 
 public class LoginActivity extends AppCompatActivity {
 
-    // UI references.
     private EditText mUsernameView, mPasswordView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //
         setContentView(R.layout.activity_login);
-        //
         mUsernameView = (EditText) findViewById(R.id.username);
         mPasswordView = (EditText) findViewById(R.id.password);
         Button mLoginButton = (Button) findViewById(R.id.login_button);
@@ -102,10 +98,9 @@ public class LoginActivity extends AppCompatActivity {
                 //xauth请求获取token
                 OAuthToken auth = new OAuthTokenService().getAccessToken(username, password);
                 //获取用户信息
-                UserInfo u = new AccountService().getUserInfo(auth);
                 // TODO: 2017/2/20  测试
-                u= new UserInfo();
-                u.setId("king_lau");
+                UserInfo u =  new UserInfo();
+                u.setId("test");
                 //保存用户信息
                 saveAccount(auth,u);
             } catch (Exception e) {
