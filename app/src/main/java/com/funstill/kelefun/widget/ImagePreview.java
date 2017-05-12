@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.Target;
 import com.funstill.kelefun.R;
+import com.funstill.kelefun.util.ToastUtil;
 import com.funstill.library.utils.FileUtils;
 
 import java.io.File;
@@ -92,13 +93,18 @@ public class ImagePreview extends Activity {
 
         @Override
         protected void onPostExecute(final File sourceFile) {
-            File targetFile=FileUtils.createCameraFile(ImagePreview.this, "keleFun_img");
-           //copy file
-            copyFile(sourceFile,targetFile);
-            Uri uri = Uri.fromFile(targetFile);
-            // 通知图库更新
-            Intent scannerIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri);
-            ImagePreview.this.sendBroadcast(scannerIntent);
+            if(sourceFile!=null){
+                File targetFile=FileUtils.createCameraFile(ImagePreview.this, "KeleFun");
+                //copy file
+                copyFile(sourceFile,targetFile);
+                Uri uri = Uri.fromFile(targetFile);
+                // 通知图库更新
+                Intent scannerIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri);
+                ImagePreview.this.sendBroadcast(scannerIntent);
+                ToastUtil.showToast(getApplicationContext(),"图片已保存成功");
+            }else {
+                ToastUtil.showToast(getApplicationContext(),"图片保存成功");
+            }
         }
 
     }
@@ -114,9 +120,10 @@ public class ImagePreview extends Activity {
                 os.flush();
                 os.close();
                 is.close();
-        }
-        catch (Exception e) {
+        }catch (Exception e) {
             e.printStackTrace();
+        }finally {
+
         }
 
     }

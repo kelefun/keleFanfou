@@ -58,7 +58,7 @@ public class SelectorConfig {
         private boolean multiSelect = false;
         private int maxSize = 9;
         private boolean showCamera = true;
-        private String filePath = "keleFun_img";
+        private String filePath = "KeleFun";
 
         private boolean crop = false;
         private float aspectRatioX = 1;
