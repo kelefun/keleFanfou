@@ -2,11 +2,9 @@ package com.funstill.kelefun.widget;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,13 +13,12 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.Target;
 import com.funstill.kelefun.R;
+import com.funstill.library.utils.FileUtils;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
+import java.io.InputStream;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -78,42 +75,48 @@ public class ImagePreview extends Activity {
         view.setOnClickListener(v -> this.finish());
     }
 
-    public class SaveImageTask extends AsyncTask<Void, Void, Bitmap> {
+    public class SaveImageTask extends AsyncTask<Void, Void, File> {
 
         @Override
-        protected Bitmap doInBackground(Void... params) {
-            Bitmap bitmap = null;
+        protected File doInBackground(Void... params) {
+            File sourceFile = null;
             try {
-                bitmap = Glide.with(ImagePreview.this).load(url).asBitmap().into(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL).get();
+                sourceFile = Glide.with(ImagePreview.this).load(url).downloadOnly(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL).get();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
-            return bitmap;
+            return sourceFile;
         }
 
         @Override
-        protected void onPostExecute(final Bitmap bitmap) {
-            File appDir = new File(Environment.getExternalStorageDirectory(), "Kelefun");
-            if (!appDir.exists()) {
-                appDir.mkdir();
-            }
-            String fileName = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.CHINA).format(new Date()) + ".jpg";
-            File file = new File(appDir, fileName);
-            try {
-                FileOutputStream outputStream = new FileOutputStream(file);
-                assert bitmap != null;
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
-                outputStream.flush();
-                outputStream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            Uri uri = Uri.fromFile(file);
+        protected void onPostExecute(final File sourceFile) {
+            File targetFile=FileUtils.createCameraFile(ImagePreview.this, "keleFun_img");
+           //copy file
+            copyFile(sourceFile,targetFile);
+            Uri uri = Uri.fromFile(targetFile);
             // 通知图库更新
             Intent scannerIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri);
             ImagePreview.this.sendBroadcast(scannerIntent);
+        }
+
+    }
+    public void copyFile(File sourceFile, File targetFile) {
+        try {
+                InputStream is = new FileInputStream(sourceFile); //读入原文件
+                FileOutputStream os = new FileOutputStream(targetFile);
+                byte[] buffer = new byte[1024];
+                int length;
+                while ( (length = is.read(buffer)) != -1) {
+                    os.write(buffer, 0, length);
+                }
+                os.flush();
+                os.close();
+                is.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
         }
 
     }

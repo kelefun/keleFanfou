@@ -26,7 +26,7 @@ public class FileUtils {
         String state = Environment.getExternalStorageState();
         File rootDir = state.equals(Environment.MEDIA_MOUNTED)?Environment.getExternalStorageDirectory():context.getCacheDir();
 
-        File folderDir = new File(rootDir.getAbsolutePath() + parentPath);
+        File folderDir = new File(rootDir.getAbsolutePath(), parentPath);
         if (!folderDir.exists() && folderDir.mkdirs()){
 
         }
@@ -44,7 +44,7 @@ public class FileUtils {
     public static void createFile(String filePath) {
         String externalStorageState = Environment.getExternalStorageState();
 
-        File dir = new File(Environment.getExternalStorageDirectory() + filePath);
+        File dir = new File(Environment.getExternalStorageDirectory() ,filePath);
 
         if (externalStorageState.equals(Environment.MEDIA_MOUNTED)) {
             if (!dir.exists()) {
@@ -62,7 +62,5 @@ public class FileUtils {
 
         }
     }
-
-
 
 }
