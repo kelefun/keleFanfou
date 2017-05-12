@@ -106,7 +106,7 @@ public class ImagePreview extends Activity {
                 ImagePreview.this.sendBroadcast(scannerIntent);
                 ToastUtil.showToast(getApplicationContext(),"图片已保存成功");
             }else {
-                ToastUtil.showToast(getApplicationContext(),"图片保存成功");
+                ToastUtil.showToast(getApplicationContext(),"图片保存失败");
             }
         }
 
