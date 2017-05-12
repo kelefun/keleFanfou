@@ -25,16 +25,12 @@ import com.funstill.kelefun.adapter.PhotoAdapter;
 import com.funstill.kelefun.base.BaseBackFragment;
 import com.funstill.kelefun.data.api.StatusApi;
 import com.funstill.kelefun.data.model.Status;
-import com.funstill.kelefun.event.TabSelectedEvent;
 import com.funstill.kelefun.http.BaseRetrofit;
 import com.funstill.kelefun.http.SignInterceptor;
 import com.funstill.kelefun.util.ToastUtil;
 import com.funstill.library.config.IHandlerCallBack;
 import com.funstill.library.config.ImageSelector;
 import com.funstill.library.config.SelectorConfig;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -72,7 +68,6 @@ public class SendStatusFragmentChild extends BaseBackFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_send_status_child, container, false);
-        EventBus.getDefault().register(this);
         initGallery();
         initView(view);
         return view;
@@ -128,18 +123,10 @@ public class SendStatusFragmentChild extends BaseBackFragment {
         }
     }
 
-    /**
-     * 选择tab事件
-     */
-    @Subscribe
-    public void onTabSelectedEvent(TabSelectedEvent event) {
-
-    }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        EventBus.getDefault().unregister(this);
     }
 
 
@@ -147,7 +134,6 @@ public class SendStatusFragmentChild extends BaseBackFragment {
      * 发送
      */
     private void postStatus() {
-        //发送按钮置灰
         StatusApi api = BaseRetrofit.retrofit(new SignInterceptor()).create(StatusApi.class);
         Call<Status> call;
         if (path.size() > 0) {

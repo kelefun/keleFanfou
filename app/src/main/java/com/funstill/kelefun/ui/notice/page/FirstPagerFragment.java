@@ -12,13 +12,8 @@ import android.view.ViewGroup;
 import com.funstill.kelefun.R;
 import com.funstill.kelefun.adapter.HomeAdapter;
 import com.funstill.kelefun.entity.Article;
-import com.funstill.kelefun.event.TabSelectedEvent;
 import com.funstill.kelefun.listener.OnItemClickListener;
-import com.funstill.kelefun.ui.MainActivity;
 import com.funstill.kelefun.ui.notice.child.DetailFragment;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +58,6 @@ public class FirstPagerFragment extends SupportFragment implements SwipeRefreshL
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.zhihu_fragment_second_pager_first, container, false);
-        EventBus.getDefault().register(this);
         initView(view);
         return view;
     }
@@ -126,26 +120,11 @@ public class FirstPagerFragment extends SupportFragment implements SwipeRefreshL
         mRecy.smoothScrollToPosition(0);
     }
 
-    /**
-     * 选择tab事件
-     */
-    @Subscribe
-    public void onTabSelectedEvent(TabSelectedEvent event) {
-        if (event.position != MainActivity.SECOND) return;
-
-        if (mAtTop) {
-            mRefreshLayout.setRefreshing(true);
-            onRefresh();
-        } else {
-            scrollToTop();
-        }
-    }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         mRecy.setAdapter(null);
-        EventBus.getDefault().unregister(this);
     }
 
 }

@@ -57,7 +57,6 @@ public class HomeLineFragmentChild extends SupportFragment implements SwipeRefre
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_status_list, container, false);
-        EventBus.getDefault().register(this);
         initView(view);
         return view;
     }

@@ -34,9 +34,6 @@ public class BaseRetrofit {
         }
 
         OkHttpClient okHttpClient = okHttpBuilder.build();
-        // com.google.gson.stream.MalformedJsonException
-//        Gson gson = new GsonBuilder().setLenient().create();
-        //GsonConverterFactory.create(gson)
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())

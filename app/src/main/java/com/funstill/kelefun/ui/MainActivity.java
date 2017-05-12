@@ -32,11 +32,11 @@ public class MainActivity extends SupportActivity implements BaseMainFragment.On
     private SupportFragment[] mFragments = new SupportFragment[4];
 
     private BottomBar mBottomBar;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        EventBus.getDefault().register(this);
 
         if (savedInstanceState == null) {
             mFragments[FIRST] = HomeLineFragment.newInstance();
@@ -115,8 +115,8 @@ public class MainActivity extends SupportActivity implements BaseMainFragment.On
                     return;
                 }
 
-
-                // 这里推荐使用EventBus来实现 -> 解耦
+//
+//                // 这里推荐使用EventBus来实现 -> 解耦
                 if (count == 1) {
                     // 在FirstPagerFragment中接收, 因为是嵌套的孙子Fragment 所以用EventBus比较方便
                     // 主要为了交互: 重选tab 如果列表不在顶部则移动到顶部,如果已经在顶部,则刷新
@@ -139,7 +139,6 @@ public class MainActivity extends SupportActivity implements BaseMainFragment.On
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        EventBus.getDefault().unregister(this);
     }
 
 }

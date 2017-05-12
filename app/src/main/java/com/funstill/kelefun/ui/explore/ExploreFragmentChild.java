@@ -120,7 +120,7 @@ public class ExploreFragmentChild extends SupportFragment implements SwipeRefres
      */
     @Subscribe
     public void onTabSelectedEvent(TabSelectedEvent event) {
-        if (event.position != MainActivity.FIRST) return;
+        if (event.position != MainActivity.SECOND) return;
 
         if (mInAtTop) {
             mRefreshLayout.setRefreshing(true);

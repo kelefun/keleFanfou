@@ -61,7 +61,6 @@ public class MentionsPagerFragment extends SupportFragment implements SwipeRefre
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_notice_mentions, container, false);
-        EventBus.getDefault().register(this);
         initView(view);
         return view;
     }
@@ -85,11 +84,6 @@ public class MentionsPagerFragment extends SupportFragment implements SwipeRefre
         mAdapter.setOnPhotoClickListener((position, vh) -> {
             ImagePreview.startPreview(_mActivity,data.get(position).getPhoto().getLargeurl());
         });
-        //初始化数据
-        Map<String,String> map = new ArrayMap<>();
-        map.put("count","20");
-        getMentions(map);
-
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -137,6 +131,13 @@ public class MentionsPagerFragment extends SupportFragment implements SwipeRefre
         mRecyclerView.setAdapter(null);
         EventBus.getDefault().unregister(this);
     }
+    @Override
+    public void onLazyInitView(@Nullable Bundle savedInstanceState) {//懒加载数据,为了防止veiwpager的预加载
+        //初始化数据
+        Map<String,String> map = new ArrayMap<>();
+        map.put("count","20");
+        getMentions(map);
+    }
 
 
     /**
@@ -152,9 +153,6 @@ public class MentionsPagerFragment extends SupportFragment implements SwipeRefre
                 if (response.code() == 200) {
                     List<Status> statusList = response.body();
                     if(statusList.size()>0){
-//                        for(Status status:statusList){
-//                            LogHelper.e(status.getId()+"###"+status.getText());
-//                        }
                         if(data.size()>0){ //让新增的数据在前面
                             List<Status> tempList  = new ArrayList<>();
                             tempList.addAll(data);
