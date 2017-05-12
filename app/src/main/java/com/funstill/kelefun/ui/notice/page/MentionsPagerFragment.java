@@ -1,11 +1,10 @@
-package com.funstill.kelefun.ui.home;
+package com.funstill.kelefun.ui.notice.page;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.ArrayMap;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,8 +34,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HomeLineFragmentChild extends SupportFragment implements SwipeRefreshLayout.OnRefreshListener {
-    private Toolbar mToolbar;
+/**
+ * @author liukaiyang
+ * @since 2017/5/12 9:11
+ */
+
+public class MentionsPagerFragment extends SupportFragment implements SwipeRefreshLayout.OnRefreshListener{
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
     private SwipeRefreshLayout mRefreshLayout;
@@ -47,24 +50,23 @@ public class HomeLineFragmentChild extends SupportFragment implements SwipeRefre
     private boolean mInAtTop = true;
     private int mScrollTotal;
 
-    public static HomeLineFragmentChild newInstance() {
+    public static MentionsPagerFragment newInstance() {
         Bundle args = new Bundle();
-        HomeLineFragmentChild fragment = new HomeLineFragmentChild();
+        MentionsPagerFragment fragment = new MentionsPagerFragment();
         fragment.setArguments(args);
         return fragment;
     }
 
+    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_status_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_notice_mentions, container, false);
         EventBus.getDefault().register(this);
         initView(view);
         return view;
     }
 
     private void initView(View view) {
-        mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        mToolbar.setTitle("饭否 HOME");
         mRecyclerView = (RecyclerView) view.findViewById(R.id.line_recycler);
         mLayoutManager = new LinearLayoutManager(_mActivity);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -74,20 +76,19 @@ public class HomeLineFragmentChild extends SupportFragment implements SwipeRefre
         mRefreshLayout.setOnRefreshListener(this);
         mRefreshLayout.post(() -> mRefreshLayout.setRefreshing(true));
 
-        mAdapter = new StatusAdapter(getActivity(), data);
+        mAdapter = new StatusAdapter(getActivity(),data);
         mRecyclerView.setAdapter(mAdapter);
 
         mAdapter.setOnItemClickListener((position, vh) -> {
-            ToastUtil.showToast(_mActivity, "点击了卡片" + position + "--" + data.get(position).toString().substring(0, 10));
+            ToastUtil.showToast(_mActivity,"点击了卡片");
         });
         mAdapter.setOnPhotoClickListener((position, vh) -> {
-            ImagePreview.startPreview(_mActivity, data.get(position).getPhoto().getLargeurl());
+            ImagePreview.startPreview(_mActivity,data.get(position).getPhoto().getLargeurl());
         });
-
         //初始化数据
-        Map<String, String> map = new ArrayMap<>();
-        map.put("page", "1");
-        getHomeLineStatus(map);
+        Map<String,String> map = new ArrayMap<>();
+        map.put("count","20");
+        getMentions(map);
 
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -97,19 +98,18 @@ public class HomeLineFragmentChild extends SupportFragment implements SwipeRefre
                 mInAtTop = mScrollTotal <= 0;
             }
         });
-
     }
 
     @Override
     public void onRefresh() {
-        mRefreshLayout.post(() -> mRefreshLayout.setRefreshing(true) );
-        Map<String, String> map = new ArrayMap<>();
+        mRefreshLayout.post(() -> mRefreshLayout.setRefreshing(true));
+        Map<String,String> map = new ArrayMap<>();
         if(data.size()>0){
             map.put("since_id",data.get(0).getId());
         }else {
             map.put("count","20");
         }
-        getHomeLineStatus(map);
+        getMentions(map);
     }
 
     private void scrollToTop() {
@@ -142,29 +142,37 @@ public class HomeLineFragmentChild extends SupportFragment implements SwipeRefre
     /**
      * 请求home_timeline数据
      */
-    private void getHomeLineStatus(Map<String, String> param) {
+    private void getMentions(Map<String,String> param) {
         StatusApi api = BaseRetrofit.retrofit(new SignInterceptor()).create(StatusApi.class);
-        Call<List<Status>> call = api.getHomeTimeLine(param);
+        Call<List<Status>> call = api.getMentions(param);
         call.enqueue(new Callback<List<Status>>() {
             @Override
             public void onResponse(Call<List<Status>> call, Response<List<Status>> response) {
                 LogHelper.d("请求响应code", String.valueOf(response.code()));
                 if (response.code() == 200) {
                     List<Status> statusList = response.body();
-                    if (statusList.size() > 0) {
-                        if (data.size() > 0) { //让新增的数据在前面
-                            List<Status> tempList = new ArrayList<>();
+                    if(statusList.size()>0){
+//                        for(Status status:statusList){
+//                            LogHelper.e(status.getId()+"###"+status.getText());
+//                        }
+                        if(data.size()>0){ //让新增的数据在前面
+                            List<Status> tempList  = new ArrayList<>();
                             tempList.addAll(data);
                             data.clear();
                             data.addAll(statusList);
                             data.addAll(tempList);
-                        } else {
+                        }else {
                             data.addAll(statusList);
                         }
                         mAdapter.notifyDataSetChanged();
-                        ToastUtil.showToast(_mActivity, "Fun+ " + statusList.size());
-                    } else {
-                        ToastUtil.showToast(_mActivity, "没有更多了");
+                        ToastUtil.showToast(_mActivity,"Fun+ "+statusList.size());
+                    }else{
+                        if(data.size()>0){
+                            ToastUtil.showToast(_mActivity,"没有更多了");
+                        }else {
+                            //暂时还没有数据
+                            ToastUtil.showToast(_mActivity,"还没有相关数据");
+                        }
                     }
                 }
                 mRefreshLayout.setRefreshing(false);
@@ -178,5 +186,4 @@ public class HomeLineFragmentChild extends SupportFragment implements SwipeRefre
             }
         });
     }
-
 }

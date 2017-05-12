@@ -23,7 +23,7 @@ public class ExploreFragment extends BaseMainFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_explore, container, false);
+        View view = inflater.inflate(R.layout.fragment_status_container, container, false);
         return view;
     }
 
@@ -31,7 +31,7 @@ public class ExploreFragment extends BaseMainFragment {
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
         if (savedInstanceState == null) {//加载子页面
-            loadRootFragment(R.id.fl_explore_container, ExploreFragmentChild.newInstance());
+            loadRootFragment(R.id.fl_status_container, ExploreFragmentChild.newInstance());
         }
     }
 }

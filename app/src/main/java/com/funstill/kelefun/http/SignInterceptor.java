@@ -18,10 +18,6 @@ public class SignInterceptor implements Interceptor {
     @Override
     public okhttp3.Response intercept(Chain chain) throws IOException {
         Request original = chain.request();
-//            HttpUrl url = original.url().newBuilder()
-//                    .addQueryParameter("count", "5")
-//                    .addQueryParameter("start", "0")
-//                    .build();
 
         Request request = original.newBuilder()
                 .addHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8")
@@ -29,7 +25,7 @@ public class SignInterceptor implements Interceptor {
                 .method(original.method(), original.body())
                 .url(original.url())
                 .build();
-        LogHelper.d("请求头",request.headers().toString());
+        LogHelper.d("请求url",request. url().toString());
         return chain.proceed(request);
     }
 }

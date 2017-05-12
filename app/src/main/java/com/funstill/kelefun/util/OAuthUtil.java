@@ -119,7 +119,7 @@ public class OAuthUtil {
             result.append('/');
             result.append(url.pathSegments().get(i));
         }
-        LogHelper.d("baseUrl", result.toString());
+//        LogHelper.d("baseUrl", result.toString());
         return result.toString();
     }
 
@@ -152,7 +152,7 @@ public class OAuthUtil {
 
     private String getSignature(OAuthRequest request, OAuthToken token) {
         String baseString = extractBaseString(request);
-        LogHelper.d("base string is: " + baseString);
+//        LogHelper.d("base string = " + baseString);
         try {
             String keyString = OAuthEncoder.encode(AppConfig.CONSUMER_SECRET) + '&';
             if (token != null) {

@@ -15,6 +15,7 @@ import com.funstill.kelefun.R;
 import com.funstill.kelefun.data.model.Status;
 import com.funstill.kelefun.listener.OnItemClickListener;
 import com.funstill.kelefun.util.DateAgo;
+import com.funstill.kelefun.util.LogHelper;
 
 import net.wujingchao.android.view.SimpleTagImageView;
 
@@ -34,6 +35,7 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        LogHelper.e(viewType+"测试");
         View view = LayoutInflater.from(mContext).inflate(R.layout.item_status, parent, false);
         final ViewHolder holder = new ViewHolder(view);
         holder.itemView.setOnClickListener(v -> {

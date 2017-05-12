@@ -23,7 +23,7 @@ public class HomeLineFragment extends BaseMainFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_homeline, container, false);
+        View view = inflater.inflate(R.layout.fragment_status_container, container, false);
         return view;
     }
 
@@ -31,7 +31,7 @@ public class HomeLineFragment extends BaseMainFragment {
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
         if (savedInstanceState == null) {//加载子页面
-            loadRootFragment(R.id.fl_homeline_container, HomeLineFragmentChild.newInstance());
+            loadRootFragment(R.id.fl_status_container, HomeLineFragmentChild.newInstance());
         }
     }
 }

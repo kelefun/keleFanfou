@@ -57,7 +57,7 @@ public class ExploreFragmentChild extends SupportFragment implements SwipeRefres
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_homeline_child, container, false);
+        View view = inflater.inflate(R.layout.fragment_status_list, container, false);
         EventBus.getDefault().register(this);
         initView(view);
         return view;
@@ -75,18 +75,18 @@ public class ExploreFragmentChild extends SupportFragment implements SwipeRefres
         mRefreshLayout.setOnRefreshListener(this);
         mRefreshLayout.post(() -> mRefreshLayout.setRefreshing(true));
 
-        mAdapter = new StatusAdapter(getActivity(),data);
+        mAdapter = new StatusAdapter(getActivity(), data);
         mRecyclerView.setAdapter(mAdapter);
 
         mAdapter.setOnItemClickListener((position, vh) -> {
-            ToastUtil.showToast(_mActivity,"点击了卡片");
+            ToastUtil.showToast(_mActivity, "点击了卡片");
         });
         mAdapter.setOnPhotoClickListener((position, vh) -> {
-            ImagePreview.startPreview(_mActivity,data.get(position).getPhoto().getLargeurl());
+            ImagePreview.startPreview(_mActivity, data.get(position).getPhoto().getLargeurl());
         });
         //初始化数据
-        Map<String,String> map = new ArrayMap<>();
-        map.put("count","20");
+        Map<String, String> map = new ArrayMap<>();
+        map.put("count", "20");
         getPublicTimeLineStatus(map);
 
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -101,11 +101,13 @@ public class ExploreFragmentChild extends SupportFragment implements SwipeRefres
 
     @Override
     public void onRefresh() {
-        // TODO: 2017/4/21 如果第一次没加载出来,则刷新
-        mRefreshLayout.post(() -> mRefreshLayout.setRefreshing(true));
-        mRefreshLayout.setEnabled(false);
-        Map<String,String> map = new ArrayMap<>();
-        map.put("since_id",data.get(0).getId());
+        mRefreshLayout.post(() -> mRefreshLayout.setRefreshing(true) );
+        Map<String, String> map = new ArrayMap<>();
+        if(data.size()>0){
+            map.put("since_id",data.get(0).getId());
+        }else {
+            map.put("count","20");
+        }
         getPublicTimeLineStatus(map);
     }
 
@@ -137,9 +139,9 @@ public class ExploreFragmentChild extends SupportFragment implements SwipeRefres
 
 
     /**
-     * 请求home_timeline数据
+     * 请求public_timeline数据(随便看看)
      */
-    private void getPublicTimeLineStatus(Map<String,String> param) {
+    private void getPublicTimeLineStatus(Map<String, String> param) {
         StatusApi api = BaseRetrofit.retrofit(new SignInterceptor()).create(StatusApi.class);
         Call<List<Status>> call = api.getPublicTimeLine(param);
         call.enqueue(new Callback<List<Status>>() {
@@ -148,27 +150,26 @@ public class ExploreFragmentChild extends SupportFragment implements SwipeRefres
                 LogHelper.d("请求响应code", String.valueOf(response.code()));
                 if (response.code() == 200) {
                     List<Status> statusList = response.body();
-                    if(statusList.size()>0){
+                    if (statusList.size() > 0) {
 //                        for(Status status:statusList){
 //                            LogHelper.e(status.getId()+"###"+status.getText());
 //                        }
-                        if(data.size()>0){ //让新增的数据在前面
-                            List<Status> tempList  = new ArrayList<>();
+                        if (data.size() > 0) { //让新增的数据在前面
+                            List<Status> tempList = new ArrayList<>();
                             tempList.addAll(data);
                             data.clear();
                             data.addAll(statusList);
                             data.addAll(tempList);
-                        }else {
+                        } else {
                             data.addAll(statusList);
                         }
                         mAdapter.notifyDataSetChanged();
-                        ToastUtil.showToast(_mActivity,"Fun+ "+statusList.size());
-                    }else{
-                        ToastUtil.showToast(_mActivity,"没有更多了");
+                        ToastUtil.showToast(_mActivity, "Fun+ " + statusList.size());
+                    } else {
+                        ToastUtil.showToast(_mActivity, "没有更多了");
                     }
                 }
                 mRefreshLayout.setRefreshing(false);
-                mRefreshLayout.setEnabled(true);
             }
 
             @Override

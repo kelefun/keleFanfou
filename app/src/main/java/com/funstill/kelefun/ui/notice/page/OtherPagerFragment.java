@@ -51,9 +51,9 @@ public class OtherPagerFragment extends SupportFragment {
         mTvTitle = (TextView) view.findViewById(R.id.tv_title);
 
         if (mType == TYPE_HOT) {
-            mTvTitle.setText("热门");
+            mTvTitle.setText("私信");
         } else {
-            mTvTitle.setText("收藏");
+            mTvTitle.setText("通知");
         }
     }
 }

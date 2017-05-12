@@ -27,12 +27,16 @@ public interface StatusApi {
     @GET("/statuses/home_timeline.json?mode=lite")
     Call<List<Status>> getHomeTimeLine(@QueryMap Map<String, String> paramMap);
 
-    //获取用户主页timeline
+    //获取随便看看
     @GET("/statuses/public_timeline.json?mode=lite")
     Call<List<Status>> getPublicTimeLine(@QueryMap Map<String, String> paramMap);
 
+    //获取提到我的消息
+    @GET("/statuses/mentions.json?mode=lite")
+    Call<List<Status>> getMentions(@QueryMap Map<String, String> paramMap);
+
     /**
-     * 发布消息
+     * 发布消息(带照片)
      *
      * @param photo
      * @param status
@@ -44,6 +48,11 @@ public interface StatusApi {
     Call<Status> uploadPhoto(@Part("status") RequestBody status,
                              @Part MultipartBody.Part photo);
 
+    /**
+     * 发布消息(只有文本)
+     * @param paramMap
+     * @return
+     */
     @POST("/statuses/update.json")
     Call<Status> postStatus(@QueryMap Map<String, String> paramMap);
 }
