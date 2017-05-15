@@ -116,7 +116,6 @@ public class MentionsPagerFragment extends SupportFragment implements SwipeRefre
     @Subscribe
     public void onTabSelectedEvent(TabSelectedEvent event) {
         if (event.position != MainActivity.FIRST) return;
-
         if (mInAtTop) {
             mRefreshLayout.setRefreshing(true);
             onRefresh();
@@ -135,7 +134,11 @@ public class MentionsPagerFragment extends SupportFragment implements SwipeRefre
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {//懒加载数据,为了防止veiwpager的预加载
         //初始化数据
         Map<String,String> map = new ArrayMap<>();
-        map.put("count","20");
+        if(data.size()>0){
+            map.put("since_id",data.get(0).getId());
+        }else {
+            map.put("count","20");
+        }
         getMentions(map);
     }
 
@@ -150,7 +153,7 @@ public class MentionsPagerFragment extends SupportFragment implements SwipeRefre
             @Override
             public void onResponse(Call<List<Status>> call, Response<List<Status>> response) {
                 LogHelper.d("请求响应code", String.valueOf(response.code()));
-                if (response.code() == 200) {
+                if (response.code() == 200 ) {
                     List<Status> statusList = response.body();
                     if(statusList.size()>0){
                         if(data.size()>0){ //让新增的数据在前面

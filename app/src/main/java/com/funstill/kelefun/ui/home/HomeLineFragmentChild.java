@@ -157,11 +157,11 @@ public class HomeLineFragmentChild extends SupportFragment implements SwipeRefre
                             data.clear();
                             data.addAll(statusList);
                             data.addAll(tempList);
+                            ToastUtil.showToast(_mActivity, "Fun+ " + statusList.size());
                         } else {
                             data.addAll(statusList);
                         }
                         mAdapter.notifyDataSetChanged();
-                        ToastUtil.showToast(_mActivity, "Fun+ " + statusList.size());
                     } else {
                         ToastUtil.showToast(_mActivity, "没有更多了");
                     }

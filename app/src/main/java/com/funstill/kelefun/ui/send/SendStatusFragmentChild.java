@@ -159,12 +159,16 @@ public class SendStatusFragmentChild extends BaseBackFragment {
 //                Gson gson = new Gson();
 //                gson.toJson(response.body());
 //                LogHelper.d(gson.toJson(response.body()));
-                //清除页面已填数据
-                editText.setText("");
-                path.clear();
-                photoAdapter.setResult(path);
-                photoAdapter.notifyDataSetChanged();
-                ToastUtil.showToast(_mActivity, "发布消息成功");
+                if (response.code() == 200 ) {
+                    //清除页面已填数据
+                    editText.setText("");
+                    path.clear();
+                    photoAdapter.setResult(path);
+                    photoAdapter.notifyDataSetChanged();
+                    ToastUtil.showToast(_mActivity, "发布消息成功");
+                }else {
+                    ToastUtil.showToast(_mActivity, "发布消息失败");
+                }
             }
 
             @Override

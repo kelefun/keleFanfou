@@ -75,7 +75,9 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
             if(status.getPhoto() != null){
                 holder.photoView.setVisibility(View.VISIBLE);
                 if(status.getPhoto().getLargeurl().endsWith("gif")){
-                    holder.photoView.setTagEnable(true);
+                    holder.photoView.setTagEnable(true);//动图标签
+                }else {
+                    holder.photoView.setTagEnable(false);
                 }
                 Glide.with(mContext)
                         .load(status.getPhoto().getImageurl())
