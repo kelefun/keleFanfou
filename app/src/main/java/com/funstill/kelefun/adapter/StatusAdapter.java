@@ -20,9 +20,11 @@ import net.wujingchao.android.view.SimpleTagImageView;
 
 import java.util.List;
 
-public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder> {
+public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context mContext;
+    private static final int TYPE_ITEM = 0;
+    private static final int TYPE_FOOTER = 1;
     private List<Status> data;
     private OnItemClickListener photoClickListener;
     private OnItemClickListener mClickListener;
@@ -33,58 +35,68 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_status, parent, false);
-        final ViewHolder holder = new ViewHolder(view);
-        holder.itemView.setOnClickListener(v -> {
-            int position = holder.getAdapterPosition();
-            if (mClickListener != null) {
-                mClickListener.onItemClick(position, holder);
-            }
-        });
-        holder.photoView.setOnClickListener(v -> {
-            int position = holder.getAdapterPosition();
-            if (photoClickListener != null) {
-                photoClickListener.onItemClick(position, holder);
-            }
-        });
-        return holder;
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if (viewType == TYPE_ITEM) {
+            View view = LayoutInflater.from(mContext).inflate(R.layout.item_status, parent, false);
+            final ItemViewHolder holder = new ItemViewHolder(view);
+            holder.itemView.setOnClickListener(v -> {
+                int position = holder.getAdapterPosition();
+                if (mClickListener != null) {
+                    mClickListener.onItemClick(position, holder);
+                }
+            });
+            holder.photoView.setOnClickListener(v -> {
+                int position = holder.getAdapterPosition();
+                if (photoClickListener != null) {
+                    photoClickListener.onItemClick(position, holder);
+                }
+            });
+            return holder;
+        } else if (viewType == TYPE_FOOTER) {
+            View view = LayoutInflater.from(mContext).inflate(R.layout.item_footer, parent,
+                    false);
+            return new FootViewHolder(view);
+        }
+        return null;
+
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
-//        final View view = holder.mView;
-        // 把每个图片视图设置不同的Transition名称, 防止在一个视图内有多个相同的名称, 在变换的时候造成混乱
-        // Fragment支持多个View进行变换, 使用适配器时, 需要加以区分
-        ViewCompat.setTransitionName(holder.screenNameView, String.valueOf(position) + "_screenNameView");
-        ViewCompat.setTransitionName(holder.timeSourceView, String.valueOf(position) + "_timeSourceView");
-        ViewCompat.setTransitionName(holder.statusView, String.valueOf(position) + "_statusView");
-        ViewCompat.setTransitionName(holder.avatarView, String.valueOf(position) + "_avatarView");
-        ViewCompat.setTransitionName(holder.photoView, String.valueOf(position) + "_photoView");
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
+        if (holder instanceof ItemViewHolder) {
+            ItemViewHolder itemHolder = (ItemViewHolder) holder;
+            // 把每个图片视图设置不同的Transition名称, 防止在一个视图内有多个相同的名称, 在变换的时候造成混乱
+            // Fragment支持多个View进行变换, 使用适配器时, 需要加以区分
+            ViewCompat.setTransitionName(itemHolder.screenNameView, String.valueOf(position) + "_screenNameView");
+            ViewCompat.setTransitionName(itemHolder.timeSourceView, String.valueOf(position) + "_timeSourceView");
+            ViewCompat.setTransitionName(itemHolder.statusView, String.valueOf(position) + "_statusView");
+            ViewCompat.setTransitionName(itemHolder.avatarView, String.valueOf(position) + "_avatarView");
+            ViewCompat.setTransitionName(itemHolder.photoView, String.valueOf(position) + "_photoView");
 
-        if(data.size()!=0){
-            Status status= data.get(position);
-            holder.screenNameView.setText(status.getUser().getScreenName());
-            holder.timeSourceView.setText(DateAgo.toAgo(status.getCreatedAt())+Html.fromHtml(status.getSource()).toString());
-            holder.statusView.setText(status.getText());
+            if(data.size()!=0){
+                Status status= data.get(position);
+                itemHolder.screenNameView.setText(status.getUser().getScreenName());
+                itemHolder.timeSourceView.setText(DateAgo.toAgo(status.getCreatedAt())+Html.fromHtml(status.getSource()).toString());
+                itemHolder.statusView.setText(status.getText());
 
-            Glide.with(mContext)
-                    .load(status.getUser().getProfileImageUrl())
-//                    .placeholder(R.drawable.tab_item_bg)
-                    .into(holder.avatarView);
-            if(status.getPhoto() != null){
-                holder.photoView.setVisibility(View.VISIBLE);
-                if(status.getPhoto().getLargeurl().endsWith("gif")){
-                    holder.photoView.setTagEnable(true);//动图标签
-                }else {
-                    holder.photoView.setTagEnable(false);
-                }
                 Glide.with(mContext)
-                        .load(status.getPhoto().getImageurl())
+                        .load(status.getUser().getProfileImageUrl())
 //                    .placeholder(R.drawable.tab_item_bg)
-                        .into(holder.photoView);
-            }else {
-                holder.photoView.setVisibility(View.GONE);
+                        .into(itemHolder.avatarView);
+                if(status.getPhoto() != null){
+                    itemHolder.photoView.setVisibility(View.VISIBLE);
+                    if(status.getPhoto().getLargeurl().endsWith("gif")){
+                        itemHolder.photoView.setTagEnable(true);//动图标签
+                    }else {
+                        itemHolder.photoView.setTagEnable(false);
+                    }
+                    Glide.with(mContext)
+                            .load(status.getPhoto().getImageurl())
+//                    .placeholder(R.drawable.tab_item_bg)
+                            .into(itemHolder.photoView);
+                }else {
+                    itemHolder.photoView.setVisibility(View.GONE);
+                }
             }
         }
     }
@@ -92,6 +104,15 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
     @Override
     public int getItemCount() {
         return data == null ? 0 : data.size();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position + 1 == getItemCount()) {
+            return TYPE_FOOTER;
+        } else {
+            return TYPE_ITEM;
+        }
     }
 
     public void setOnItemClickListener(OnItemClickListener itemClickListener) {
@@ -102,7 +123,7 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
         this.photoClickListener = itemClickListener;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    static class ItemViewHolder extends RecyclerView.ViewHolder {
         final View mView;
         public TextView screenNameView;
         public TextView timeSourceView;
@@ -110,7 +131,7 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
         public ImageView avatarView;
         public SimpleTagImageView photoView;
 
-        public ViewHolder(View view) {
+        public ItemViewHolder(View view) {
             super(view);
             mView = view;
             screenNameView = (TextView) itemView.findViewById(R.id.screenNameView);
@@ -118,6 +139,13 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
             statusView = (TextView) itemView.findViewById(R.id.statusView);
             avatarView = (ImageView) itemView.findViewById(R.id.avatarView);
             photoView = (SimpleTagImageView) itemView.findViewById(R.id.photoView);
+        }
+    }
+
+    static class FootViewHolder extends RecyclerView.ViewHolder {
+
+        public FootViewHolder(View view) {
+            super(view);
         }
     }
 }

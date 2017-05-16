@@ -94,6 +94,7 @@ public class SendStatusFragmentChild extends BaseBackFragment {
                 .iHandlerCallBack(iHandlerCallBack)     // 监听接口（必填）
                 .provider("com.zua.kelefun.photo.fileprovider")   // provider(必填)
                 .pathList(path)                         // 记录已选的图片
+//                .multiSelect(true,3)//多选,最多3个
                 .showCamera(true)                     // 是否现实相机按钮  默认：false
                 .build();
 

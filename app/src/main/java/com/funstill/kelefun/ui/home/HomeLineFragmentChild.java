@@ -44,7 +44,10 @@ public class HomeLineFragmentChild extends SupportFragment implements SwipeRefre
 
     private StatusAdapter mAdapter;
 
+    //是否滑动到顶部
     private boolean mInAtTop = true;
+    // 是否在加载中 ( 上拉加载更多 )
+    private boolean isLoadingMore = false;
     private int mScrollTotal;
 
     public static HomeLineFragmentChild newInstance() {
@@ -79,6 +82,7 @@ public class HomeLineFragmentChild extends SupportFragment implements SwipeRefre
         mAdapter.setOnItemClickListener((position, vh) -> {
             ToastUtil.showToast(_mActivity, "点击了卡片" + position + "--" + data.get(position).toString().substring(0, 10));
         });
+        //图片预览
         mAdapter.setOnPhotoClickListener((position, vh) -> {
             ImagePreview.startPreview(_mActivity, data.get(position).getPhoto().getLargeurl());
         });
@@ -94,19 +98,43 @@ public class HomeLineFragmentChild extends SupportFragment implements SwipeRefre
                 super.onScrolled(recyclerView, dx, dy);
                 mScrollTotal += dy;
                 mInAtTop = mScrollTotal <= 0;
+
+                int lastVisibleItemPosition = mLayoutManager.findLastVisibleItemPosition();
+                if (lastVisibleItemPosition + 1 == mAdapter.getItemCount()) {
+                    if (!isLoadingMore) {
+                        isLoadingMore = true;
+                        Map<String, String> loadMoreParam = new ArrayMap<>();
+                        loadMoreParam.put("max_id", data.get(data.size() - 1).getId());
+                        loadMoreParam.put("count", "20");
+                        loadMoreHomeLineStatus(loadMoreParam);
+                    }
+                }
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE
+                        && (mLayoutManager.findLastVisibleItemPosition() == mLayoutManager.getItemCount() - 1)
+                        && !isLoadingMore) {
+                    isLoadingMore = true;
+                    //处理逻辑
+                    Map<String,String> loadMoreParam = new ArrayMap<>();
+                    loadMoreParam.put("max_id",data.get(data.size()-1).getId());
+                    loadMoreParam.put("count","20");
+                    loadMoreHomeLineStatus(loadMoreParam);
+                }
             }
         });
-
     }
 
     @Override
     public void onRefresh() {
-        mRefreshLayout.post(() -> mRefreshLayout.setRefreshing(true) );
+        mRefreshLayout.post(() -> mRefreshLayout.setRefreshing(true));
         Map<String, String> map = new ArrayMap<>();
-        if(data.size()>0){
-            map.put("since_id",data.get(0).getId());
-        }else {
-            map.put("count","20");
+        if (data.size() > 0) {
+            map.put("since_id", data.get(0).getId());
+        } else {
+            map.put("count", "20");
         }
         getHomeLineStatus(map);
     }
@@ -137,6 +165,36 @@ public class HomeLineFragmentChild extends SupportFragment implements SwipeRefre
         EventBus.getDefault().unregister(this);
     }
 
+    /**
+     * 请求home_timeline数据
+     */
+    private void loadMoreHomeLineStatus(Map<String, String> param) {
+        StatusApi api = BaseRetrofit.retrofit(new SignInterceptor()).create(StatusApi.class);
+        Call<List<Status>> call = api.getHomeTimeLine(param);
+        call.enqueue(new Callback<List<Status>>() {
+            @Override
+            public void onResponse(Call<List<Status>> call, Response<List<Status>> response) {
+                if (response.code() == 200) {
+                    List<Status> statusList = response.body();
+                    if (statusList.size() > 0) {
+                        data.addAll(statusList);
+                        ToastUtil.showToast(_mActivity, "Fun+ " + statusList.size());
+                        mAdapter.notifyDataSetChanged();
+                    } else {
+                        ToastUtil.showToast(_mActivity, "没有更多了");
+                    }
+                }
+                isLoadingMore=false;
+            }
+
+            @Override
+            public void onFailure(Call<List<Status>> call, Throwable t) {
+                t.printStackTrace();
+                LogHelper.e("请求失败", t.getMessage());
+                isLoadingMore=false;
+            }
+        });
+    }
 
     /**
      * 请求home_timeline数据
@@ -147,7 +205,6 @@ public class HomeLineFragmentChild extends SupportFragment implements SwipeRefre
         call.enqueue(new Callback<List<Status>>() {
             @Override
             public void onResponse(Call<List<Status>> call, Response<List<Status>> response) {
-                LogHelper.d("请求响应code", String.valueOf(response.code()));
                 if (response.code() == 200) {
                     List<Status> statusList = response.body();
                     if (statusList.size() > 0) {

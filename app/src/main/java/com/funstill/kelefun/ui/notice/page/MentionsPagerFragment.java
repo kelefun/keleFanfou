@@ -135,7 +135,7 @@ public class MentionsPagerFragment extends SupportFragment implements SwipeRefre
         //初始化数据
         Map<String,String> map = new ArrayMap<>();
         if(data.size()>0){
-            map.put("since_id",data.get(0).getId());
+//            map.put("since_id",data.get(0).getId());
         }else {
             map.put("count","20");
         }
@@ -144,7 +144,7 @@ public class MentionsPagerFragment extends SupportFragment implements SwipeRefre
 
 
     /**
-     * 请求home_timeline数据
+     * 请求提到我的数据
      */
     private void getMentions(Map<String,String> param) {
         StatusApi api = BaseRetrofit.retrofit(new SignInterceptor()).create(StatusApi.class);
