@@ -46,7 +46,7 @@ public class LocalMediaLoader {
         this.type = type;
     }
 
-    private List<LocalMediaFolder> imageFolderList = new ArrayList<>();//文件夹Set集合
+    private List<LocalMediaFolder> imageFolderList = new ArrayList<>();//文件夹集合
 
     public void loadImage(final LocalMediaLoadListener imageLoadListener) {
         activity.getSupportLoaderManager().initLoader(type, null, new LoaderManager.LoaderCallbacks<Cursor>() {

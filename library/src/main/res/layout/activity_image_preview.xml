@@ -10,7 +10,6 @@
         style="@style/MyToolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/bar_height"
-        android:layout_marginTop="@dimen/status_bar_height"
         android:background="?attr/colorPrimary">
 
         <TextView
@@ -38,9 +37,7 @@
         android:id="@+id/select_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/bar_height"
-        android:layout_marginBottom="@dimen/bar_height"
         android:layout_alignParentBottom="true"
-        android:layout_gravity="bottom"
         android:background="@color/bar_grey_90"
         android:gravity="center_vertical">
 

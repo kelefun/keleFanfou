@@ -65,7 +65,6 @@ public class ImageSelectorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_imageselector);
 
-
         selectorConfig = ImageSelector.getInstance().getSelectorConfig();
         if (selectorConfig == null) {
             exit();
@@ -83,7 +82,6 @@ public class ImageSelectorActivity extends AppCompatActivity {
         } else {
             enablePreview = false;
         }
-
 
         initView();
         registerListener();
