@@ -58,7 +58,7 @@ public class ImageFolderAdapter extends RecyclerView.Adapter<ImageFolderAdapter.
                 if (onItemClickListener != null) {
                     checkedIndex = position;
                     notifyDataSetChanged();
-                    onItemClickListener.onItemClick(folder.getName(),folder.getImages());
+                    onItemClickListener.onItemClick(folder.getName(),folder.getImageList());
                 }
             }
         });

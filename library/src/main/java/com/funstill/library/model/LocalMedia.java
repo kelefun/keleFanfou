@@ -6,19 +6,35 @@ import java.io.Serializable;
  * Created by dee on 2015/8/5.
  */
 public class LocalMedia implements Serializable {
+    //图片路径
     private String path;
-    private long duration;
-    private long lastUpdateAt;
+    //图片名称
+    private String name;
+    //图片添加时间
+    private long addDate;
 
 
-    public LocalMedia(String path, long lastUpdateAt, long duration) {
+    public LocalMedia(String path,String name, long addDate) {
         this.path = path;
-        this.duration = duration;
-        this.lastUpdateAt = lastUpdateAt;
+        this.name = name;
+        this.addDate = addDate;
     }
 
-    public LocalMedia(String path) {
-        this.path = path;
+    public long getAddDate() {
+        return addDate;
+    }
+
+    public void setAddDate(long addDate) {
+        this.addDate = addDate;
+    }
+
+    public String getName() {
+
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPath() {
@@ -29,18 +45,4 @@ public class LocalMedia implements Serializable {
         this.path = path;
     }
 
-    public long getLastUpdateAt() {
-        return lastUpdateAt;
-    }
-
-    public void setLastUpdateAt(long lastUpdateAt) {
-        this.lastUpdateAt = lastUpdateAt;
-    }
-
-    public long getDuration() {
-        return duration;
-    }
-    public void setDuration(long duration) {
-        this.duration = duration;
-    }
 }

@@ -88,12 +88,12 @@ public class ImageSelectorActivity extends AppCompatActivity {
         initView();
         registerListener();
 
-        new LocalMediaLoader(this, LocalMediaLoader.TYPE_IMAGE).loadAllImage(new LocalMediaLoader.LocalMediaLoadListener() {
+        new LocalMediaLoader(this, LocalMediaLoader.TYPE_IMAGE).loadImage(new LocalMediaLoader.LocalMediaLoadListener() {
 
             @Override
             public void loadComplete(List<LocalMediaFolder> folders) {
                 folderWindow.bindFolder(folders);
-                imageAdapter.bindImages(folders.get(0).getImages());
+                imageAdapter.bindImages(folders.get(0).getImageList());
             }
         });
     }

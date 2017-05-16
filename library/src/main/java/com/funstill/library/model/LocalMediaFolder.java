@@ -12,7 +12,7 @@ public class LocalMediaFolder implements Serializable {
     private String path;
     private String firstImagePath;
     private int imageNum;
-    private List<LocalMedia> images = new ArrayList<LocalMedia>();
+    private List<LocalMedia> imageList = new ArrayList<>();
 
 
     public String getName() {
@@ -47,11 +47,11 @@ public class LocalMediaFolder implements Serializable {
         this.imageNum = imageNum;
     }
 
-    public List<LocalMedia> getImages() {
-        return images;
+    public List<LocalMedia> getImageList() {
+        return imageList;
     }
 
-    public void setImages(List<LocalMedia> images) {
-        this.images = images;
+    public void setImageList(List<LocalMedia> imageList) {
+        this.imageList = imageList;
     }
 }

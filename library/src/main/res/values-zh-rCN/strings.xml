@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="all_image">所有图片</string>
+    <string name="recent_image">最近图片</string>
     <string name="picture">图片</string>
     <string name="take_picture">拍摄照片</string>
     <string name="preview">预览</string>

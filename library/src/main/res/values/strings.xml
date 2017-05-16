@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Library</string>
     <string name="picture">Images</string>
-    <string name="all_image">All Images</string>
+    <string name="recent_image">Recent Images</string>
     <string name="take_picture">Take Photo</string>
     <string name="preview">Preview</string>
     <string name="preview_num">Preview(%1$s)</string>
