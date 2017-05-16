@@ -98,23 +98,12 @@ public class HomeLineFragmentChild extends SupportFragment implements SwipeRefre
                 super.onScrolled(recyclerView, dx, dy);
                 mScrollTotal += dy;
                 mInAtTop = mScrollTotal <= 0;
-
-                int lastVisibleItemPosition = mLayoutManager.findLastVisibleItemPosition();
-                if (lastVisibleItemPosition + 1 == mAdapter.getItemCount()) {
-                    if (!isLoadingMore) {
-                        isLoadingMore = true;
-                        Map<String, String> loadMoreParam = new ArrayMap<>();
-                        loadMoreParam.put("max_id", data.get(data.size() - 1).getId());
-                        loadMoreParam.put("count", "20");
-                        loadMoreHomeLineStatus(loadMoreParam);
-                    }
-                }
             }
 
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 if (newState == RecyclerView.SCROLL_STATE_IDLE
-                        && (mLayoutManager.findLastVisibleItemPosition() == mLayoutManager.getItemCount() - 1)
+                        && (mLayoutManager.findLastVisibleItemPosition()+1 == mLayoutManager.getItemCount())
                         && !isLoadingMore) {
                     isLoadingMore = true;
                     //处理逻辑
