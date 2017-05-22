@@ -12,6 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay"
+        app:popupTheme="@style/PopupOverlay"
         app:titleTextAppearance="@style/Toolbar_TextAppearance_White"/>
 </android.support.design.widget.AppBarLayout>

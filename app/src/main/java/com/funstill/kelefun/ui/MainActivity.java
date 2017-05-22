@@ -12,6 +12,8 @@ import com.funstill.kelefun.ui.explore.ExploreFragment;
 import com.funstill.kelefun.ui.explore.ExploreFragmentChild;
 import com.funstill.kelefun.ui.home.HomeLineFragment;
 import com.funstill.kelefun.ui.home.HomeLineFragmentChild;
+import com.funstill.kelefun.ui.menu.MenuFragment;
+import com.funstill.kelefun.ui.menu.MenuFragmentChild;
 import com.funstill.kelefun.ui.notice.NoticeFragment;
 import com.funstill.kelefun.ui.notice.ViewPagerFragment;
 import com.funstill.kelefun.ui.send.SendStatusFragment;
@@ -28,8 +30,9 @@ public class MainActivity extends SupportActivity implements BaseMainFragment.On
     public static final int SECOND = 1;
     public static final int THIRD = 2;
     public static final int FOURTH = 3;
+    public static final int FIVE = 4;
 
-    private SupportFragment[] mFragments = new SupportFragment[4];
+    private SupportFragment[] mFragments = new SupportFragment[5];
 
     private BottomBar mBottomBar;
 
@@ -43,12 +46,14 @@ public class MainActivity extends SupportActivity implements BaseMainFragment.On
             mFragments[SECOND] = ExploreFragment.newInstance();
             mFragments[THIRD] = SendStatusFragment.newInstance();
             mFragments[FOURTH] = NoticeFragment.newInstance();
+            mFragments[FIVE] = MenuFragment.newInstance();
 
             loadMultipleRootFragment(R.id.fl_container, FIRST,
                     mFragments[FIRST],
                     mFragments[SECOND],
                     mFragments[THIRD],
-                    mFragments[FOURTH]);
+                    mFragments[FOURTH],
+                    mFragments[FIVE]);
         } else {
             // 这里库已经做了Fragment恢复,所有不需要额外的处理了, 不会出现重叠问题
 
@@ -57,6 +62,7 @@ public class MainActivity extends SupportActivity implements BaseMainFragment.On
             mFragments[SECOND] = findFragment(ExploreFragment.class);
             mFragments[THIRD] = findFragment(SendStatusFragment.class);
             mFragments[FOURTH] = findFragment(NoticeFragment.class);
+            mFragments[FIVE] = findFragment(MenuFragment.class);
         }
 
         initView();
@@ -83,7 +89,8 @@ public class MainActivity extends SupportActivity implements BaseMainFragment.On
         mBottomBar.addItem(new BottomBarTab(this, R.drawable.ic_bottomtabbar_homeline))
                 .addItem(new BottomBarTab(this, R.drawable.ic_bottomtabbar_explore))
                 .addItem(new BottomBarTab(this, R.drawable.ic_bottomtabbar_add))
-                .addItem(new BottomBarTab(this, R.drawable.ic_message_white_24dp));
+                .addItem(new BottomBarTab(this, R.drawable.ic_message_white_24dp))
+                .addItem(new BottomBarTab(this, R.drawable.ic_bottomtabbar_menu));
 
         mBottomBar.setOnTabSelectedListener(new BottomBar.OnTabSelectedListener() {
             @Override
@@ -111,11 +118,11 @@ public class MainActivity extends SupportActivity implements BaseMainFragment.On
                         currentFragment.popToChild(SendStatusFragmentChild.class, false);
                     }else if (currentFragment instanceof NoticeFragment) {
                         currentFragment.popToChild(ViewPagerFragment.class, false);
+                    }else if (currentFragment instanceof MenuFragment) {
+                        currentFragment.popToChild(MenuFragmentChild.class, false);
                     }
                     return;
                 }
-
-//
 //                // 这里推荐使用EventBus来实现 -> 解耦
                 if (count == 1) {
                     // 在FirstPagerFragment中接收, 因为是嵌套的孙子Fragment 所以用EventBus比较方便
