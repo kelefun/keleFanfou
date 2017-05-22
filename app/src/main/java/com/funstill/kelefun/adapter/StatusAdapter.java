@@ -13,8 +13,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.funstill.kelefun.R;
 import com.funstill.kelefun.data.model.Status;
-import com.funstill.kelefun.listener.OnItemClickListener;
 import com.funstill.kelefun.util.DateAgo;
+import com.funstill.kelefun.util.ToastUtil;
+import com.funstill.kelefun.widget.ImagePreview;
 
 import net.wujingchao.android.view.SimpleTagImageView;
 
@@ -26,8 +27,6 @@ public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private static final int TYPE_ITEM = 0;
     private static final int TYPE_FOOTER = 1;
     private List<Status> data;
-    private OnItemClickListener photoClickListener;
-    private OnItemClickListener mClickListener;
 
     public StatusAdapter(Context mContext, List data) {
         this.mContext = mContext;
@@ -41,15 +40,19 @@ public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             final ItemViewHolder holder = new ItemViewHolder(view);
             holder.itemView.setOnClickListener(v -> {
                 int position = holder.getAdapterPosition();
-                if (mClickListener != null) {
-                    mClickListener.onItemClick(position, holder);
-                }
+                ToastUtil.showToast(mContext,"点击了卡片");
+            });
+            holder.screenNameView.setOnClickListener(v -> {
+                int position = holder.getAdapterPosition();
+                ToastUtil.showToast(mContext,"点击了用户主页");
             });
             holder.photoView.setOnClickListener(v -> {
                 int position = holder.getAdapterPosition();
-                if (photoClickListener != null) {
-                    photoClickListener.onItemClick(position, holder);
-                }
+                ImagePreview.startPreview(mContext, data.get(position).getPhoto().getLargeurl());
+            });
+            holder.avatarView.setOnClickListener(v -> {
+                int position = holder.getAdapterPosition();
+                ToastUtil.showToast(mContext,"点击了用户头像");
             });
             return holder;
         } else if (viewType == TYPE_FOOTER) {
@@ -77,7 +80,7 @@ public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 Status status= data.get(position);
                 itemHolder.screenNameView.setText(status.getUser().getScreenName());
                 itemHolder.timeSourceView.setText(DateAgo.toAgo(status.getCreatedAt())+Html.fromHtml(status.getSource()).toString());
-                itemHolder.statusView.setText(status.getText());
+                itemHolder.statusView.setText(Html.fromHtml(status.getText()));
 
                 Glide.with(mContext)
                         .load(status.getUser().getProfileImageUrl())
@@ -113,14 +116,6 @@ public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         } else {
             return TYPE_ITEM;
         }
-    }
-
-    public void setOnItemClickListener(OnItemClickListener itemClickListener) {
-        this.mClickListener = itemClickListener;
-    }
-
-    public void setOnPhotoClickListener(OnItemClickListener itemClickListener) {
-        this.photoClickListener = itemClickListener;
     }
 
     static class ItemViewHolder extends RecyclerView.ViewHolder {

@@ -24,7 +24,7 @@ import retrofit2.http.QueryMap;
 public interface StatusApi {
 
     //获取用户主页timeline
-    @GET("/statuses/home_timeline.json?mode=lite")
+    @GET("/statuses/home_timeline.json?mode=lite&format=html")
     Call<List<Status>> getHomeTimeLine(@QueryMap Map<String, String> paramMap);
 
     //获取随便看看

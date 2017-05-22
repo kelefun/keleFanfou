@@ -39,18 +39,20 @@ dependencies {
     compile 'com.android.support:cardview-v7:25.3.1'
     compile 'com.android.support:recyclerview-v7:25.3.1'
 
+    //网络请求
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
     // about json translate
     compile 'com.google.code.gson:gson:2.8.0'
-    //网络请求
-    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     //图片处理库
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
     //图片标签
     compile 'net.wujingchao.android.view:simple-tag-imageview:1.0.1'
+    //图片缩放等操作
+    compile 'com.github.chrisbanes:PhotoView:2.0.0'
 
     compile 'me.yokeyword:fragmentation-swipeback:0.7.9'
     compile 'me.yokeyword:fragmentation:0.10.1'

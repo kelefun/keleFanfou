@@ -1,6 +1,7 @@
 package com.funstill.kelefun.widget;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -34,7 +35,7 @@ public class ImagePreview extends Activity {
     private View view;
     private String url;
 
-    public static void startPreview(Activity context, String imageUrl) {
+    public static void startPreview(Context context, String imageUrl) {
         Intent intent = new Intent(context, ImagePreview.class);
         intent.putExtra(EXTRA_IMAGE_URL, imageUrl);
         context.startActivity(intent);
