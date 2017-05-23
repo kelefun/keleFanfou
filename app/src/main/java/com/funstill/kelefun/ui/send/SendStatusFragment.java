@@ -21,7 +21,7 @@ public class SendStatusFragment extends BaseMainFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_send_status, container, false);
+        View view = inflater.inflate(R.layout.fragment_send_status_container, container, false);
         return view;
     }
 

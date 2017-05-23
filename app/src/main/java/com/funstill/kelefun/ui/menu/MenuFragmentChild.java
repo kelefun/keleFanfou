@@ -2,25 +2,22 @@ package com.funstill.kelefun.ui.menu;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.Toolbar;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.funstill.kelefun.R;
+import com.funstill.kelefun.base.BaseBackFragment;
 import com.funstill.kelefun.event.TabSelectedEvent;
 import com.funstill.kelefun.ui.MainActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import me.yokeyword.fragmentation.SupportFragment;
-
-public class MenuFragmentChild extends SupportFragment {
-    private Toolbar mToolbar;
-    private LinearLayoutManager mLayoutManager;
-
+public class MenuFragmentChild extends BaseBackFragment {
+//    private Toolbar mToolbar;
+    private CollapsingToolbarLayout mCollapsingToolbarLayout;
 
     //是否滑动到顶部
     private boolean mInAtTop = true;
@@ -34,15 +31,15 @@ public class MenuFragmentChild extends SupportFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_user_home, container, false);
+        View view = inflater.inflate(R.layout.activity_user_home, container, false);
         initView(view);
         return view;
     }
 
     private void initView(View view) {
-        mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        mToolbar.setTitle("Menu");
-        mLayoutManager = new LinearLayoutManager(_mActivity);
+//        mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
+//        initToolbarNav(mToolbar);
+        mCollapsingToolbarLayout=(CollapsingToolbarLayout) view.findViewById(R.id.collapsing_toolbar);
     }
 
 

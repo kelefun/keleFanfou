@@ -1,13 +1,13 @@
 package com.funstill.kelefun.widget;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.view.View;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Window;
 import android.widget.ImageView;
 
@@ -17,6 +17,7 @@ import com.bumptech.glide.request.target.Target;
 import com.funstill.kelefun.R;
 import com.funstill.kelefun.util.ToastUtil;
 import com.funstill.library.utils.FileUtils;
+import com.github.chrisbanes.photoview.PhotoView;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -29,10 +30,12 @@ import java.util.concurrent.ExecutionException;
  * @since 2017/4/28 18:46
  */
 
-public class ImagePreview extends Activity {
+public class ImagePreview extends AppCompatActivity {
     public static final String EXTRA_IMAGE_URL = "image_url";
-    private ImageView mImageView;
-    private View view;
+    private PhotoView mPhotoView;
+    private ImageView mImageViewSave;
+    private Toolbar mToolbar;
+//    private View view;
     private String url;
 
     public static void startPreview(Context context, String imageUrl) {
@@ -47,8 +50,16 @@ public class ImagePreview extends Activity {
         setContentView(R.layout.activity_status_image_preview);
         Window window = this.getWindow();
         window.setStatusBarColor(getColor(R.color.black));
-        mImageView = (ImageView) findViewById(R.id.statusImagePreview);
-        view = findViewById(R.id.activityStatusImagePreview);
+        mToolbar =(Toolbar) findViewById(R.id.preview_toolbar);
+//        setSupportActionBar(mToolbar);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mToolbar.setTitle(R.string.image_preview);
+        mToolbar.setTitleTextColor(getColor(R.color.white));
+        mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
+        mToolbar.setNavigationOnClickListener(v -> finish());
+        mPhotoView = (PhotoView) findViewById(R.id.statusImagePreview);
+        mImageViewSave =(ImageView)findViewById(R.id.preview_save_image);
+//        view = findViewById(R.id.activityStatusImagePreview);
         String mImageUrl = getIntent().getStringExtra(EXTRA_IMAGE_URL);
         url = mImageUrl;
         if (mImageUrl.endsWith("gif")) {
@@ -56,14 +67,14 @@ public class ImagePreview extends Activity {
                     .load(mImageUrl)
                     .asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE)
 //                    .placeholder(R.drawable.tab_item_bg)
-                    .into(mImageView);
+                    .into(mPhotoView);
         } else {
             Glide.with(this)
                     .load(mImageUrl)
 //                    .placeholder(R.drawable.tab_item_bg)
-                    .into(mImageView);
+                    .into(mPhotoView);
         }
-        view.setOnLongClickListener(v -> {
+        mImageViewSave.setOnClickListener(v -> {
             new AlertDialog.Builder(ImagePreview.this)
                     .setMessage("保存图片")
                     .setNegativeButton(android.R.string.cancel,
@@ -75,9 +86,7 @@ public class ImagePreview extends Activity {
                                 dialog.dismiss();
                             })
                     .show();
-            return true;
         });
-        view.setOnClickListener(v -> this.finish());
     }
 
     public class SaveImageTask extends AsyncTask<Void, Void, File> {

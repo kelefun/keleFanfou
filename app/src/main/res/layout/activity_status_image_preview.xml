@@ -2,8 +2,23 @@
     android:id="@+id/activityStatusImagePreview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black">
-    <ImageView
+    android:orientation="vertical"
+    android:background="@android:color/background_dark">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/preview_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        android:background="@android:color/background_dark">
+        <ImageView
+            android:id="@+id/preview_save_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="@dimen/bottombar_height"
+            android:src="@drawable/ic_save_white_24dp" />
+    </android.support.v7.widget.Toolbar>
+    <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/statusImagePreview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

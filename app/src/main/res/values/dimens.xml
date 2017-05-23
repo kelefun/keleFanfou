@@ -9,7 +9,9 @@
     <dimen name="base_dimen_6dp">6dp</dimen>
     <dimen name="base_dimen_8dp">8dp</dimen>
 
+    <dimen name="icon_distance">14dp</dimen>
     <dimen name="avatar_length">36dp</dimen>
+    <dimen name="avatar_length_large">55dp</dimen>
     <dimen name="status_icon">25dp</dimen>
     <dimen name="bottombar_height">48dp</dimen>
 </resources>
