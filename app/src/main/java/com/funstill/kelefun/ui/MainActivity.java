@@ -123,7 +123,6 @@ public class MainActivity extends SupportActivity implements BaseMainFragment.On
                     }
                     return;
                 }
-//                // 这里推荐使用EventBus来实现 -> 解耦
                 if (count == 1) {
                     // 在FirstPagerFragment中接收, 因为是嵌套的孙子Fragment 所以用EventBus比较方便
                     // 主要为了交互: 重选tab 如果列表不在顶部则移动到顶部,如果已经在顶部,则刷新

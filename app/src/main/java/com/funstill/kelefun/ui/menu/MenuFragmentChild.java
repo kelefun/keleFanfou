@@ -9,18 +9,10 @@ import android.view.ViewGroup;
 
 import com.funstill.kelefun.R;
 import com.funstill.kelefun.base.BaseBackFragment;
-import com.funstill.kelefun.event.TabSelectedEvent;
-import com.funstill.kelefun.ui.MainActivity;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 public class MenuFragmentChild extends BaseBackFragment {
 //    private Toolbar mToolbar;
     private CollapsingToolbarLayout mCollapsingToolbarLayout;
-
-    //是否滑动到顶部
-    private boolean mInAtTop = true;
 
     public static MenuFragmentChild newInstance() {
         Bundle args = new Bundle();
@@ -31,7 +23,7 @@ public class MenuFragmentChild extends BaseBackFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_user_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_menu_container, container, false);
         initView(view);
         return view;
     }
@@ -43,21 +35,9 @@ public class MenuFragmentChild extends BaseBackFragment {
     }
 
 
-    /**
-     * 选择tab事件
-     */
-    @Subscribe
-    public void onTabSelectedEvent(TabSelectedEvent event) {
-        if (event.position != MainActivity.FIRST) return;
-
-        if (!mInAtTop) {
-//            scrollToTop();
-        }
-    }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        EventBus.getDefault().unregister(this);
     }
 }
