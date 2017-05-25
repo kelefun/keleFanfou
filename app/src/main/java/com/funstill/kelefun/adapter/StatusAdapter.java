@@ -1,6 +1,7 @@
 package com.funstill.kelefun.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -13,9 +14,10 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.funstill.kelefun.R;
 import com.funstill.kelefun.data.model.Status;
+import com.funstill.kelefun.ui.other.UserHomeActivity;
 import com.funstill.kelefun.util.DateAgo;
 import com.funstill.kelefun.util.ToastUtil;
-import com.funstill.kelefun.widget.ImagePreview;
+import com.funstill.kelefun.ui.widget.ImagePreview;
 
 import net.wujingchao.android.view.SimpleTagImageView;
 
@@ -44,6 +46,10 @@ public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             });
             holder.screenNameView.setOnClickListener(v -> {
                 int position = holder.getAdapterPosition();
+                Intent intent = new Intent(mContext, UserHomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+                intent.putExtra(UserHomeActivity.USER_ID,data.get(position).getUser().getId());
+                mContext.startActivity(intent);
                 ToastUtil.showToast(mContext,"点击了用户主页");
             });
             holder.photoView.setOnClickListener(v -> {

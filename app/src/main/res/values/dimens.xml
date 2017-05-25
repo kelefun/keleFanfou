@@ -11,7 +11,11 @@
 
     <dimen name="icon_distance">14dp</dimen>
     <dimen name="avatar_length">36dp</dimen>
-    <dimen name="avatar_length_large">55dp</dimen>
     <dimen name="status_icon">25dp</dimen>
     <dimen name="bottombar_height">48dp</dimen>
+
+    <dimen name="userhome_count_width">39dp</dimen>
+    <dimen name="userhome_avatar_margin_left">24dp</dimen>
+    <dimen name="userhome_avatar_length_large">86dp</dimen>
+    <dimen name="userhome_count_margin_left">110dp</dimen><!--上面marginleft+length+间距 -->
 </resources>

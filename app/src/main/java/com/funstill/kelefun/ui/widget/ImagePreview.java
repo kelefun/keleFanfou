@@ -1,4 +1,4 @@
-package com.funstill.kelefun.widget;
+package com.funstill.kelefun.ui.widget;
 
 import android.content.Context;
 import android.content.Intent;

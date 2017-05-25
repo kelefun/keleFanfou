@@ -1,118 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:layout_height="match_parent">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar"
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="225dp"
-        android:fitsSystemWindows="true"
-        android:theme="@style/AppBarOverlay">
+        android:layout_height="match_parent">
 
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/collapsing_toolbar"
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="225dp"
+            android:theme="@style/AppBarOverlay">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:contentScrim="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:titleEnabled="true">
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:layout_collapseMode="pin"
+                    app:popupTheme="@style/PopupOverlay">
+
+                    <ImageView
+                        android:id="@+id/direct_message"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_marginRight="@dimen/icon_distance"
+                        android:src="@drawable/ic_message_white_24dp" />
+
+                    <ImageView
+                        android:id="@+id/status_mention"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_marginRight="@dimen/icon_distance"
+                        android:src="@drawable/ic_at_white" />
+
+                    <ImageView
+                        android:id="@+id/attention"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_marginRight="@dimen/icon_distance"
+                        android:src="@drawable/ic_account_circle_white_24dp" />
+                </android.support.v7.widget.Toolbar>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="225dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/userAvatar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_launcher" />
+                </LinearLayout>
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+        </android.support.design.widget.AppBarLayout>
+
+
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
-            app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:titleEnabled="true">
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
-                app:popupTheme="@style/PopupOverlay">
-
-                <ImageView
-                    android:id="@+id/direct_message"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_marginRight="@dimen/icon_distance"
-                    android:src="@drawable/ic_message_white_24dp" />
-
-                <ImageView
-                    android:id="@+id/status_mention"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_marginRight="@dimen/icon_distance"
-                    android:src="@drawable/ic_at_white" />
-
-                <ImageView
-                    android:id="@+id/attention"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_marginRight="@dimen/icon_distance"
-                    android:src="@drawable/ic_account_circle_white_24dp" />
-            </android.support.v7.widget.Toolbar>
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="225dp"
-                android:gravity="center"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/userAvatar"
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_launcher" />
+                    android:layout_marginBottom="12dp"
+                    android:text="哈哈哈哈哈哈哈哈哈哈哈"
+                    android:textColor="@color/black" />
+
+                <ImageView
+                    android:id="@+id/ig_avatar_drakeet"
+                    android:layout_width="@dimen/avatar_length"
+                    android:layout_height="160dp"
+                    android:layout_margin="16dp"
+                    android:src="@mipmap/ic_camera" />
+
+
+                <ImageView
+                    android:id="@+id/ig_avatar_daimajia"
+                    android:layout_width="@dimen/avatar_length"
+                    android:layout_height="260dp"
+                    android:layout_below="@id/ig_avatar_drakeet"
+                    android:layout_margin="16dp"
+                    android:src="@mipmap/ic_camera" />
+
+                <TextView
+                    android:id="@+id/daimajia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/ig_avatar_daimajia"
+                    android:layout_toEndOf="@id/ig_avatar_daimajia"
+                    android:layout_toRightOf="@id/ig_avatar_daimajia"
+                    android:text="哈哈哈哈哈哈哈哈哈哈"
+                    android:textColor="@color/black" />
             </LinearLayout>
-        </android.support.design.widget.CollapsingToolbarLayout>
+        </android.support.v4.widget.NestedScrollView>
 
-    </android.support.design.widget.AppBarLayout>
-
-
-    <android.support.v4.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:text="哈哈哈哈哈哈哈哈哈哈哈"
-                android:textColor="@color/black" />
-
-            <ImageView
-                android:id="@+id/ig_avatar_drakeet"
-                android:layout_width="@dimen/avatar_length"
-                android:layout_height="160dp"
-                android:layout_margin="16dp"
-                android:src="@mipmap/ic_camera" />
-
-
-            <ImageView
-                android:id="@+id/ig_avatar_daimajia"
-                android:layout_width="@dimen/avatar_length"
-                android:layout_height="260dp"
-                android:layout_below="@id/ig_avatar_drakeet"
-                android:layout_margin="16dp"
-                android:src="@mipmap/ic_camera" />
-
-            <TextView
-                android:id="@+id/daimajia"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@id/ig_avatar_daimajia"
-                android:layout_toEndOf="@id/ig_avatar_daimajia"
-                android:layout_toRightOf="@id/ig_avatar_daimajia"
-                android:text="哈哈哈哈哈哈哈哈哈哈"
-                android:textColor="@color/black" />
-        </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
-
-</android.support.design.widget.CoordinatorLayout>
+    </android.support.design.widget.CoordinatorLayout>
+</FrameLayout>

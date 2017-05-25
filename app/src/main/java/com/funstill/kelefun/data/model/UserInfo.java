@@ -18,6 +18,8 @@ public class UserInfo {
     //用户昵称
     @SerializedName("screen_name")
     private String screenName;
+    @SerializedName("unique_id")
+    private String uniqueId;
     //用户地址
     @SerializedName("location")
     private String location;
@@ -54,6 +56,8 @@ public class UserInfo {
     //消息数
     @SerializedName("statuses_count")
     private int statusesCount;
+    @SerializedName("photo_count")
+    private int photoCount;
     //该用户是否被当前登录用户关注
     @SerializedName("following")
     private boolean following;
@@ -86,6 +90,17 @@ public class UserInfo {
     //是否平铺用户用户自定义背景图片地址
     @SerializedName("profile_background_tile")
     private boolean profileBackgroundTile;
+
+    @SerializedName("status")
+    private Status recentStatus;
+
+    public Status getRecentStatus() {
+        return recentStatus;
+    }
+
+    public void setRecentStatus(Status recentStatus) {
+        this.recentStatus = recentStatus;
+    }
 
     public String getId() {
         return id;
@@ -295,4 +310,122 @@ public class UserInfo {
         this.profileBackgroundTile = profileBackgroundTile;
     }
 
+    public String getUniqueId() {
+        return uniqueId;
+    }
+
+    public void setUniqueId(String uniqueId) {
+        this.uniqueId = uniqueId;
+    }
+
+    public int getPhotoCount() {
+        return photoCount;
+    }
+
+    public void setPhotoCount(int photoCount) {
+        this.photoCount = photoCount;
+    }
+
+    private class Status{
+        @SerializedName("created_at")
+        private String createdAt;
+        @SerializedName("id")
+        private String id;
+        @SerializedName("rawid")
+        private int rawid;
+        @SerializedName("text")
+        private String text;
+        @SerializedName("source")
+        private String source;
+        @SerializedName("truncated")
+        private boolean truncated;
+        @SerializedName("in_reply_to_lastmsg_id")
+        private String inReplyToLastmsgId;
+        @SerializedName("in_reply_to_user_id")
+        private String inReplyToUserId;
+        @SerializedName("in_reply_to_screen_name")
+        private String inReplyToScreenName;
+        @SerializedName("favorited")
+        private boolean favorited;
+
+        public String getCreatedAt() {
+            return createdAt;
+        }
+
+        public void setCreatedAt(String createdAt) {
+            this.createdAt = createdAt;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public int getRawid() {
+            return rawid;
+        }
+
+        public void setRawid(int rawid) {
+            this.rawid = rawid;
+        }
+
+        public String getText() {
+            return text;
+        }
+
+        public void setText(String text) {
+            this.text = text;
+        }
+
+        public String getSource() {
+            return source;
+        }
+
+        public void setSource(String source) {
+            this.source = source;
+        }
+
+        public boolean isTruncated() {
+            return truncated;
+        }
+
+        public void setTruncated(boolean truncated) {
+            this.truncated = truncated;
+        }
+
+        public String getInReplyToLastmsgId() {
+            return inReplyToLastmsgId;
+        }
+
+        public void setInReplyToLastmsgId(String inReplyToLastmsgId) {
+            this.inReplyToLastmsgId = inReplyToLastmsgId;
+        }
+
+        public String getInReplyToUserId() {
+            return inReplyToUserId;
+        }
+
+        public void setInReplyToUserId(String inReplyToUserId) {
+            this.inReplyToUserId = inReplyToUserId;
+        }
+
+        public String getInReplyToScreenName() {
+            return inReplyToScreenName;
+        }
+
+        public void setInReplyToScreenName(String inReplyToScreenName) {
+            this.inReplyToScreenName = inReplyToScreenName;
+        }
+
+        public boolean isFavorited() {
+            return favorited;
+        }
+
+        public void setFavorited(boolean favorited) {
+            this.favorited = favorited;
+        }
+    }
 }

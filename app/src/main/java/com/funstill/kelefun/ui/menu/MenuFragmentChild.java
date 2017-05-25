@@ -23,7 +23,7 @@ public class MenuFragmentChild extends BaseBackFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_menu_container, container, false);
+        View view = inflater.inflate(R.layout.fragment_menu_child, container, false);
         initView(view);
         return view;
     }
