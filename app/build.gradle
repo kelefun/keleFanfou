@@ -55,6 +55,7 @@ dependencies {
     compile 'me.yokeyword:fragmentation-swipeback:0.7.9'
     compile 'me.yokeyword:fragmentation:0.10.1'
 
+    compile 'com.jaeger.statusbarutil:library:1.4.0'
 //    // ButterKnife
 //    compile 'com.jakewharton:butterknife:8.4.0'
 //    // AutoValue

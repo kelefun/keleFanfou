@@ -2,6 +2,7 @@ package com.funstill.kelefun.ui.other;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
@@ -15,6 +16,7 @@ import com.funstill.kelefun.http.BaseRetrofit;
 import com.funstill.kelefun.http.SignInterceptor;
 import com.funstill.kelefun.util.LogHelper;
 import com.funstill.kelefun.util.ToastUtil;
+import com.jaeger.library.StatusBarUtil;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -22,34 +24,38 @@ import retrofit2.Response;
 
 public class UserHomeActivity extends AppCompatActivity {
     private Toolbar mToolbar;
+    private CollapsingToolbarLayout mCollapsingToolbarLayout;
     private TextView friendsCount;
     private TextView followersCount;
     private TextView statusesCount;
     private ImageView profileBackgroundImage;
     private ImageView profileImage;
-    public static final String USER_ID="user_id";
+    private static final int ALPHA=32;//透明度
+    public static final String USER_ID = "user_id";
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_home);
+        StatusBarUtil.setTranslucent(this, ALPHA);
         initView();
         getUserInfo();
     }
 
     private void initView() {
+        mCollapsingToolbarLayout=(CollapsingToolbarLayout)findViewById(R.id.collapsing_toolbar);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         friendsCount = (TextView) findViewById(R.id.friends_count);
         followersCount = (TextView) findViewById(R.id.followers_count);
         statusesCount = (TextView) findViewById(R.id.statuses_count);
         profileImage = (ImageView) findViewById(R.id.profile_image);
         profileBackgroundImage = (ImageView) findViewById(R.id.profile_background_image);
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        mToolbar.setTitle("个人主页");
+//        setSupportActionBar(mToolbar);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    private void getUserInfo(){
+    private void getUserInfo() {
         UserApi api = BaseRetrofit.retrofit(new SignInterceptor()).create(UserApi.class);
         Call<UserInfo> call = api.getUsersShow(getIntent().getStringExtra(USER_ID));
         call.enqueue(new Callback<UserInfo>() {
@@ -66,15 +72,14 @@ public class UserHomeActivity extends AppCompatActivity {
                                 .into(profileImage);
                         Glide.with(UserHomeActivity.this)
                                 .load(userInfo.getProfileBackgroundImageUrl())
-                    .placeholder(R.color.colorGrey)
                                 .into(profileBackgroundImage);
-                        ToastUtil.showToast(UserHomeActivity.this, "用户信息:" + userInfo.getScreenName());
+                        mCollapsingToolbarLayout.setTitle(userInfo.getScreenName());
                     } else {
                         ToastUtil.showToast(UserHomeActivity.this, "没有查询到");
                     }
-                }else {
+                } else {
                     try {
-                        LogHelper.e(response.code()+"测试"+response.message()+"哈哈"+response.errorBody().string());
+                        LogHelper.e(response.code() + "测试" + response.message() + "哈哈" + response.errorBody().string());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -89,12 +94,12 @@ public class UserHomeActivity extends AppCompatActivity {
             }
         });
     }
-    private String formatCount(int count){
-        if(count<10000){
+    private String formatCount(int count) {
+        if (count < 10000) {
             return String.valueOf(count);
-        }else {
+        } else {
             String str = String.valueOf(count);
-            return str.substring(0,str.length()-4)+"w+";
+            return str.substring(0, str.length() - 4) + "w+";
         }
     }
 

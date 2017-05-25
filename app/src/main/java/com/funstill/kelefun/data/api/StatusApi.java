@@ -28,11 +28,11 @@ public interface StatusApi {
     Call<List<Status>> getHomeTimeLine(@QueryMap Map<String, String> paramMap);
 
     //获取随便看看
-    @GET("/statuses/public_timeline.json?mode=lite")
+    @GET("/statuses/public_timeline.json?mode=lite&format=html")
     Call<List<Status>> getPublicTimeLine(@QueryMap Map<String, String> paramMap);
 
     //获取提到我的消息
-    @GET("/statuses/mentions.json?mode=lite")
+    @GET("/statuses/mentions.json?mode=lite&format=html")
     Call<List<Status>> getMentions(@QueryMap Map<String, String> paramMap);
 
     /**

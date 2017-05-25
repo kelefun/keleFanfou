@@ -16,6 +16,6 @@
 
     <dimen name="userhome_count_width">39dp</dimen>
     <dimen name="userhome_avatar_margin_left">24dp</dimen>
-    <dimen name="userhome_avatar_length_large">86dp</dimen>
-    <dimen name="userhome_count_margin_left">110dp</dimen><!--上面marginleft+length+间距 -->
+    <dimen name="userhome_avatar_length_large">96dp</dimen>
+    <dimen name="userhome_count_margin_top">70dp</dimen>
 </resources>
