@@ -42,83 +42,97 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
-                    android:background="@color/colorAlpha"
+                    android:layout_marginTop="@dimen/base_dimen_8dp"
                     android:orientation="vertical">
-                    <!--设置背景色-->
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginLeft="150dp">
+
+                        <TextView
+                            android:id="@+id/user_desc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:lineSpacingMultiplier="1.2"
+                            android:maxLines="3"
+                            android:text="@string/user_description"
+                            android:textColor="@color/grey" />
+                    </LinearLayout>
+
+                    <!--辅助布局 - 置count布局于底部-->
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_marginTop="70dp"
                         android:layout_height="wrap_content"
-                        android:background="@color/colorAlphaDark"
-                        android:orientation="vertical">
-                        <!--水平布局count-->
+                        android:layout_weight="1"
+                        android:orientation="vertical" />
+
+                    <!--关注粉丝消息数目(count)水平布局-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:background="@color/colorGrey"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:orientation="horizontal"
-                            android:padding="@dimen/base_dimen_4dp">
+                            android:padding="@dimen/base_dimen_6dp"
+                            android:layout_marginRight="@dimen/base_dimen_4dp">
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_marginRight="@dimen/base_dimen_4dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/friendsCount" />
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="关注 "
-                                    android:textColor="@color/grey" />
-
-                                <TextView
-                                    android:id="@+id/friends_count"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="0"
-                                    android:textColor="@color/grey" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_marginRight="@dimen/base_dimen_4dp">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text=" 粉丝 "
-                                    android:textColor="@color/grey" />
-
-                                <TextView
-                                    android:id="@+id/followers_count"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="0"
-                                    android:textColor="@color/grey" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_marginRight="@dimen/base_dimen_4dp">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text=" 消息 "
-                                    android:textColor="@color/grey" />
-
-                                <TextView
-                                    android:id="@+id/statuses_count"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="0"
-                                    android:textColor="@color/grey" />
-                            </LinearLayout>
+                            <TextView
+                                android:id="@+id/friends_count"
+                                android:layout_width="@dimen/userhome_count_width"
+                                android:layout_height="wrap_content"
+                                android:text="0" />
                         </LinearLayout>
 
-                    </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/base_dimen_6dp"
+                            android:layout_marginRight="@dimen/base_dimen_4dp">
 
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/followersCount" />
+
+                            <TextView
+                                android:id="@+id/followers_count"
+                                android:layout_width="@dimen/userhome_count_width"
+                                android:layout_height="wrap_content"
+                                android:text="0" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/base_dimen_6dp"
+                            android:layout_marginRight="@dimen/base_dimen_4dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/statusesCount" />
+
+                            <TextView
+                                android:id="@+id/statuses_count"
+                                android:layout_width="@dimen/userhome_count_width"
+                                android:layout_height="wrap_content"
+                                android:text="0" />
+                        </LinearLayout>
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
 
@@ -130,8 +144,8 @@
                     android:id="@+id/profile_image"
                     android:layout_width="@dimen/userhome_avatar_length_large"
                     android:layout_height="@dimen/userhome_avatar_length_large"
-                    android:layout_marginLeft="25dp"
                     android:layout_gravity="center_vertical|left"
+                    android:layout_marginLeft="25dp"
                     android:src="@drawable/ic_launcher"
                     app:civ_border_color="@color/colorGrey"
                     app:civ_border_width="1dp" />
@@ -189,7 +203,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="8dp"
-                android:text="@string/person_intro" />
+                android:text="@string/user_description" />
 
         </android.support.v7.widget.CardView>
     </android.support.v4.widget.NestedScrollView>

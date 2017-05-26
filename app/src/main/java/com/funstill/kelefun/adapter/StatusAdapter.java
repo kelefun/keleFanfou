@@ -44,13 +44,12 @@ public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 int position = holder.getAdapterPosition();
                 ToastUtil.showToast(mContext,"点击了卡片");
             });
-            holder.screenNameView.setOnClickListener(v -> {
+            holder.userHomeClickArea.setOnClickListener(v -> {
                 int position = holder.getAdapterPosition();
                 Intent intent = new Intent(mContext, UserHomeActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
                 intent.putExtra(UserHomeActivity.USER_ID,data.get(position).getUser().getId());
                 mContext.startActivity(intent);
-                ToastUtil.showToast(mContext,"点击了用户主页");
             });
             holder.photoView.setOnClickListener(v -> {
                 int position = holder.getAdapterPosition();
@@ -58,7 +57,7 @@ public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             });
             holder.avatarView.setOnClickListener(v -> {
                 int position = holder.getAdapterPosition();
-                ToastUtil.showToast(mContext,"点击了用户头像");
+                ImagePreview.startPreview(mContext,data.get(position).getUser().getProfileImageUrlLarge());
             });
             return holder;
         } else if (viewType == TYPE_FOOTER) {
@@ -126,6 +125,7 @@ public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     static class ItemViewHolder extends RecyclerView.ViewHolder {
         final View mView;
+        private View userHomeClickArea;
         public TextView screenNameView;
         public TextView timeSourceView;
         public TextView statusView;
@@ -135,6 +135,7 @@ public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         public ItemViewHolder(View view) {
             super(view);
             mView = view;
+            userHomeClickArea=itemView.findViewById(R.id.user_home_click_area);
             screenNameView = (TextView) itemView.findViewById(R.id.screenNameView);
             timeSourceView = (TextView) itemView.findViewById(R.id.timeSourceView);
             statusView = (TextView) itemView.findViewById(R.id.statusView);

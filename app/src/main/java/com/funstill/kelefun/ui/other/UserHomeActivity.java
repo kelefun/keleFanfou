@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,6 +26,7 @@ import retrofit2.Response;
 public class UserHomeActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     private CollapsingToolbarLayout mCollapsingToolbarLayout;
+    private TextView description;
     private TextView friendsCount;
     private TextView followersCount;
     private TextView statusesCount;
@@ -45,6 +47,7 @@ public class UserHomeActivity extends AppCompatActivity {
 
     private void initView() {
         mCollapsingToolbarLayout=(CollapsingToolbarLayout)findViewById(R.id.collapsing_toolbar);
+        description=(TextView)findViewById(R.id.user_desc);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         friendsCount = (TextView) findViewById(R.id.friends_count);
         followersCount = (TextView) findViewById(R.id.followers_count);
@@ -64,11 +67,14 @@ public class UserHomeActivity extends AppCompatActivity {
                 if (response.code() == 200) {
                     UserInfo userInfo = response.body();
                     if (userInfo != null) {
+                        if(!TextUtils.isEmpty(userInfo.getDescription())){
+                            description.setText(userInfo.getDescription());
+                        }
                         friendsCount.setText(formatCount(userInfo.getFriendsCount()));
                         followersCount.setText(formatCount(userInfo.getFollowersCount()));
                         statusesCount.setText(formatCount(userInfo.getStatusesCount()));
                         Glide.with(UserHomeActivity.this)
-                                .load(userInfo.getProfileImageUrl())
+                                .load(userInfo.getProfileImageUrlLarge())
                                 .into(profileImage);
                         Glide.with(UserHomeActivity.this)
                                 .load(userInfo.getProfileBackgroundImageUrl())
@@ -95,12 +101,13 @@ public class UserHomeActivity extends AppCompatActivity {
         });
     }
     private String formatCount(int count) {
-        if (count < 10000) {
-            return String.valueOf(count);
-        } else {
-            String str = String.valueOf(count);
-            return str.substring(0, str.length() - 4) + "w+";
-        }
+//        if (count < 10000) {
+//            return String.valueOf(count);
+//        } else {
+//            String str = String.valueOf(count);
+//            return str.substring(0, str.length() - 4) + "w+";
+//        }
+        return String.valueOf(count);
     }
 
 
