@@ -8,14 +8,14 @@
     <dimen name="base_dimen_4dp">4dp</dimen>
     <dimen name="base_dimen_6dp">6dp</dimen>
     <dimen name="base_dimen_8dp">8dp</dimen>
+    <dimen name="base_dimen_12dp">12dp</dimen>
+    <dimen name="base_dimen_24dp">24dp</dimen>
 
     <dimen name="icon_distance">14dp</dimen>
     <dimen name="avatar_length">36dp</dimen>
-    <dimen name="status_icon">25dp</dimen>
     <dimen name="bottombar_height">48dp</dimen>
 
-    <dimen name="userhome_count_width">55dp</dimen>
-    <dimen name="userhome_avatar_margin_left">24dp</dimen>
+    <dimen name="userhome_count_width">54dp</dimen>
     <dimen name="userhome_avatar_length_large">96dp</dimen>
     <dimen name="userhome_count_margin_top">70dp</dimen>
 </resources>

@@ -12,8 +12,8 @@
     <string name="error_field_required">不能为空</string>
     <string name="error_invalid_account_password">账号或密码错误</string>
     <string name="user_description">这位饭友\n还没添加任何描述</string>
-    <string name="friendsCount">关注 </string>
-    <string name="followersCount">粉丝 </string>
-    <string name="statusesCount">消息 </string>
+    <string name="friendsCount">关注\u0020</string>
+    <string name="followersCount">粉丝\u0020</string>
+    <string name="statusesCount">消息\u0020</string>
 
 </resources>

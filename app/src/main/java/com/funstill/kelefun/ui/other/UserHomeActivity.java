@@ -27,6 +27,7 @@ public class UserHomeActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     private CollapsingToolbarLayout mCollapsingToolbarLayout;
     private TextView description;
+    private TextView location;
     private TextView friendsCount;
     private TextView followersCount;
     private TextView statusesCount;
@@ -47,7 +48,8 @@ public class UserHomeActivity extends AppCompatActivity {
 
     private void initView() {
         mCollapsingToolbarLayout=(CollapsingToolbarLayout)findViewById(R.id.collapsing_toolbar);
-        description=(TextView)findViewById(R.id.user_desc);
+        description=(TextView)findViewById(R.id.user_description);
+        location =(TextView)findViewById(R.id.user_location);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         friendsCount = (TextView) findViewById(R.id.friends_count);
         followersCount = (TextView) findViewById(R.id.followers_count);
@@ -70,6 +72,7 @@ public class UserHomeActivity extends AppCompatActivity {
                         if(!TextUtils.isEmpty(userInfo.getDescription())){
                             description.setText(userInfo.getDescription());
                         }
+                        location.setText(userInfo.getLocation());
                         friendsCount.setText(formatCount(userInfo.getFriendsCount()));
                         followersCount.setText(formatCount(userInfo.getFollowersCount()));
                         statusesCount.setText(formatCount(userInfo.getStatusesCount()));
