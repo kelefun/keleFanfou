@@ -107,7 +107,7 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="@dimen/base_dimen_4dp"
+                            android:layout_marginEnd="@dimen/base_dimen_4dp"
                             android:padding="@dimen/base_dimen_6dp">
 
                             <TextView
@@ -125,7 +125,7 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="@dimen/base_dimen_4dp"
+                            android:layout_marginEnd="@dimen/base_dimen_4dp"
                             android:padding="@dimen/base_dimen_6dp">
 
                             <TextView
@@ -143,7 +143,7 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="@dimen/base_dimen_4dp"
+                            android:layout_marginEnd="@dimen/base_dimen_4dp"
                             android:padding="@dimen/base_dimen_6dp">
 
                             <TextView
@@ -169,7 +169,7 @@
                     android:id="@+id/profile_image"
                     android:layout_width="@dimen/userhome_avatar_length_large"
                     android:layout_height="@dimen/userhome_avatar_length_large"
-                    android:layout_gravity="center_vertical|left"
+                    android:layout_gravity="center_vertical|start"
                     android:layout_marginLeft="@dimen/base_dimen_24dp"
                     android:src="@drawable/ic_launcher"
                     app:civ_border_color="@color/colorGrey"
@@ -187,24 +187,24 @@
                     android:id="@+id/direct_message"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_marginRight="@dimen/icon_distance"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="@dimen/icon_distance"
                     android:src="@drawable/ic_message_white_24dp" />
 
                 <ImageView
                     android:id="@+id/status_mention"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_marginRight="@dimen/icon_distance"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="@dimen/icon_distance"
                     android:src="@drawable/ic_at_white" />
 
                 <ImageView
                     android:id="@+id/attention"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_marginRight="@dimen/icon_distance"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="@dimen/icon_distance"
                     android:src="@drawable/ic_account_circle_white_24dp" />
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.CollapsingToolbarLayout>
