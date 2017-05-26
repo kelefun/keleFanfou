@@ -3,6 +3,8 @@ package com.funstill.kelefun.ui.other;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.funstill.kelefun.R;
+import com.funstill.kelefun.adapter.UserHomeFragmentAdapter;
 import com.funstill.kelefun.data.api.UserApi;
 import com.funstill.kelefun.data.model.UserInfo;
 import com.funstill.kelefun.http.BaseRetrofit;
@@ -36,15 +39,32 @@ public class UserHomeActivity extends AppCompatActivity {
     private static final int ALPHA=32;//透明度
     public static final String USER_ID = "user_id";
 
+    private TabLayout userHomeTab;
+    private ViewPager mViewPager;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_home);
         StatusBarUtil.setTranslucent(this, ALPHA);
+
+        initTab();
+
         initView();
         getUserInfo();
     }
+    private void initTab(){
+//        userHomeTab.setTabMode(TabLayout.MODE_SCROLLABLE);
+        userHomeTab = (TabLayout) findViewById(R.id.user_home_tab);
+        mViewPager = (ViewPager) findViewById(R.id.vp_content);
+        userHomeTab.addTab(userHomeTab.newTab());
+        userHomeTab.addTab(userHomeTab.newTab());
+        userHomeTab.addTab(userHomeTab.newTab());
+
+        mViewPager.setAdapter( new UserHomeFragmentAdapter(getSupportFragmentManager()));
+        userHomeTab.setupWithViewPager(mViewPager);
+    }
+
 
     private void initView() {
         mCollapsingToolbarLayout=(CollapsingToolbarLayout)findViewById(R.id.collapsing_toolbar);
@@ -112,6 +132,4 @@ public class UserHomeActivity extends AppCompatActivity {
 //        }
         return String.valueOf(count);
     }
-
-
 }
