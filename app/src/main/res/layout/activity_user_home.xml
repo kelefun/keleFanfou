@@ -33,7 +33,7 @@
                 <ImageView
                     android:id="@+id/profile_background_image"
                     android:layout_width="match_parent"
-                    android:layout_height="160dp"
+                    android:layout_height="200dp"
                     android:background="@color/colorAlphaDark"
                     android:fitsSystemWindows="true"
                     android:scaleType="centerCrop"
@@ -42,7 +42,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="120dp"
                     android:layout_marginTop="@dimen/base_dimen_8dp"
                     android:orientation="vertical">
                     <!--辅助布局 - 置count布局于底部-->
@@ -99,7 +99,7 @@
                     <!--关注粉丝消息数目(count)水平布局-->
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
+                        android:layout_height="@dimen/userhome_bar_height"
                         android:background="@color/colorAlphaDark"
                         android:gravity="center"
                         android:orientation="horizontal">
@@ -107,8 +107,9 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="@dimen/base_dimen_4dp"
-                            android:padding="@dimen/base_dimen_6dp">
+                            android:gravity="center"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -117,7 +118,7 @@
 
                             <TextView
                                 android:id="@+id/friends_count"
-                                android:layout_width="@dimen/userhome_count_width"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="0" />
                         </LinearLayout>
@@ -125,8 +126,9 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="@dimen/base_dimen_4dp"
-                            android:padding="@dimen/base_dimen_6dp">
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -135,7 +137,7 @@
 
                             <TextView
                                 android:id="@+id/followers_count"
-                                android:layout_width="@dimen/userhome_count_width"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="0" />
                         </LinearLayout>
@@ -143,8 +145,9 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="@dimen/base_dimen_4dp"
-                            android:padding="@dimen/base_dimen_6dp">
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -153,7 +156,7 @@
 
                             <TextView
                                 android:id="@+id/statuses_count"
-                                android:layout_width="@dimen/userhome_count_width"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="0" />
                         </LinearLayout>
@@ -211,7 +214,7 @@
         <android.support.design.widget.TabLayout
             android:id="@+id/user_home_tab"
             android:layout_width="match_parent"
-            android:layout_height="36dp"
+            android:layout_height="@dimen/userhome_bar_height"
             android:background="@color/white"
             app:tabTextColor="@color/grey"
             app:tabIndicatorColor="@color/grey"
