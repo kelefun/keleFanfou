@@ -15,9 +15,9 @@ import com.bumptech.glide.Glide;
 import com.funstill.kelefun.R;
 import com.funstill.kelefun.data.model.Status;
 import com.funstill.kelefun.ui.other.UserHomeActivity;
-import com.funstill.kelefun.util.DateAgo;
-import com.funstill.kelefun.util.ToastUtil;
 import com.funstill.kelefun.ui.widget.ImagePreview;
+import com.funstill.kelefun.util.DateUtil;
+import com.funstill.kelefun.util.ToastUtil;
 
 import net.wujingchao.android.view.SimpleTagImageView;
 
@@ -46,10 +46,7 @@ public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             });
             holder.userHomeClickArea.setOnClickListener(v -> {
                 int position = holder.getAdapterPosition();
-                Intent intent = new Intent(mContext, UserHomeActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-                intent.putExtra(UserHomeActivity.USER_ID,data.get(position).getUser().getId());
-                mContext.startActivity(intent);
+                goUserHome(position);
             });
             holder.photoView.setOnClickListener(v -> {
                 int position = holder.getAdapterPosition();
@@ -57,7 +54,7 @@ public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             });
             holder.avatarView.setOnClickListener(v -> {
                 int position = holder.getAdapterPosition();
-                ImagePreview.startPreview(mContext,data.get(position).getUser().getProfileImageUrlLarge());
+                goUserHome(position);
             });
             return holder;
         } else if (viewType == TYPE_FOOTER) {
@@ -69,6 +66,12 @@ public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     }
 
+    private void goUserHome(int position){
+        Intent intent = new Intent(mContext, UserHomeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+        intent.putExtra(UserHomeActivity.USER_ID,data.get(position).getUser().getId());
+        mContext.startActivity(intent);
+    }
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ItemViewHolder) {
@@ -84,7 +87,7 @@ public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             if(data.size()!=0){
                 Status status= data.get(position);
                 itemHolder.screenNameView.setText(status.getUser().getScreenName());
-                itemHolder.timeSourceView.setText(DateAgo.toAgo(status.getCreatedAt())+Html.fromHtml(status.getSource()).toString());
+                itemHolder.timeSourceView.setText(DateUtil.toAgo(status.getCreatedAt())+Html.fromHtml(status.getSource()).toString());
                 itemHolder.statusView.setText(Html.fromHtml(status.getText()));
 
                 Glide.with(mContext)

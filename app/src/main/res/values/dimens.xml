@@ -15,7 +15,7 @@
     <dimen name="avatar_length">36dp</dimen>
     <dimen name="bottombar_height">48dp</dimen>
 
-    <dimen name="userhome_count_width">54dp</dimen>
+    <dimen name="userhome_bar_height">38dp</dimen>
     <dimen name="userhome_avatar_length_large">96dp</dimen>
-    <dimen name="userhome_count_margin_top">70dp</dimen>
+    <dimen name="userhome_count_width">70dp</dimen>
 </resources>

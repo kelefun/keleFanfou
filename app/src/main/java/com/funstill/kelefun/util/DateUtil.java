@@ -12,7 +12,7 @@ import java.util.TimeZone;
  * @since 2017/3/27 15:26
  */
 
-public class DateAgo {
+public class DateUtil {
     private static final long ONE_MINUTE = 60000L;
     private static final long ONE_HOUR = 3600000L;
     private static final long ONE_DAY = 86400000L;
