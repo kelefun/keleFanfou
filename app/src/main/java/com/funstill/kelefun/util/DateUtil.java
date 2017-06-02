@@ -24,7 +24,7 @@ public class DateUtil {
     private static final String ONE_DAY_AGO = "天前 ";
     private static final String ONE_MONTH_AGO = "月前 ";
     private static final String YESTERDAY = "昨天 ";
-
+    private static final String[] numChinese= {"零","壹","贰","叁","肆","伍","陆","柒","捌","玖","拾"};
     private static final String TIME_PATTERN_FANFOU = "EEE MMM dd HH:mm:ss Z yyyy";
     public static final String TIME_PATTERN_LINE = "yyyy-MM-dd HH:mm:ss";
 
@@ -60,6 +60,26 @@ public class DateUtil {
      */
     public static String toAgo(String dateStr){
         return toAgo(fanfouToDate(dateStr));
+    }
+
+    /**
+     * 转换字符型的时间戳为 大写的年<br>
+     * 比如:当前时间为 2017-06-11 18:35:35----参数为2016-11-11 18:35:35 执行函数后则显示为 零.柒<br>
+     * @param dateStr
+     * @return
+     */
+    public static String toYear(String dateStr){
+        Date date= fanfouToDate(dateStr);
+        long delta = (Calendar.getInstance(TimeZone.getTimeZone("GMT+08:00")).getTimeInMillis() - date.getTime());
+        long month=toMonths(delta);
+        int y=(int) month/12;
+        int m= (int) month%12;
+        if(m>10){
+            int first=10;
+            int second=m%10;
+            return numChinese[y]+"."+numChinese[first]+numChinese[second];
+        }
+        return  numChinese[y]+"."+numChinese[m];
     }
 
     /**

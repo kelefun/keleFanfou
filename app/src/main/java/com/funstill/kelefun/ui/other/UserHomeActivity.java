@@ -18,6 +18,7 @@ import com.funstill.kelefun.data.api.UserApi;
 import com.funstill.kelefun.data.model.UserInfo;
 import com.funstill.kelefun.http.BaseRetrofit;
 import com.funstill.kelefun.http.SignInterceptor;
+import com.funstill.kelefun.util.DateUtil;
 import com.funstill.kelefun.util.LogHelper;
 import com.funstill.kelefun.util.ToastUtil;
 import com.jaeger.library.StatusBarUtil;
@@ -31,6 +32,7 @@ public class UserHomeActivity extends AppCompatActivity {
     private CollapsingToolbarLayout mCollapsingToolbarLayout;
     private TextView description;
     private TextView location;
+    private TextView reg_time;
     private TextView friendsCount;
     private TextView followersCount;
     private TextView statusesCount;
@@ -70,6 +72,7 @@ public class UserHomeActivity extends AppCompatActivity {
         mCollapsingToolbarLayout=(CollapsingToolbarLayout)findViewById(R.id.collapsing_toolbar);
         description=(TextView)findViewById(R.id.user_description);
         location =(TextView)findViewById(R.id.user_location);
+        reg_time=(TextView)findViewById(R.id.user_reg_time);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         friendsCount = (TextView) findViewById(R.id.friends_count);
         followersCount = (TextView) findViewById(R.id.followers_count);
@@ -93,6 +96,7 @@ public class UserHomeActivity extends AppCompatActivity {
                             description.setText(userInfo.getDescription());
                         }
                         location.setText(userInfo.getLocation());
+                        reg_time.setText(DateUtil.toYear(userInfo.getCreatedAt()));
                         friendsCount.setText(formatCount(userInfo.getFriendsCount()));
                         followersCount.setText(formatCount(userInfo.getFollowersCount()));
                         statusesCount.setText(formatCount(userInfo.getStatusesCount()));
