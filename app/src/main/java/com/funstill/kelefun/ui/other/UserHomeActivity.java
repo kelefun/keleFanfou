@@ -94,6 +94,8 @@ public class UserHomeActivity extends AppCompatActivity {
                     if (userInfo != null) {
                         if(!TextUtils.isEmpty(userInfo.getDescription())){
                             description.setText(userInfo.getDescription());
+                        }else{
+                            description.setText(getString(R.string.user_description));
                         }
                         location.setText(userInfo.getLocation());
                         reg_time.setText(DateUtil.toYear(userInfo.getCreatedAt()));

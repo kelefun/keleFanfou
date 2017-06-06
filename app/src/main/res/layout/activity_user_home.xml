@@ -42,7 +42,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="120dp"
+                    android:layout_height="130dp"
                     android:layout_marginTop="@dimen/base_dimen_8dp"
                     android:orientation="vertical">
                     <!--辅助布局 - 置count布局于底部-->
@@ -59,9 +59,9 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:gravity="center"
+                            android:gravity="center_horizontal|bottom"
                             android:layout_marginStart="@dimen/base_dimen_24dp"
-                            android:layout_marginBottom="@dimen/base_dimen_12dp"
+                            android:layout_marginBottom="13dp"
                             android:orientation="vertical">
                             <TextView
                                 android:id="@+id/user_location"
@@ -71,7 +71,6 @@
                                 android:ellipsize="end"
                                 android:gravity="center"
                                 android:lines="1"
-                                android:text="北京市 朝阳区"
                                 android:textColor="@color/grey" />
                             <TextView
                                 android:id="@+id/user_reg_time"
@@ -100,7 +99,6 @@
                                 android:ellipsize="end"
                                 android:maxLines="3"
                                 android:lineSpacingMultiplier="1.2"
-                                android:text="@string/user_description"
                                 android:textColor="@color/grey" />
                         </LinearLayout>
                     </LinearLayout>
@@ -113,7 +111,26 @@
                         android:background="@color/colorAlphaDark"
                         android:gravity="center"
                         android:orientation="horizontal">
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
 
+                            <TextView
+                                android:gravity="center"
+                                android:layout_width="@dimen/userhome_count_width"
+                                android:layout_height="wrap_content"
+                                android:text="@string/statusesCount" />
+
+                            <TextView
+                                android:id="@+id/statuses_count"
+                                android:gravity="center"
+                                android:layout_width="@dimen/userhome_count_width"
+                                android:layout_height="wrap_content"
+                                android:text="0" />
+                        </LinearLayout>
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -122,7 +139,8 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:gravity="center"
+                                android:layout_width="@dimen/userhome_count_width"
                                 android:layout_height="wrap_content"
                                 android:text="@string/friendsCount" />
 
@@ -142,7 +160,8 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:gravity="center"
+                                android:layout_width="@dimen/userhome_count_width"
                                 android:layout_height="wrap_content"
                                 android:text="@string/followersCount" />
 
@@ -154,25 +173,7 @@
                                 android:text="0" />
                         </LinearLayout>
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:orientation="vertical">
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/statusesCount" />
-
-                            <TextView
-                                android:id="@+id/statuses_count"
-                                android:gravity="center"
-                                android:layout_width="@dimen/userhome_count_width"
-                                android:layout_height="wrap_content"
-                                android:text="0" />
-                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
