@@ -14,9 +14,9 @@ import java.util.Map;
 
 public class OAuthRequest {
 
-    //请求查询参数
+    //不需要签名的参数
     private List<Parameter> params;
-    //请求头的oauth认证参数
+    //需要签名参数
     private Map<String, String> oauthParameters;
 
     //http请求方式 GET,POST,DELETE等
@@ -67,7 +67,7 @@ public class OAuthRequest {
     }
 
     public List<Parameter> getOauthParameters() {
-        List<Parameter> params = new ArrayList<Parameter>();
+        List<Parameter> params = new ArrayList<>();
         for (String key : oauthParameters.keySet()) {
             params.add(new Parameter(key, oauthParameters.get(key)));
         }

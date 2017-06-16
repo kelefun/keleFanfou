@@ -15,8 +15,10 @@ import java.util.Random;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
+import okhttp3.FormBody;
 import okhttp3.HttpUrl;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 
 /**
  * okhttp拦截生成auth header
@@ -49,6 +51,10 @@ public class OAuthUtil {
     /**
      * 普通接口请求
      *
+     * 如果请求存在Authorization的Header并且以OAuth开头，则其随后的参数, 所有的名字以oauth_　和xauth_(用于XAuth)开头的参数都参与签名
+     * 如果请求是GET, 则QueryString中所有的参数都参与签名
+     * 如果请求是POST并且，Content-Type是application/x-www-form-urlencoded, 则所有的POST参数需要参加签名
+     * 其他的POST请求，参数都不参加签名，包括multipart/form-data
      * @param request
      * @return
      */
@@ -56,8 +62,17 @@ public class OAuthUtil {
         //获取请求参数
         HttpUrl url = request.url();
         OAuthRequest oAuthRequest = new OAuthRequest();
+        //post请求--FormUrlEncoded
+        RequestBody rb = request.body();
+        if(rb!=null && rb instanceof FormBody){
+            FormBody fb= (FormBody) rb;
+            for (int i = 0; i < fb.size(); i++) {
+                oAuthRequest.setOauthParameter(fb.encodedName(i),fb.encodedValue(i));
+            }
+        }
+        //get请求
         for (int i = 0; i < url.querySize(); i++) {
-            oAuthRequest.setParameter(url.queryParameterName(i), url.queryParameterValue(i));
+            oAuthRequest.setOauthParameter(url.queryParameterName(i), url.queryParameterValue(i));
         }
         oAuthRequest.setVerb(request.method());
         oAuthRequest.setBaseUrl(extractBaseUrl(url));
@@ -79,7 +94,7 @@ public class OAuthUtil {
         HttpUrl url = request.url();
         OAuthRequest oAuthRequest = new OAuthRequest();
         for (int i = 0; i < url.querySize(); i++) {
-            oAuthRequest.setParameter(url.queryParameterName(i), url.queryParameterValue(i));
+            oAuthRequest.setOauthParameter(url.queryParameterName(i), url.queryParameterValue(i));
         }
         oAuthRequest.setVerb(request.method());
         oAuthRequest.setBaseUrl(extractBaseUrl(url));
@@ -180,7 +195,7 @@ public class OAuthUtil {
     private String getSortedAndEncodedParams(OAuthRequest request) {
         List<Parameter> params = new ArrayList<>();
 //		if (request.isFormEncodedContent()) {
-        params.addAll(request.getParameters());
+//        params.addAll(request.getParameters());
 //		}
         params.addAll(request.getOauthParameters());
         Collections.sort(params);

@@ -153,6 +153,7 @@ public class SendStatusFragmentChild extends BaseBackFragment {
             partMap.put("status", status);
             call = api.postStatus(partMap);
         }
+        ToastUtil.showToast(_mActivity, "正在发布中...");
         backToHome();
         call.enqueue(new Callback<Status>() {
             @Override
