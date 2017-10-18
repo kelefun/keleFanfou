@@ -36,7 +36,7 @@ public class ImageSelectorActivity extends AppCompatActivity {
     private int maxSelectNum = 9;
     private boolean showCamera = true;
     private boolean enablePreview = true;
-    private boolean enableCrop = false;
+//    private boolean enableCrop = false;
 
     private int spanCount = 3;
 
@@ -74,11 +74,10 @@ public class ImageSelectorActivity extends AppCompatActivity {
         maxSelectNum = selectorConfig.getMaxSize();
         showCamera = selectorConfig.showCamera();
         enablePreview = true;// TODO: 2017/4/28
-        enableCrop = selectorConfig.crop();
         cameraPath = selectorConfig.getFilePath();
 
         if (selectorConfig.isMultiSelect()) {
-            enableCrop = false;
+//            enableCrop = false;
         } else {
             enablePreview = false;
         }
@@ -167,8 +166,6 @@ public class ImageSelectorActivity extends AppCompatActivity {
             public void onPictureClick(LocalMedia media, int position) {
                 if (enablePreview) {
                     startPreview(imageAdapter.getImages(), position);
-                } else if (enableCrop) {
-                    startCrop(media.getPath());
                 } else {
                     onSelectDone(media.getPath());
                 }
@@ -203,11 +200,7 @@ public class ImageSelectorActivity extends AppCompatActivity {
             // on take photo success
             if (requestCode == REQUEST_CAMERA) {
                 sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(new File(cameraPath))));
-                if (enableCrop) {
-                    startCrop(cameraPath);
-                } else {
-                    onSelectDone(cameraPath);
-                }
+                onSelectDone(cameraPath);
             }
             //on preview select change
             else if (requestCode == ImagePreviewActivity.REQUEST_PREVIEW) {
@@ -218,11 +211,6 @@ public class ImageSelectorActivity extends AppCompatActivity {
                 }else{
                     imageAdapter.bindSelectImages(images);
                 }
-            }
-            // on crop success
-            else if (requestCode == ImageCropActivity.REQUEST_CROP) {
-                String path = data.getStringExtra(ImageCropActivity.OUTPUT_PATH);
-                onSelectDone(path);
             }
         }
     }
@@ -248,10 +236,6 @@ public class ImageSelectorActivity extends AppCompatActivity {
 
     public void startPreview(List<LocalMedia> previewImages, int position) {
         ImagePreviewActivity.startPreview(this, previewImages, imageAdapter.getSelectedImages(), maxSelectNum, position);
-    }
-
-    public void startCrop(String path) {
-        ImageCropActivity.startCrop(this, path);
     }
 
     /**

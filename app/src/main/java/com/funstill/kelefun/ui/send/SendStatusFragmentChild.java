@@ -85,19 +85,20 @@ public class SendStatusFragmentChild extends BaseBackFragment {
             postStatus();
         });
         selectImage = (ImageButton) view.findViewById(R.id.select_image);
-        selectImage.setOnClickListener(v -> {
-            initPermissions();
-            selectorConfig.getPathList().clear();//清除已选择的图片
-            ImageSelector.getInstance().setSelectorConfig(selectorConfig).open(_mActivity);
-        });
+
         selectorConfig = new SelectorConfig.Builder()
                 .iHandlerCallBack(iHandlerCallBack)     // 监听接口（必填）
-                .provider("com.zua.kelefun.photo.fileprovider")   // provider(必填)
+                .provider("com.funstill.kelefun.photo.fileprovider")   // provider(必填)
                 .pathList(path)                         // 记录已选的图片
 //                .multiSelect(true,3)//多选,最多3个
                 .showCamera(true)                     // 是否现实相机按钮  默认：false
                 .build();
-
+        selectImage.setOnClickListener(v -> {
+            if(initPermissions()){
+                selectorConfig.getPathList().clear();//清除已选择的图片
+                ImageSelector.getInstance().setSelectorConfig(selectorConfig).open(_mActivity);
+            }
+        });
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 3);
         gridLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rvResultPhoto.setLayoutManager(gridLayoutManager);
@@ -109,18 +110,20 @@ public class SendStatusFragmentChild extends BaseBackFragment {
     }
 
     // 授权管理
-    private void initPermissions() {
+    private boolean initPermissions() {
         if (ContextCompat.checkSelfPermission(_mActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            Log.d(TAG, "需要授权 ");
+           // Log.d(TAG, "需要授权 ");
             if (ActivityCompat.shouldShowRequestPermissionRationale(_mActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                 Log.d(TAG, "拒绝过了");
                 Toast.makeText(_mActivity, "请在 设置-应用管理 中开启此应用的储存授权。", Toast.LENGTH_SHORT).show();
             } else {
-                Log.d(TAG, "进行授权");
+            //    Log.d(TAG, "进行授权");
                 ActivityCompat.requestPermissions(_mActivity, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSIONS_REQUEST_READ_CONTACTS);
             }
+            return false;
         } else {
-            Log.d(TAG, "不需要授权 ");
+           // Log.d(TAG, "不需要授权 ");
+            return true;
         }
     }
 

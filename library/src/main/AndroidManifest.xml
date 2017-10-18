@@ -14,9 +14,6 @@
         <activity
             android:name="com.funstill.library.view.ImagePreviewActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity
-            android:name="com.funstill.library.view.ImageCropActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
     </application>
 
 </manifest>

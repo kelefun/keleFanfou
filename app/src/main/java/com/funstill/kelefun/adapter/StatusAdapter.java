@@ -42,7 +42,7 @@ public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             final ItemViewHolder holder = new ItemViewHolder(view);
             holder.itemView.setOnClickListener(v -> {
                 int position = holder.getAdapterPosition();
-                ToastUtil.showToast(mContext,"点击了卡片");
+                ToastUtil.showToast(mContext, "点击了卡片");
             });
             holder.userHomeClickArea.setOnClickListener(v -> {
                 int position = holder.getAdapterPosition();
@@ -66,12 +66,13 @@ public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     }
 
-    private void goUserHome(int position){
+    private void goUserHome(int position) {
         Intent intent = new Intent(mContext, UserHomeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-        intent.putExtra(UserHomeActivity.USER_ID,data.get(position).getUser().getId());
+        intent.putExtra(UserHomeActivity.USER_ID, data.get(position).getUser().getId());
         mContext.startActivity(intent);
     }
+
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ItemViewHolder) {
@@ -84,28 +85,28 @@ public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             ViewCompat.setTransitionName(itemHolder.avatarView, String.valueOf(position) + "_avatarView");
             ViewCompat.setTransitionName(itemHolder.photoView, String.valueOf(position) + "_photoView");
 
-            if(data.size()!=0){
-                Status status= data.get(position);
+            if (data.size() != 0) {
+                Status status = data.get(position);
                 itemHolder.screenNameView.setText(status.getUser().getScreenName());
-                itemHolder.timeSourceView.setText(DateUtil.toAgo(status.getCreatedAt())+Html.fromHtml(status.getSource()).toString());
+                itemHolder.timeSourceView.setText(DateUtil.toAgo(status.getCreatedAt()) + Html.fromHtml(status.getSource()).toString());
                 itemHolder.statusView.setText(Html.fromHtml(status.getText()));
 
                 Glide.with(mContext)
                         .load(status.getUser().getProfileImageUrl())
 //                    .placeholder(R.drawable.tab_item_bg)
                         .into(itemHolder.avatarView);
-                if(status.getPhoto() != null){
+                if (status.getPhoto() != null) {
                     itemHolder.photoView.setVisibility(View.VISIBLE);
-                    if(status.getPhoto().getLargeurl().endsWith("gif")){
+                    if (status.getPhoto().getLargeurl().endsWith("gif")) {
                         itemHolder.photoView.setTagEnable(true);//动图标签
-                    }else {
+                    } else {
                         itemHolder.photoView.setTagEnable(false);
                     }
                     Glide.with(mContext)
                             .load(status.getPhoto().getImageurl())
 //                    .placeholder(R.drawable.tab_item_bg)
                             .into(itemHolder.photoView);
-                }else {
+                } else {
                     itemHolder.photoView.setVisibility(View.GONE);
                 }
             }
@@ -126,19 +127,19 @@ public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
     }
 
-    static class ItemViewHolder extends RecyclerView.ViewHolder {
+    private static class ItemViewHolder extends RecyclerView.ViewHolder {
         final View mView;
         private View userHomeClickArea;
-        public TextView screenNameView;
-        public TextView timeSourceView;
-        public TextView statusView;
-        public ImageView avatarView;
-        public SimpleTagImageView photoView;
+        private TextView screenNameView;
+        private TextView timeSourceView;
+        private TextView statusView;
+        private ImageView avatarView;
+        private SimpleTagImageView photoView;
 
-        public ItemViewHolder(View view) {
+        private ItemViewHolder(View view) {
             super(view);
             mView = view;
-            userHomeClickArea=itemView.findViewById(R.id.user_home_click_area);
+            userHomeClickArea = itemView.findViewById(R.id.user_home_click_area);
             screenNameView = (TextView) itemView.findViewById(R.id.screenNameView);
             timeSourceView = (TextView) itemView.findViewById(R.id.timeSourceView);
             statusView = (TextView) itemView.findViewById(R.id.statusView);

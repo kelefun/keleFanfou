@@ -16,14 +16,8 @@ public class SelectorConfig {
     private int maxSize;                // 配置开启多选时 最大可选择的图片数量。   默认：9
     private boolean showCamera;       // 是否开启相机 默认：true
     private String provider;            // 兼容android 7.0 设置
-    private String filePath;            // 拍照以及截图后 存放的位置。    默认：/keleFun_img
+    private String filePath;            // 拍照以及截图后 存放的位置。    默认：/KeleFun
     private ArrayList<String> pathList;      // 已选择照片的路径
-
-    private boolean crop;                 // 是否开启裁剪   默认关闭
-    private float aspectRatioX;             // 裁剪比         默认   1：1
-    private float aspectRatioY;             // 裁剪比         默认   1：1
-    private int maxWidth;                   // 最大的裁剪值   默认    500
-    private int maxHeight;                  // 最大的裁剪值   默认    500
 
     private Builder builder;
 
@@ -40,11 +34,6 @@ public class SelectorConfig {
         this.showCamera = builder.showCamera;
         this.pathList = builder.pathList;
         this.filePath = builder.filePath;
-        this.crop = builder.crop;
-        this.aspectRatioX = builder.aspectRatioX;
-        this.aspectRatioY = builder.aspectRatioY;
-        this.maxWidth = builder.maxWidth;
-        this.maxHeight = builder.maxHeight;
         this.provider = builder.provider;
         this.builder = builder;
     }
@@ -60,12 +49,6 @@ public class SelectorConfig {
         private boolean showCamera = true;
         private String filePath = "KeleFun";
 
-        private boolean crop = false;
-        private float aspectRatioX = 1;
-        private float aspectRatioY = 1;
-        private int maxWidth = 500;
-        private int maxHeight = 500;
-
         private String provider;
 
         private ArrayList<String> pathList = new ArrayList<>();
@@ -76,22 +59,6 @@ public class SelectorConfig {
             this.provider = provider;
             return this;
         }
-
-        public Builder crop(boolean crop) {
-            this.crop = crop;
-            return this;
-        }
-
-        public Builder crop(boolean crop, float aspectRatioX, float aspectRatioY, int maxWidth, int maxHeight) {
-            this.crop = crop;
-            this.aspectRatioX = aspectRatioX;
-            this.aspectRatioY = aspectRatioY;
-            this.maxWidth = maxWidth;
-            this.maxHeight = maxHeight;
-            return this;
-        }
-
-
 
         public Builder iHandlerCallBack(IHandlerCallBack iHandlerCallBack) {
             this.iHandlerCallBack = iHandlerCallBack;
@@ -174,26 +141,6 @@ public class SelectorConfig {
 
     public Builder getBuilder() {
         return builder;
-    }
-
-    public int getMaxHeight() {
-        return maxHeight;
-    }
-
-    public boolean crop() {
-        return crop;
-    }
-
-    public float getAspectRatioX() {
-        return aspectRatioX;
-    }
-
-    public float getAspectRatioY() {
-        return aspectRatioY;
-    }
-
-    public int getMaxWidth() {
-        return maxWidth;
     }
 
     public String getProvider() {

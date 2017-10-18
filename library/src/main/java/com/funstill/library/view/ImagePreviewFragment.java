@@ -13,10 +13,11 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.funstill.library.R;
+import com.github.chrisbanes.photoview.OnPhotoTapListener;
+import com.github.chrisbanes.photoview.PhotoViewAttacher;
 
 import java.io.File;
 
-import uk.co.senab.photoview.PhotoViewAttacher;
 
 /**
  * Created by dee on 15/11/25.
@@ -48,9 +49,9 @@ public class ImagePreviewFragment extends Fragment {
                         mAttacher.update();
                     }
                 });
-        mAttacher.setOnViewTapListener(new PhotoViewAttacher.OnViewTapListener() {
+        mAttacher.setOnPhotoTapListener(new OnPhotoTapListener() {
             @Override
-            public void onViewTap(View view, float x, float y) {
+            public void onPhotoTap(ImageView  view, float x, float y) {
                 ImagePreviewActivity activity = (ImagePreviewActivity) getActivity();
                 activity.switchBarVisibility();
             }
