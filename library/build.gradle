@@ -41,9 +41,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:recyclerview-v7:25.3.1'
     compile 'com.github.bumptech.glide:glide:3.7.0'
-    //TODO 这个库是干嘛的
-//    compile 'com.commit451:PhotoView:1.2.4'
-//    compile 'com.isseiaoki:simplecropview:1.0.13'
     //图片缩放等操作
     compile 'com.github.chrisbanes:PhotoView:2.0.0'
 }
