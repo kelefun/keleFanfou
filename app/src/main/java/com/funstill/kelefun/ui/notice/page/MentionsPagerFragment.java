@@ -125,14 +125,15 @@ public class MentionsPagerFragment extends SupportFragment implements SwipeRefre
     }
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {//懒加载数据,为了防止veiwpager的预加载
-        //初始化数据
-        Map<String,String> map = new ArrayMap<>();
         if(data.size()>0){
 //            map.put("since_id",data.get(0).getId());
+            mRefreshLayout.setRefreshing(false);
         }else {
+            //初始化数据
+            Map<String,String> map = new ArrayMap<>();
             map.put("count","20");
+            getMentions(map);
         }
-        getMentions(map);
     }
 
 

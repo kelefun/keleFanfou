@@ -79,7 +79,7 @@ public class MainActivity extends SupportActivity implements BaseMainFragment.On
     }
 
     @Override
-    protected FragmentAnimator onCreateFragmentAnimator() {
+    public FragmentAnimator onCreateFragmentAnimator() {
         return super.onCreateFragmentAnimator();
     }
 

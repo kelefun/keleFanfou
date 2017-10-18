@@ -27,6 +27,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ *用户主页
+ *@author liukaiyang
+ *@since 2017/10/18 16:56
+ */
 public class UserHomeActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     private CollapsingToolbarLayout mCollapsingToolbarLayout;

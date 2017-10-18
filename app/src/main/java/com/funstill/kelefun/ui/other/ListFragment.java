@@ -17,9 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @ explain:
- * @ author：xujun on 2016/10/18 17:21
- * @ email：gdutxiaoxu@163.com
+ *列表
+ *@author liukaiyang
+ *@since 2017/10/18 16:56
  */
 public class ListFragment extends Fragment {
 
