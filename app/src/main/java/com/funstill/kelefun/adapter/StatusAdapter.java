@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.funstill.kelefun.data.model.Status;
 import com.funstill.kelefun.ui.other.UserHomeActivity;
 import com.funstill.kelefun.ui.widget.ImagePreview;
 import com.funstill.kelefun.util.DateUtil;
+import com.funstill.kelefun.util.LogHelper;
 import com.funstill.kelefun.util.ToastUtil;
 
 import net.wujingchao.android.view.SimpleTagImageView;
@@ -89,8 +91,9 @@ public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 Status status = data.get(position);
                 itemHolder.screenNameView.setText(status.getUser().getScreenName());
                 itemHolder.timeSourceView.setText(DateUtil.toAgo(status.getCreatedAt()) + Html.fromHtml(status.getSource()).toString());
+                LogHelper.e(status.getText());
                 itemHolder.statusView.setText(Html.fromHtml(status.getText()));
-
+                itemHolder.statusView.setMovementMethod(LinkMovementMethod.getInstance());
                 Glide.with(mContext)
                         .load(status.getUser().getProfileImageUrl())
 //                    .placeholder(R.drawable.tab_item_bg)
