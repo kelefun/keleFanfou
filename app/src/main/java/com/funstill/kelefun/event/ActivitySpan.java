@@ -1,15 +1,13 @@
 package com.funstill.kelefun.event;
 
 import android.annotation.SuppressLint;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
-import android.provider.Browser;
 import android.text.TextPaint;
 import android.text.style.URLSpan;
-import android.util.Log;
 import android.view.View;
+
+import com.funstill.kelefun.ui.other.UserHomeActivity;
 
 /**
  * span点击跳转至activity
@@ -28,15 +26,23 @@ public class ActivitySpan extends URLSpan {
 
     @Override
     public void onClick(View widget) {
-        Uri uri = Uri.parse(getURL());
         Context context = widget.getContext();
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        intent.putExtra(Browser.EXTRA_APPLICATION_ID, context.getPackageName());
-        try {
+
+        if(getURL().startsWith("http")){//用户主页
+            Intent intent = new Intent(context, UserHomeActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+            intent.putExtra(UserHomeActivity.USER_ID,getURL().replace("http://fanfou.com/",""));
             context.startActivity(intent);
-        } catch (ActivityNotFoundException e) {
-            Log.w("URLSpan", "Actvity was not found for intent, " + intent.toString());
+        }else{//话题
+
         }
+//        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+//        intent.putExtra(Browser.EXTRA_APPLICATION_ID, context.getPackageName());
+//        try {
+//            context.startActivity(intent);
+//        } catch (ActivityNotFoundException e) {
+//            Log.w("URLSpan", "Actvity was not found for intent, " + intent.toString());
+//        }
     }
 
     @Override
