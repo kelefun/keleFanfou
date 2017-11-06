@@ -6,6 +6,7 @@ import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,8 @@ import com.funstill.kelefun.util.ToastUtil;
 import net.wujingchao.android.view.SimpleTagImageView;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -92,6 +95,9 @@ public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 itemHolder.screenNameView.setText(status.getUser().getScreenName());
                 itemHolder.timeSourceView.setText(DateUtil.toAgo(status.getCreatedAt()) + Html.fromHtml(status.getSource()).toString());
                 LogHelper.e(status.getText());
+
+
+                //处理文本点击跳转
                 itemHolder.statusView.setText(Html.fromHtml(status.getText()));
                 itemHolder.statusView.setMovementMethod(LinkMovementMethod.getInstance());
                 Glide.with(mContext)
@@ -114,6 +120,36 @@ public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 }
             }
         }
+    }
+
+    public static void extractMention2Link(TextView v) {
+        v.setAutoLinkMask(0);
+
+        Pattern mentionsPattern = Pattern.compile("@(\\w+?)(?=\\W|$)(.)");
+        String mentionsScheme = String.format("%s/?%s=", "uri", "id");
+        Linkify.addLinks(v, mentionsPattern, mentionsScheme, new Linkify.MatchFilter() {
+
+            @Override
+            public boolean acceptMatch(CharSequence s, int start, int end) {
+
+                return s.charAt(end - 1) != '.';
+            }
+
+        }, new Linkify.TransformFilter() {
+            @Override
+            public String transformUrl(Matcher match, String url) {
+                return match.group(1);
+            }
+        });
+
+        Pattern trendsPattern = Pattern.compile("#(\\w+?)#");
+        String trendsScheme = String.format("%s/?%s=", "uri", "id");
+        Linkify.addLinks(v, trendsPattern, trendsScheme, null, new Linkify.TransformFilter() {
+            @Override
+            public String transformUrl(Matcher match, String url) {
+                return match.group(1);
+            }
+        });
     }
 
     @Override
