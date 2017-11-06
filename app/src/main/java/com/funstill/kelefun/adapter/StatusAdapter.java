@@ -5,7 +5,10 @@ import android.content.Intent;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.text.Spannable;
+import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
+import android.text.style.URLSpan;
 import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,10 +19,10 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.funstill.kelefun.R;
 import com.funstill.kelefun.data.model.Status;
+import com.funstill.kelefun.event.ActivitySpan;
 import com.funstill.kelefun.ui.other.UserHomeActivity;
 import com.funstill.kelefun.ui.widget.ImagePreview;
 import com.funstill.kelefun.util.DateUtil;
-import com.funstill.kelefun.util.LogHelper;
 import com.funstill.kelefun.util.ToastUtil;
 
 import net.wujingchao.android.view.SimpleTagImageView;
@@ -47,7 +50,7 @@ public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             final ItemViewHolder holder = new ItemViewHolder(view);
             holder.itemView.setOnClickListener(v -> {
                 int position = holder.getAdapterPosition();
-                ToastUtil.showToast(mContext, "点击了卡片");
+                ToastUtil.showToast(mContext, holder.statusView.getText().toString());
             });
             holder.userHomeClickArea.setOnClickListener(v -> {
                 int position = holder.getAdapterPosition();
@@ -94,12 +97,20 @@ public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 Status status = data.get(position);
                 itemHolder.screenNameView.setText(status.getUser().getScreenName());
                 itemHolder.timeSourceView.setText(DateUtil.toAgo(status.getCreatedAt()) + Html.fromHtml(status.getSource()).toString());
-                LogHelper.e(status.getText());
 
+
+                Spannable statusSpan=(Spannable)Html.fromHtml(status.getText());
 
                 //处理文本点击跳转
-                itemHolder.statusView.setText(Html.fromHtml(status.getText()));
                 itemHolder.statusView.setMovementMethod(LinkMovementMethod.getInstance());
+                CharSequence text = statusSpan.toString();
+                URLSpan[] urls = statusSpan.getSpans(0, text.length(), URLSpan.class);
+                for (URLSpan url : urls) {
+                    ActivitySpan myURLSpan = new ActivitySpan(url.getURL());
+                    statusSpan.setSpan(myURLSpan, statusSpan.getSpanStart(url), statusSpan.getSpanEnd(url), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                }
+                itemHolder.statusView.setText(statusSpan);
+                //图片加载
                 Glide.with(mContext)
                         .load(status.getUser().getProfileImageUrl())
 //                    .placeholder(R.drawable.tab_item_bg)
@@ -125,9 +136,9 @@ public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public static void extractMention2Link(TextView v) {
         v.setAutoLinkMask(0);
 
-        Pattern mentionsPattern = Pattern.compile("@(\\w+?)(?=\\W|$)(.)");
+        Pattern mentionsPattern = Pattern.compile("@(\\w+\\s)");
         String mentionsScheme = String.format("%s/?%s=", "uri", "id");
-        Linkify.addLinks(v, mentionsPattern, mentionsScheme, new Linkify.MatchFilter() {
+        Linkify.addLinks(v, mentionsPattern, "www.baidu.com", new Linkify.MatchFilter() {
 
             @Override
             public boolean acceptMatch(CharSequence s, int start, int end) {
