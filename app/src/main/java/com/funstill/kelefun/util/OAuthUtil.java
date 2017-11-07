@@ -67,7 +67,8 @@ public class OAuthUtil {
         if(rb!=null && rb instanceof FormBody){
             FormBody fb= (FormBody) rb;
             for (int i = 0; i < fb.size(); i++) {
-                oAuthRequest.setOauthParameter(fb.encodedName(i),fb.encodedValue(i));
+//                oAuthRequest.setOauthParameter(fb.encodedName(i),fb.encodedValue(i));//工具类OAuthUtil会统一编码
+                oAuthRequest.setOauthParameter(fb.name(i),fb.value(i));
             }
         }
         //get请求
