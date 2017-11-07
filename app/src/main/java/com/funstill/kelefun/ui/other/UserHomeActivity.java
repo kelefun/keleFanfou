@@ -68,7 +68,7 @@ public class UserHomeActivity extends AppCompatActivity {
         userHomeTab.addTab(userHomeTab.newTab());
         userHomeTab.addTab(userHomeTab.newTab());
 
-        mViewPager.setAdapter( new UserHomeFragmentAdapter(getSupportFragmentManager()));
+        mViewPager.setAdapter( new UserHomeFragmentAdapter(getSupportFragmentManager(),getIntent().getStringExtra(USER_ID)));
         userHomeTab.setupWithViewPager(mViewPager);
     }
 

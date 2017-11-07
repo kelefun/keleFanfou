@@ -59,7 +59,7 @@ public class MentionsPagerFragment extends SupportFragment implements SwipeRefre
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_notice_mentions, container, false);
+        View view = inflater.inflate(R.layout.fragment_status_no_toolbar, container, false);
         initView(view);
         return view;
     }

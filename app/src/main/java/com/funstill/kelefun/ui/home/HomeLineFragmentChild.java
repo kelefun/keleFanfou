@@ -50,15 +50,14 @@ public class HomeLineFragmentChild extends SupportFragment implements SwipeRefre
     private int mScrollTotal;
 
     public static HomeLineFragmentChild newInstance() {
-        Bundle args = new Bundle();
         HomeLineFragmentChild fragment = new HomeLineFragmentChild();
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_status_child, container, false);
+        View view = inflater.inflate(R.layout.fragment_status_toolbar, container, false);
+        EventBus.getDefault().register(this);
         initView(view);
         return view;
     }
