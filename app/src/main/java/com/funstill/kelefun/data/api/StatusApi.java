@@ -29,6 +29,14 @@ public interface StatusApi {
     @GET("/statuses/home_timeline.json?mode=lite&format=html")
     Call<List<Status>> getHomeTimeLine(@QueryMap Map<String, String> paramMap);
 
+    /**
+     * 浏览指定用户已发送消息
+     * @param paramMap
+     * @return
+     */
+    @GET("/statuses/user_timeline.json?mode=lite&format=html")
+    Call<List<Status>> getUserTimeLine(@QueryMap Map<String, String> paramMap);
+
     //获取随便看看
     @GET("/statuses/public_timeline.json?mode=lite&format=html")
     Call<List<Status>> getPublicTimeLine(@QueryMap Map<String, String> paramMap);
