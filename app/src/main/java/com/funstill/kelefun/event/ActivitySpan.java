@@ -1,12 +1,17 @@
 package com.funstill.kelefun.event;
 
 import android.annotation.SuppressLint;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.provider.Browser;
 import android.text.TextPaint;
 import android.text.style.URLSpan;
+import android.util.Log;
 import android.view.View;
 
+import com.funstill.kelefun.ui.other.SearchActivity;
 import com.funstill.kelefun.ui.other.UserHomeActivity;
 
 /**
@@ -28,21 +33,25 @@ public class ActivitySpan extends URLSpan {
     public void onClick(View widget) {
         Context context = widget.getContext();
 
-        if(getURL().startsWith("http")){//用户主页
+        if (getURL().startsWith("http")) {//用户主页
             Intent intent = new Intent(context, UserHomeActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-            intent.putExtra(UserHomeActivity.USER_ID,getURL().replace("http://fanfou.com/",""));
+            intent.putExtra(UserHomeActivity.USER_ID, getURL().replace("http://fanfou.com/", ""));
             context.startActivity(intent);
-        }else{//话题
-
+        } else if ((getURL().startsWith("/q/"))) {//话题
+            Intent intent = new Intent(context, SearchActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+            context.startActivity(intent);
+        } else {
+            Uri uri= Uri.parse(getURL());
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            intent.putExtra(Browser.EXTRA_APPLICATION_ID, context.getPackageName());
+            try {
+                context.startActivity(intent);
+            } catch (ActivityNotFoundException e) {
+                Log.e("URLSpan", "Actvity was not found for intent, " + intent.toString());
+            }
         }
-//        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-//        intent.putExtra(Browser.EXTRA_APPLICATION_ID, context.getPackageName());
-//        try {
-//            context.startActivity(intent);
-//        } catch (ActivityNotFoundException e) {
-//            Log.w("URLSpan", "Actvity was not found for intent, " + intent.toString());
-//        }
     }
 
     @Override

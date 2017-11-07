@@ -65,7 +65,7 @@ public class HomeLineFragmentChild extends SupportFragment implements SwipeRefre
 
     private void initView(View view) {
         mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        mToolbar.setTitle("饭否 HOME");
+        mToolbar.setTitle("TIMELINE");
         mRecyclerView = (RecyclerView) view.findViewById(R.id.line_recycler);
         mLayoutManager = new LinearLayoutManager(_mActivity);
         mRecyclerView.setLayoutManager(mLayoutManager);

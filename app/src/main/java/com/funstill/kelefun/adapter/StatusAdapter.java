@@ -8,6 +8,7 @@ import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
 import android.text.style.URLSpan;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -107,6 +108,7 @@ public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     activitySpan.setSpan(myURLSpan, statusSpan.getSpanStart(url), statusSpan.getSpanEnd(url), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
                 itemHolder.statusView.setText(activitySpan);
+                itemHolder.statusView.setMovementMethod(LinkMovementMethod.getInstance());//使标签可点击
                 //图片加载
                 Glide.with(mContext)
                         .load(status.getUser().getProfileImageUrl())
