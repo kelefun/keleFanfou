@@ -33,7 +33,7 @@ public class ActivitySpan extends URLSpan {
     public void onClick(View widget) {
         Context context = widget.getContext();
 
-        if (getURL().startsWith("http")) {//用户主页
+        if (getURL().startsWith("http://fanfou.com/")) {//用户主页
             Intent intent = new Intent(context, UserHomeActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
             intent.putExtra(UserHomeActivity.USER_ID, getURL().replace("http://fanfou.com/", ""));
