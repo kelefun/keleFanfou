@@ -89,6 +89,7 @@ public class StatusListFragment extends Fragment{
                     Map<String, String> loadMoreParam = new ArrayMap<>();
                     loadMoreParam.put("max_id", data.get(data.size() - 1).getId());
                     loadMoreParam.put("count", "20");
+                    loadMoreParam.put("id", tuserId);
                     loadMoreHomeLineStatus(loadMoreParam);
                 }
             }
@@ -128,7 +129,7 @@ public class StatusListFragment extends Fragment{
 
     private void loadMoreHomeLineStatus(Map<String, String> param) {
         StatusApi api = BaseRetrofit.retrofit(new SignInterceptor()).create(StatusApi.class);
-        Call<List<Status>> call = api.getHomeTimeLine(param);
+        Call<List<Status>> call = api.getUserTimeLine(param);
         call.enqueue(new Callback<List<Status>>() {
             @Override
             public void onResponse(Call<List<Status>> call, Response<List<Status>> response) {
