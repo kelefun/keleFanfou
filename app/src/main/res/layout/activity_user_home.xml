@@ -186,7 +186,6 @@
                     android:layout_height="@dimen/userhome_avatar_length_large"
                     android:layout_gravity="center_vertical|start"
                     android:layout_marginLeft="@dimen/base_dimen_24dp"
-                    android:src="@drawable/ic_launcher"
                     app:civ_border_color="@color/colorGrey"
                     app:civ_border_width="1dp" />
             </FrameLayout>
