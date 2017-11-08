@@ -21,7 +21,7 @@
             app:expandedTitleGravity="center_vertical"
             app:expandedTitleMarginStart="142dp"
             app:expandedTitleTextAppearance="@style/user_title"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:titleEnabled="true">
 
             <LinearLayout
@@ -36,9 +36,7 @@
                     android:layout_height="200dp"
                     android:background="@color/colorAlphaDark"
                     android:fitsSystemWindows="true"
-                    android:scaleType="centerCrop"
-                    app:layout_collapseMode="parallax"
-                    app:layout_collapseParallaxMultiplier="0.7" />
+                    android:scaleType="centerCrop" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

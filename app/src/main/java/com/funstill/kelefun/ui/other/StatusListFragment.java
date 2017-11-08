@@ -117,6 +117,8 @@ public class StatusListFragment extends Fragment{
                     } else {
                         ToastUtil.showToast(getContext(), "没有更多了");
                     }
+                }else if(response.code()==403){
+                    ToastUtil.showToast(getContext(), "对方设置了隐私,需先请求关注");
                 }
             }
 

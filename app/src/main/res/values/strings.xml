@@ -16,4 +16,5 @@
     <string name="followersCount">粉丝\u0020</string>
     <string name="statusesCount">消息\u0020</string>
 
+    <string name="error_message">WoW! 出错啦!</string>
 </resources>

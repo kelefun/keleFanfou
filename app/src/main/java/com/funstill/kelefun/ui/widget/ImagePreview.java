@@ -88,16 +88,16 @@ public class ImagePreview extends AppCompatActivity {
 
     private void initView() {
         Window window = this.getWindow();
-        window.setStatusBarColor(getColor(R.color.black));
+        window.setStatusBarColor(getResources().getColor(R.color.black));
         mAppBar = (AppBarLayout) findViewById(R.id.toolbar_appbar);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(mToolbar);
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mToolbar.setTitle(R.string.image_preview);
-//        mToolbar.setTitleTextColor(getColor(R.color.white));
+//       mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
         mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
         mToolbar.setNavigationOnClickListener(v -> finish());
-        mToolbar.setBackgroundColor(getColor(R.color.black));
+        mToolbar.setBackgroundColor(getResources().getColor(R.color.black));
         mImageViewSave = new ImageView(this);
         //layoutParams 一定要引入imageView的父组件的params(比如mToolbar.addView(mImageViewSave)需引入ToolBar.LayoutParams)
         LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
@@ -105,7 +105,7 @@ public class ImagePreview extends AppCompatActivity {
         lp.setMargins(0, 0, 160, 0);
         mImageViewSave.setLayoutParams(lp);
         mImageViewSave.setImageResource(R.drawable.ic_save_white_24dp);
-        mImageViewSave.setForegroundGravity(Gravity.RIGHT);
+//        mImageViewSave.setForegroundGravity(Gravity.END);
         mToolbar.addView(mImageViewSave);
         mPhotoView = (PhotoView) findViewById(R.id.statusImagePreview);
     }

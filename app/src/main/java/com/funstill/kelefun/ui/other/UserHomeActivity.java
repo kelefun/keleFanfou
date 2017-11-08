@@ -84,6 +84,7 @@ public class UserHomeActivity extends AppCompatActivity {
         statusesCount = (TextView) findViewById(R.id.statuses_count);
         profileImage = (ImageView) findViewById(R.id.profile_image);
         profileBackgroundImage = (ImageView) findViewById(R.id.profile_background_image);
+        mCollapsingToolbarLayout.setLayoutMode(CollapsingToolbarLayout.FOCUSABLES_TOUCH_MODE);
 //        setSupportActionBar(mToolbar);
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
