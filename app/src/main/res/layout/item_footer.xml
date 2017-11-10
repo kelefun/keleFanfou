@@ -7,8 +7,7 @@
     android:orientation="horizontal"
     >
     <ProgressBar
-        android:layout_marginRight="6dp"
-        android:id="@+id/progressBar"
+        android:id="@+id/footer_progress"
         style="?android:attr/progressBarStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -52,7 +52,7 @@ public class LogHelper {
         if (tag == null) {
             tag = logTag;
         }
-        if (value == null) {
+        if (value == null && key!=null) {
             Log.e(tag, key);
         } else {
             Log.e(tag, key + "----->" + value);

@@ -85,12 +85,13 @@ public class StatusListFragment extends Fragment{
                         && (mLayoutManager.findLastVisibleItemPosition() + 1 == mLayoutManager.getItemCount())
                         && !isLoadingMore) {
                     isLoadingMore = true;
-                    //处理逻辑
-                    Map<String, String> loadMoreParam = new ArrayMap<>();
-                    loadMoreParam.put("max_id", data.get(data.size() - 1).getId());
-                    loadMoreParam.put("count", "20");
-                    loadMoreParam.put("id", tuserId);
-                    loadMoreHomeLineStatus(loadMoreParam);
+                    if (data.size() > 0) {
+                        Map<String, String> loadMoreParam = new ArrayMap<>();
+                        loadMoreParam.put("max_id", data.get(data.size() - 1).getId());
+                        loadMoreParam.put("count", "20");
+                        loadMoreParam.put("id", tuserId);
+                        loadMoreHomeLineStatus(loadMoreParam);
+                    }
                 }
             }
         });

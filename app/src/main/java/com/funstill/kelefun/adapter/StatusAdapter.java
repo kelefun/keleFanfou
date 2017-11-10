@@ -48,7 +48,7 @@ public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             final ItemViewHolder holder = new ItemViewHolder(view);
             holder.itemView.setOnClickListener(v -> {
                 int position = holder.getAdapterPosition();
-                ToastUtil.showToast(mContext, holder.statusView.getText().toString());
+                ToastUtil.showToast(mContext, "点击了卡片");
             });
             holder.userHomeClickArea.setOnClickListener(v -> {
                 int position = holder.getAdapterPosition();
@@ -98,7 +98,7 @@ public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
 
                 //处理文本点击跳转
-                Spannable statusSpan=(Spannable)Html.fromHtml(status.getText());//格式化<a herf ,mobile等标签
+                Spannable statusSpan = (Spannable) Html.fromHtml(status.getText());//格式化<a herf ,mobile等标签
                 CharSequence text = statusSpan.toString();
                 URLSpan[] urls = statusSpan.getSpans(0, text.length(), URLSpan.class);
                 SpannableStringBuilder activitySpan = new SpannableStringBuilder(statusSpan);
@@ -137,9 +137,14 @@ public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         return data == null ? 0 : data.size();
     }
 
+    /**
+     * 获取onCreateViewHolder(ViewGroup parent, int viewType)中viewType
+     * @param position
+     * @return
+     */
     @Override
     public int getItemViewType(int position) {
-        if (position + 1 == getItemCount()) {
+        if (position + 1 == getItemCount() && getItemCount() > 5) {
             return TYPE_FOOTER;
         } else {
             return TYPE_ITEM;

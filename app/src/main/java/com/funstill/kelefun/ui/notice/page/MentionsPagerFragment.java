@@ -43,7 +43,8 @@ public class MentionsPagerFragment extends SupportFragment implements SwipeRefre
     private LinearLayoutManager mLayoutManager;
     private SwipeRefreshLayout mRefreshLayout;
     private List<Status> data = new ArrayList<>();
-
+    // 是否在加载中 ( 上拉加载更多 )
+    private boolean isLoadingMore = false;
     private StatusAdapter mAdapter;
 
     private boolean mInAtTop = true;
@@ -83,6 +84,19 @@ public class MentionsPagerFragment extends SupportFragment implements SwipeRefre
                 super.onScrolled(recyclerView, dx, dy);
                 mScrollTotal += dy;
                 mInAtTop = mScrollTotal <= 0;
+            }
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE
+                        && (mLayoutManager.findLastVisibleItemPosition()+1== mLayoutManager.getItemCount())
+                        &&!isLoadingMore) {
+                    if(data.size()>0){
+                        Map<String,String> loadMoreParam = new ArrayMap<>();
+                        loadMoreParam.put("max_id",data.get(data.size()-1).getId());
+                        loadMoreParam.put("count","20");
+                        loadMoreMentions(loadMoreParam);
+                    }
+                }
             }
         });
     }
@@ -160,7 +174,7 @@ public class MentionsPagerFragment extends SupportFragment implements SwipeRefre
                             data.addAll(statusList);
                         }
                         mAdapter.notifyDataSetChanged();
-                        ToastUtil.showToast(_mActivity,"Fun+ "+statusList.size());
+                        ToastUtil.showToast(_mActivity,"Fun+ "+data.size());
                     }else{
                         if(data.size()>0){
                             ToastUtil.showToast(_mActivity,"没有更多了");
@@ -178,6 +192,32 @@ public class MentionsPagerFragment extends SupportFragment implements SwipeRefre
                 mRefreshLayout.setRefreshing(false);
                 t.printStackTrace();
                 LogHelper.e("请求失败", t.getMessage());
+            }
+        });
+    }
+    private void loadMoreMentions(Map<String, String> param) {
+        StatusApi api = BaseRetrofit.retrofit(new SignInterceptor()).create(StatusApi.class);
+        Call<List<Status>> call = api.getMentions(param);
+        call.enqueue(new Callback<List<Status>>() {
+            @Override
+            public void onResponse(Call<List<Status>> call, Response<List<Status>> response) {
+                if (response.code() == 200) {
+                    List<Status> statusList = response.body();
+                    if (statusList.size() > 0) {
+                        data.addAll(statusList);
+                        mAdapter.notifyDataSetChanged();
+                    } else {
+                        ToastUtil.showToast(_mActivity, "没有更多了");
+                    }
+                }
+                isLoadingMore=false;
+            }
+
+            @Override
+            public void onFailure(Call<List<Status>> call, Throwable t) {
+                t.printStackTrace();
+                LogHelper.e("请求失败", t.getMessage());
+                isLoadingMore=false;
             }
         });
     }

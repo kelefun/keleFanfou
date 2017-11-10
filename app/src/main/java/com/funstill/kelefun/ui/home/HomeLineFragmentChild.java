@@ -97,10 +97,12 @@ public class HomeLineFragmentChild extends SupportFragment implements SwipeRefre
                         && !isLoadingMore) {
                     isLoadingMore = true;
                     //处理逻辑
-                    Map<String,String> loadMoreParam = new ArrayMap<>();
-                    loadMoreParam.put("max_id",data.get(data.size()-1).getId());
-                    loadMoreParam.put("count","20");
-                    loadMoreHomeLineStatus(loadMoreParam);
+                    if(data.size()>0){
+                        Map<String,String> loadMoreParam = new ArrayMap<>();
+                        loadMoreParam.put("max_id",data.get(data.size()-1).getId());
+                        loadMoreParam.put("count","20");
+                        loadMoreHomeLineStatus(loadMoreParam);
+                    }
                 }
             }
         });
