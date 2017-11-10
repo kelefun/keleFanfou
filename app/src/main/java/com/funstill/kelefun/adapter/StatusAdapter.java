@@ -138,7 +138,7 @@ public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     /**
-     * 获取onCreateViewHolder(ViewGroup parent, int viewType)中viewType
+     * 获取onCreateViewHolder(ViewGroup parent, int viewType)viewType
      * @param position
      * @return
      */

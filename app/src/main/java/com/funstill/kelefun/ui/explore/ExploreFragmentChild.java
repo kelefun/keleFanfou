@@ -89,17 +89,18 @@ public class ExploreFragmentChild extends SupportFragment implements SwipeRefres
                 mScrollTotal += dy;
                 mInAtTop = mScrollTotal <= 0;
             }
+
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 if (newState == RecyclerView.SCROLL_STATE_IDLE
-                        && (mLayoutManager.findLastVisibleItemPosition()+1 == mLayoutManager.getItemCount())
+                        && (mLayoutManager.findLastVisibleItemPosition() + 1 == mLayoutManager.getItemCount())
                         && !isLoadingMore) {
                     isLoadingMore = true;
                     //处理逻辑
-                    if(data.size()>0){
-                        Map<String,String> loadMoreParam = new ArrayMap<>();
-                        loadMoreParam.put("max_id",data.get(data.size()-1).getId());
-                        loadMoreParam.put("count","20");
+                    if (data.size() > 0) {
+                        Map<String, String> loadMoreParam = new ArrayMap<>();
+                        loadMoreParam.put("max_id", data.get(data.size() - 1).getId());
+                        loadMoreParam.put("count", "20");
                         loadMore(loadMoreParam);
                     }
                 }
@@ -109,12 +110,12 @@ public class ExploreFragmentChild extends SupportFragment implements SwipeRefres
 
     @Override
     public void onRefresh() {
-        mRefreshLayout.post(() -> mRefreshLayout.setRefreshing(true) );
+        mRefreshLayout.post(() -> mRefreshLayout.setRefreshing(true));
         Map<String, String> map = new ArrayMap<>();
-        if(data.size()>0){
-            map.put("since_id",data.get(0).getId());
-        }else {
-            map.put("count","20");
+        if (data.size() > 0) {
+            map.put("since_id", data.get(0).getId());
+        } else {
+            map.put("count", "20");
         }
         getPublicTimeLineStatus(map);
     }
@@ -188,6 +189,7 @@ public class ExploreFragmentChild extends SupportFragment implements SwipeRefres
             }
         });
     }
+
     private void loadMore(Map<String, String> param) {
         StatusApi api = BaseRetrofit.retrofit(new SignInterceptor()).create(StatusApi.class);
         Call<List<Status>> call = api.getPublicTimeLine(param);
@@ -197,20 +199,36 @@ public class ExploreFragmentChild extends SupportFragment implements SwipeRefres
                 if (response.code() == 200) {
                     List<Status> statusList = response.body();
                     if (statusList.size() > 0) {
-                        data.addAll(statusList);
-                        mAdapter.notifyDataSetChanged();
+                        //去除重复数据
+                        if (data.size() > 0) {
+                            List<Status> tempList = new ArrayList<>();
+                            tempList.addAll(data);
+                            for (Status status : statusList) {
+                                boolean exist=false;//是否重复
+                                for (Status temp : tempList) {
+                                    if (temp.getId().equals(status.getId())) {
+                                        exist=true;
+                                    }
+                                }
+                                if(!exist){
+                                    data.add(status);
+                                }
+                            }
+                        } else {
+                            data.addAll(statusList);
+                        }
                     } else {
                         ToastUtil.showToast(_mActivity, "没有更多了");
                     }
                 }
-                isLoadingMore=false;
+                isLoadingMore = false;
             }
 
             @Override
             public void onFailure(Call<List<Status>> call, Throwable t) {
                 t.printStackTrace();
                 LogHelper.e("请求失败", t.getMessage());
-                isLoadingMore=false;
+                isLoadingMore = false;
             }
         });
     }
