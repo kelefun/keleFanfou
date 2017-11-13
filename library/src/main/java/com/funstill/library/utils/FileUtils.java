@@ -13,7 +13,7 @@ import java.util.Locale;
  */
 public class FileUtils {
     public static final String POSTFIX = ".JPEG";
-    public static final String APP_NAME = "ImageSelector";
+    public static final String APP_NAME = "KeleFun";
 
     public static File createCameraFile(Context context,String filePath) {
         return createMediaFile(context,filePath);

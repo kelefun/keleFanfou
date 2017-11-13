@@ -160,9 +160,6 @@ public class ExploreFragmentChild extends SupportFragment implements SwipeRefres
                 if (response.code() == 200) {
                     List<Status> statusList = response.body();
                     if (statusList.size() > 0) {
-//                        for(Status status:statusList){
-//                            LogHelper.e(status.getId()+"###"+status.getText());
-//                        }
                         if (data.size() > 0) { //让新增的数据在前面
                             List<Status> tempList = new ArrayList<>();
                             tempList.addAll(data);
@@ -217,6 +214,7 @@ public class ExploreFragmentChild extends SupportFragment implements SwipeRefres
                         } else {
                             data.addAll(statusList);
                         }
+                        mAdapter.notifyDataSetChanged();
                     } else {
                         ToastUtil.showToast(_mActivity, "没有更多了");
                     }
