@@ -1,7 +1,6 @@
 package com.funstill.kelefun.data.model;
 
 import com.google.gson.annotations.SerializedName;
-import com.jakewharton.rxbinding.internal.Preconditions;
 
 /**
  *@author liukaiyang
@@ -20,8 +19,8 @@ public class OAuthToken {
     @SerializedName("oauth_token_secret")
     private String tokenSecret;
     public OAuthToken(String token, String tokenSecret) {
-        Preconditions.checkNotNull(token, "Token can't be null");
-        Preconditions.checkNotNull(tokenSecret, "Secret can't be null");
+//        Preconditions.checkNotNull(token, "Token can't be null");
+//        Preconditions.checkNotNull(tokenSecret, "Secret can't be null");
         this.token = token;
         this.tokenSecret = tokenSecret;
     }

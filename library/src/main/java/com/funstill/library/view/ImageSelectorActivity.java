@@ -100,7 +100,7 @@ public class ImageSelectorActivity extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.picture);
-        setSupportActionBar(toolbar);
+//        setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.mipmap.ic_back);
 
         doneText = (TextView) findViewById(R.id.done_text);

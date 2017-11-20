@@ -43,6 +43,8 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 public class SendStatusFragmentChild extends BaseBackFragment {
     private final static String TAG = "SendStatusFragmentChild";
@@ -93,7 +95,7 @@ public class SendStatusFragmentChild extends BaseBackFragment {
                 .showCamera(true)                     // 是否现实相机按钮  默认：false
                 .build();
         selectImage.setOnClickListener(v -> {
-            if(initPermissions()){
+            if (initPermissions()) {
 //                selectorConfig.getPathList().clear();//清除已选择的图片
                 ImageSelector.getInstance().setSelectorConfig(selectorConfig).open(_mActivity);
             }
@@ -111,17 +113,17 @@ public class SendStatusFragmentChild extends BaseBackFragment {
     // 授权管理
     private boolean initPermissions() {
         if (ContextCompat.checkSelfPermission(_mActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-           // Log.d(TAG, "需要授权 ");
+            // Log.d(TAG, "需要授权 ");
             if (ActivityCompat.shouldShowRequestPermissionRationale(_mActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                 Log.d(TAG, "拒绝过了");
                 Toast.makeText(_mActivity, "请在 设置-应用管理 中开启此应用的储存授权。", Toast.LENGTH_SHORT).show();
             } else {
-            //    Log.d(TAG, "进行授权");
+                //    Log.d(TAG, "进行授权");
                 ActivityCompat.requestPermissions(_mActivity, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSIONS_REQUEST_READ_CONTACTS);
             }
             return false;
         } else {
-           // Log.d(TAG, "不需要授权 ");
+            // Log.d(TAG, "不需要授权 ");
             return true;
         }
     }
@@ -137,15 +139,36 @@ public class SendStatusFragmentChild extends BaseBackFragment {
      * 发送
      */
     private void postStatus() {
+        ToastUtil.showToast(_mActivity, "正在发布中...");
+        backToHome();
         StatusApi api = BaseRetrofit.retrofit(new SignInterceptor()).create(StatusApi.class);
-        Call<Status> call;
-        if (path.size() > 0) {
+        if (path.size() > 0) {//带图片
             RequestBody status = RequestBody.create(MediaType.parse("text/plain"), editText.getText().toString());
-            File file = new File(path.get(0));
-            RequestBody photo = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-            MultipartBody.Part body = MultipartBody.Part.createFormData("photo", file.getName(), photo);
-            call = api.uploadPhoto(status, body);
-        } else {
+            //TODO 如果不是gif则压缩图片
+            Luban.with(_mActivity)
+                    .load(path.get(0))
+                    .ignoreBy(1024 * 2)//2MB
+                    .putGear(4)
+                    .setCompressListener(new OnCompressListener() {
+                        @Override
+                        public void onStart() {
+
+                        }
+                        @Override
+                        public void onSuccess(File file) {
+                            RequestBody photo = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                            MultipartBody.Part body = MultipartBody.Part.createFormData("photo", file.getName(), photo);
+                            Call<Status> call = api.uploadPhoto(status, body);
+                            enqueue(call);
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                        }
+                    }).launch();
+
+
+        } else {//只有文字
             if ("".equals(editText.getText().toString())) {
                 ToastUtil.showToast(_mActivity, "输入不能为空");
                 return;
@@ -153,25 +176,27 @@ public class SendStatusFragmentChild extends BaseBackFragment {
             String status = editText.getText().toString();
             Map<String, String> partMap = new ArrayMap<>();
             partMap.put("status", status);
-            call = api.postStatus(partMap);
+            Call<Status> call = api.postStatus(partMap);
+            enqueue(call);
         }
-        ToastUtil.showToast(_mActivity, "正在发布中...");
-        backToHome();
+
+
+    }
+
+    //
+    private void enqueue(Call<Status> call) {
         call.enqueue(new Callback<Status>() {
             @Override
             public void onResponse(Call<Status> call, Response<Status> response) {
-//                Gson gson = new Gson();
-//                gson.toJson(response.body());
-//                LogHelper.d(gson.toJson(response.body()));
-                if (response.code() == 200 ) {
+                if (response.code() == 200) {
                     //清除页面已填数据
                     editText.setText("");
                     path.clear();
                     photoAdapter.setResult(path);
                     photoAdapter.notifyDataSetChanged();
                     ToastUtil.showToast(_mActivity, "发布消息成功");
-                }else {
-                    ToastUtil.showToast(_mActivity, "发布消息失败\n"+response.message());
+                } else {
+                    ToastUtil.showToast(_mActivity, "发布消息失败\n" + response.message());
                 }
             }
 

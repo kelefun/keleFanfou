@@ -1,6 +1,5 @@
 package com.funstill.kelefun.util;
 
-import com.jakewharton.rxbinding.internal.Preconditions;
 import com.funstill.kelefun.exception.OAuthException;
 
 import java.io.UnsupportedEncodingException;
@@ -30,7 +29,7 @@ public class OAuthEncoder {
     }
 
     public static String encode(String plain) {
-        Preconditions.checkNotNull(plain, "Cannot encode null object");
+//        Preconditions.checkNotNull(plain, "Cannot encode null object");
         String encoded = "";
         try {
             encoded = URLEncoder.encode(plain, CHARSET);
@@ -50,7 +49,7 @@ public class OAuthEncoder {
     }
 
     public static String decode(String encoded) {
-        Preconditions.checkNotNull(encoded, "Cannot decode null object");
+//        Preconditions.checkNotNull(encoded, "Cannot decode null object");
         try {
             return URLDecoder.decode(encoded, CHARSET);
         } catch (UnsupportedEncodingException uee) {
