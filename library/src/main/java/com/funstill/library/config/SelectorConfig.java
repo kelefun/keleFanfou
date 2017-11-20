@@ -17,7 +17,6 @@ public class SelectorConfig {
     private boolean showCamera;       // 是否开启相机 默认：true
     private String provider;            // 兼容android 7.0 设置
     private String filePath;            // 拍照以及截图后 存放的位置。    默认：/KeleFun
-    private ArrayList<String> pathList;      // 已选择照片的路径
 
     private Builder builder;
 
@@ -32,7 +31,6 @@ public class SelectorConfig {
         this.multiSelect = builder.multiSelect;
         this.maxSize = builder.maxSize;
         this.showCamera = builder.showCamera;
-        this.pathList = builder.pathList;
         this.filePath = builder.filePath;
         this.provider = builder.provider;
         this.builder = builder;
@@ -127,9 +125,6 @@ public class SelectorConfig {
         return showCamera;
     }
 
-    public ArrayList<String> getPathList() {
-        return pathList;
-    }
 
     public String getFilePath() {
         return filePath;

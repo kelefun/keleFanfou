@@ -18,9 +18,7 @@ public class FileUtils {
     public static File createCameraFile(Context context,String filePath) {
         return createMediaFile(context,filePath);
     }
-    public static File createCropFile(Context context,String filePath) {
-        return createMediaFile(context,filePath);
-    }
+
 
     private static File createMediaFile(Context context,String parentPath){
         String state = Environment.getExternalStorageState();

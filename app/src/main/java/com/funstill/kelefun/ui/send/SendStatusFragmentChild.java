@@ -89,13 +89,12 @@ public class SendStatusFragmentChild extends BaseBackFragment {
         selectorConfig = new SelectorConfig.Builder()
                 .iHandlerCallBack(iHandlerCallBack)     // 监听接口（必填）
                 .provider("com.funstill.kelefun.photo.fileprovider")   // provider(必填)
-                .pathList(path)                         // 记录已选的图片
 //                .multiSelect(true,3)//多选,最多3个
                 .showCamera(true)                     // 是否现实相机按钮  默认：false
                 .build();
         selectImage.setOnClickListener(v -> {
             if(initPermissions()){
-                selectorConfig.getPathList().clear();//清除已选择的图片
+//                selectorConfig.getPathList().clear();//清除已选择的图片
                 ImageSelector.getInstance().setSelectorConfig(selectorConfig).open(_mActivity);
             }
         });
@@ -172,7 +171,7 @@ public class SendStatusFragmentChild extends BaseBackFragment {
                     photoAdapter.notifyDataSetChanged();
                     ToastUtil.showToast(_mActivity, "发布消息成功");
                 }else {
-                    ToastUtil.showToast(_mActivity, "发布消息失败");
+                    ToastUtil.showToast(_mActivity, "发布消息失败\n"+response.message());
                 }
             }
 

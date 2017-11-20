@@ -57,7 +57,7 @@ public class ImageSelectorActivity extends AppCompatActivity {
 
     private SelectorConfig selectorConfig;
     private IHandlerCallBack mHandlerCallBack;
-    private ArrayList<String> resultPhoto;
+    private ArrayList<String> resultPhoto=new ArrayList<>();
 
 
     @Override
@@ -122,7 +122,6 @@ public class ImageSelectorActivity extends AppCompatActivity {
 //-------------
         mHandlerCallBack = selectorConfig.getIHandlerCallBack();
         mHandlerCallBack.onStart();
-        resultPhoto = selectorConfig.getPathList();
     }
 
     public void registerListener() {
