@@ -65,6 +65,7 @@ public class DateUtil {
     /**
      * 转换字符型的时间戳为 大写的年<br>
      * 比如:当前时间为 2017-06-11 18:35:35----参数为2016-11-11 18:35:35 执行函数后则显示为 零.柒<br>
+     *    TODO 目前只支持100年内
      * @param dateStr
      * @return
      */
@@ -74,12 +75,19 @@ public class DateUtil {
         long month=toMonths(delta);
         int y=(int) month/12;
         int m= (int) month%12;
-        if(m>10){
-            int first=10;
-            int second=m%10;
-            return numChinese[y]+"."+numChinese[first]+numChinese[second];
+        String yearStr,monthStr;
+        if(y>10){
+            int ten=y/10;//十位数
+            yearStr= numChinese[ten]+numChinese[y%10];
+        }else{
+            yearStr=numChinese[y];//只有个位数
         }
-        return  numChinese[y]+"."+numChinese[m];
+        if(m>10){
+            monthStr= numChinese[10]+numChinese[m%10];
+        }else{
+            monthStr=numChinese[m];
+        }
+        return  yearStr+"."+monthStr;
     }
 
     /**
