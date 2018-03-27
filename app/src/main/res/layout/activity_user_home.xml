@@ -33,7 +33,7 @@
                 <ImageView
                     android:id="@+id/profile_background_image"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="220dp"
                     android:background="@color/colorAlphaDark"
                     android:fitsSystemWindows="true"
                     android:scaleType="centerCrop" />
@@ -179,7 +179,6 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/profile_image"
                     android:layout_width="@dimen/userhome_avatar_length_large"
