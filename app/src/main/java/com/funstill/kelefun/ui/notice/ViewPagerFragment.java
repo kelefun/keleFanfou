@@ -42,7 +42,7 @@ public class ViewPagerFragment extends SupportFragment {
         mTab.addTab(mTab.newTab());
         mTab.addTab(mTab.newTab());
         mTab.addTab(mTab.newTab());
-
+        mViewPager.setOffscreenPageLimit(2);
         mViewPager.setAdapter(new NoticeFragmentAdapter(getChildFragmentManager()));
         mTab.setupWithViewPager(mViewPager);
     }
