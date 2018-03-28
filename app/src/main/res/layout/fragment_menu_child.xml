@@ -35,7 +35,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
                         android:layout_marginRight="@dimen/icon_distance"
-                        android:src="@drawable/ic_message_white_24dp" />
+                        android:src="@drawable/ic_action_message" />
 
                     <ImageView
                         android:id="@+id/status_mention"
@@ -44,14 +44,6 @@
                         android:layout_gravity="right"
                         android:layout_marginRight="@dimen/icon_distance"
                         android:src="@drawable/ic_at_white" />
-
-                    <ImageView
-                        android:id="@+id/attention"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-                        android:layout_marginRight="@dimen/icon_distance"
-                        android:src="@drawable/ic_account_circle_white_24dp" />
                 </android.support.v7.widget.Toolbar>
 
                 <LinearLayout

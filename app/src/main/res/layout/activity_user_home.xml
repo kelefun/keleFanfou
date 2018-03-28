@@ -78,7 +78,6 @@
                                 android:ellipsize="end"
                                 android:gravity="center"
                                 android:lines="1"
-                                android:text="壹壹.壹壹"
                                 android:textColor="@color/grey" />
                         </LinearLayout>
 
@@ -202,15 +201,15 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:layout_marginEnd="@dimen/icon_distance"
-                    android:src="@drawable/ic_message_white_24dp" />
+                    android:src="@drawable/ic_action_message" />
 
-                <ImageView
+               <!-- <ImageView
                     android:id="@+id/status_mention"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:layout_marginEnd="@dimen/icon_distance"
-                    android:src="@drawable/ic_at_white" />
+                    android:src="@drawable/ic_at_white" />-->
 
                 <ImageView
                     android:id="@+id/attention"
@@ -218,7 +217,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:layout_marginEnd="@dimen/icon_distance"
-                    android:src="@drawable/ic_account_circle_white_24dp" />
+                    android:src="@drawable/ic_action_attention_add" />
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.CollapsingToolbarLayout>
         <android.support.design.widget.TabLayout

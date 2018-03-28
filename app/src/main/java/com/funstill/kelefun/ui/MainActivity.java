@@ -88,8 +88,8 @@ public class MainActivity extends SupportActivity implements BaseMainFragment.On
 
         mBottomBar.addItem(new BottomBarTab(this, R.drawable.ic_bottomtabbar_homeline))
                 .addItem(new BottomBarTab(this, R.drawable.ic_bottomtabbar_explore))
-                .addItem(new BottomBarTab(this, R.drawable.ic_bottomtabbar_add))
-                .addItem(new BottomBarTab(this, R.drawable.ic_message_white_24dp))
+                .addItem(new BottomBarTab(this, R.drawable.ic_action_add))
+                .addItem(new BottomBarTab(this, R.drawable.ic_action_message))
                 .addItem(new BottomBarTab(this, R.drawable.ic_bottomtabbar_menu));
 
         mBottomBar.setOnTabSelectedListener(new BottomBar.OnTabSelectedListener() {

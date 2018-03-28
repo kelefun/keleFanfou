@@ -95,7 +95,7 @@ public class ImagePreview extends AppCompatActivity {
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mToolbar.setTitle(R.string.image_preview);
 //       mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
-        mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
+        mToolbar.setNavigationIcon(R.drawable.ic_action_arrow_back);
         mToolbar.setNavigationOnClickListener(v -> finish());
         mToolbar.setBackgroundColor(getResources().getColor(R.color.black));
         mImageViewSave = new ImageView(this);
@@ -104,7 +104,7 @@ public class ImagePreview extends AppCompatActivity {
         lp.gravity = Gravity.RIGHT;
         lp.setMargins(0, 0, 160, 0);
         mImageViewSave.setLayoutParams(lp);
-        mImageViewSave.setImageResource(R.drawable.ic_save_white_24dp);
+        mImageViewSave.setImageResource(R.drawable.ic_action_download_white);
 //        mImageViewSave.setForegroundGravity(Gravity.END);
         mToolbar.addView(mImageViewSave);
         mPhotoView = (PhotoView) findViewById(R.id.statusImagePreview);

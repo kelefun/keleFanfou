@@ -43,6 +43,9 @@ public class UserHomeActivity extends AppCompatActivity {
     private TextView statusesCount;
     private ImageView profileBackgroundImage;
     private ImageView profileImage;
+    private ImageView attention;//关注
+    private ImageView statusMention;//
+    private ImageView directMessage;//私信
     private static final int ALPHA=32;//透明度
     public static final String USER_ID = "user_id";
 
@@ -69,6 +72,7 @@ public class UserHomeActivity extends AppCompatActivity {
         userHomeTab.addTab(userHomeTab.newTab());
 
         mViewPager.setAdapter( new UserHomeFragmentAdapter(getSupportFragmentManager(),getIntent().getStringExtra(USER_ID)));
+        mViewPager.setOffscreenPageLimit(2);
         userHomeTab.setupWithViewPager(mViewPager);
     }
 
@@ -83,6 +87,9 @@ public class UserHomeActivity extends AppCompatActivity {
         followersCount = (TextView) findViewById(R.id.followers_count);
         statusesCount = (TextView) findViewById(R.id.statuses_count);
         profileImage = (ImageView) findViewById(R.id.profile_image);
+        attention = (ImageView) findViewById(R.id.attention);
+        statusMention = (ImageView) findViewById(R.id.status_mention);
+        directMessage = (ImageView) findViewById(R.id.direct_message);
         profileBackgroundImage = (ImageView) findViewById(R.id.profile_background_image);
         mCollapsingToolbarLayout.setLayoutMode(CollapsingToolbarLayout.FOCUSABLES_TOUCH_MODE);
 //        setSupportActionBar(mToolbar);
@@ -115,6 +122,9 @@ public class UserHomeActivity extends AppCompatActivity {
                                 .load(userInfo.getProfileBackgroundImageUrl())
                                 .into(profileBackgroundImage);
                         mCollapsingToolbarLayout.setTitle(userInfo.getScreenName());
+                        if(userInfo.isFollowing()){
+                            attention.setImageResource(R.drawable.ic_action_attention_original);
+                        }
                     } else {
                         ToastUtil.showToast(UserHomeActivity.this, "没有查询到");
                     }

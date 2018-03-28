@@ -78,7 +78,7 @@ public class SendStatusFragmentChild extends BaseBackFragment {
     private void initView(View view) {
         mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
         mToolbar.setTitle("+Fun");
-        mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
+        mToolbar.setNavigationIcon(R.drawable.ic_action_arrow_back);
         initToolbarNav(mToolbar);
         editText = (EditText) view.findViewById(R.id.statusEdit);
         rvResultPhoto = (RecyclerView) view.findViewById(R.id.rvResultPhoto);
