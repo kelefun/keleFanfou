@@ -71,7 +71,7 @@ public class ExploreFragmentChild extends SupportFragment implements SwipeRefres
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         mRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.line_swipe_refresh);
-        mRefreshLayout.setColorSchemeResources(R.color.colorPrimary, R.color.colorGreen, R.color.colorOrange, R.color.colorRed);
+        mRefreshLayout.setColorSchemeResources(R.color.colorPrimary, R.color.colorOrange, R.color.colorRed);
         mRefreshLayout.setOnRefreshListener(this);
         mRefreshLayout.post(() -> mRefreshLayout.setRefreshing(true));
 

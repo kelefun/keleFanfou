@@ -2,10 +2,8 @@
 <resources>
     <color name="colorGrey">#c9c9c9</color>
     <color name="colorWhiteDark">#ebebeb</color>
-    <color name="colorPrimary">#00CCFF</color>
-    <color name="colorPrimaryDark">#05BFEE</color>
-    <color name="colorCyan">#50B4C8</color>
-    <color name="colorGreen">#2AD6AC</color>
+    <color name="colorPrimary">#00bcd4</color>
+    <color name="colorPrimaryDark">#00acc1</color>
     <color name="colorOrange">#FF9800</color>
     <color name="colorRed">#ff0000</color>
     <color name="colorAlpha">#10000000</color>
