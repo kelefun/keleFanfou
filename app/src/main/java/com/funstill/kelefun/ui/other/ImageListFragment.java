@@ -59,7 +59,7 @@ public class ImageListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_status_no_toolbar, container, false);
         initView(view);
         Map<String, String> map = new ArrayMap<>();
-        map.put("page", "1");
+        map.put("count", "15");
         getStatusWithImage(map);
         return view;
     }
@@ -93,7 +93,7 @@ public class ImageListFragment extends Fragment {
                     if (data.size() > 0) {
                         Map<String, String> loadMoreParam = new ArrayMap<>();
                         loadMoreParam.put("max_id", data.get(data.size() - 1).getId());
-                        loadMoreParam.put("count", "20");
+                        loadMoreParam.put("count", "25");
                         loadMoreMentions(loadMoreParam);
                     }
                 }
@@ -144,7 +144,8 @@ public class ImageListFragment extends Fragment {
                         } else {
                             data.addAll(statusList);
                         }
-                        mAdapter.notifyDataSetChanged();
+                        //只重绘新增的数据
+                        mAdapter.notifyItemRangeInserted(lastVisibleItemPosition+1,statusList.size());
                     } else {
                         if (data.size() > 0) {
                             ToastUtil.showToast(getContext(), "没有更多了");
@@ -177,7 +178,7 @@ public class ImageListFragment extends Fragment {
                     List<Status> statusList = response.body();
                     if (statusList.size() > 0) {
                         data.addAll(statusList);
-                        mAdapter.notifyDataSetChanged();
+                        mAdapter.notifyItemRangeInserted(lastVisibleItemPosition+1,statusList.size());
                     } else {
                         ToastUtil.showToast(getContext(), "没有更多了");
                     }
