@@ -4,8 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.funstill.kelefun.ui.other.FavouriteStatusListFragment;
 import com.funstill.kelefun.ui.other.ImageListFragment;
-import com.funstill.kelefun.ui.other.ListFragment;
 import com.funstill.kelefun.ui.other.StatusListFragment;
 
 
@@ -28,7 +28,7 @@ public class UserHomeFragmentAdapter extends FragmentPagerAdapter {
             case 0:
                 return StatusListFragment.newInstance(userId);
             case 1:
-                return ListFragment.newInstance(userId);
+                return FavouriteStatusListFragment.newInstance(userId);
             default:
                 return ImageListFragment.newInstance(userId);
         }
