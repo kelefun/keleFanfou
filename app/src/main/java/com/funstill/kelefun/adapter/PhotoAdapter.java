@@ -14,8 +14,7 @@ import com.funstill.kelefun.util.LogHelper;
 import java.util.List;
 
 /**
- * PhotoAdapter
- * Created by Yancy on 2016/9/29.
+ * 用于发布状态时,选择的照片展示
  */
 public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> {
 

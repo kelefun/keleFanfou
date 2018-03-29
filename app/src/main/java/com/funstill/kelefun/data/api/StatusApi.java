@@ -44,6 +44,9 @@ public interface StatusApi {
     //获取提到我的消息
     @GET("/statuses/mentions.json?mode=lite&format=html")
     Call<List<Status>> getMentions(@QueryMap Map<String, String> paramMap);
+    //获取用户带有图片的消息
+    @GET("/photos/user_timeline.json?mode=lite")
+    Call<List<Status>> getUserTimeLineWithPhoto(@QueryMap Map<String, String> paramMap);
 
     /**
      * 发布消息(带照片)
