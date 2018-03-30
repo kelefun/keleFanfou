@@ -9,19 +9,18 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.util.ArrayMap;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.funstill.kelefun.R;
-import com.funstill.kelefun.adapter.PhotoAdapter;
 import com.funstill.kelefun.base.BaseBackFragment;
 import com.funstill.kelefun.data.api.StatusApi;
 import com.funstill.kelefun.data.model.Status;
@@ -33,7 +32,6 @@ import com.funstill.library.config.ImageSelector;
 import com.funstill.library.config.SelectorConfig;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -49,15 +47,13 @@ import top.zibin.luban.OnCompressListener;
 public class SendStatusFragmentChild extends BaseBackFragment {
     private final static String TAG = "SendStatusFragmentChild";
     private Toolbar mToolbar;
-    private Button actionSubmit;
     private EditText editText;
     private final int PERMISSIONS_REQUEST_READ_CONTACTS = 8;
-    private List<String> path = new ArrayList<>();
-    private ImageButton selectImage;
     private SelectorConfig selectorConfig;
     private IHandlerCallBack iHandlerCallBack;
-    private RecyclerView rvResultPhoto;
-    private PhotoAdapter photoAdapter;
+    private ImageView rvResultPhoto;
+
+    private String imageUrl = null;
 
     public static SendStatusFragmentChild newInstance() {
         Bundle args = new Bundle();
@@ -79,14 +75,26 @@ public class SendStatusFragmentChild extends BaseBackFragment {
         mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
         mToolbar.setTitle("+Fun");
         mToolbar.setNavigationIcon(R.drawable.ic_action_arrow_back);
-        initToolbarNav(mToolbar);
-        editText = (EditText) view.findViewById(R.id.statusEdit);
-        rvResultPhoto = (RecyclerView) view.findViewById(R.id.rvResultPhoto);
-        actionSubmit = (Button) view.findViewById(R.id.action_commit);
-        actionSubmit.setOnClickListener(v -> {
-            postStatus();
+        mToolbar.inflateMenu(R.menu.send_menu);
+        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.send_button:
+                        postStatus();
+                        break;
+                    default:
+                        ToastUtil.showToast(getContext(),"error menu");
+                        break;
+                }
+                return true;
+
+            }
         });
-        selectImage = (ImageButton) view.findViewById(R.id.select_image);
+        initToolbarNav(mToolbar);
+
+        editText = (EditText) view.findViewById(R.id.statusEdit);
+        rvResultPhoto = (ImageView) view.findViewById(R.id.rvResultPhoto);
 
         selectorConfig = new SelectorConfig.Builder()
                 .iHandlerCallBack(iHandlerCallBack)     // 监听接口（必填）
@@ -94,20 +102,13 @@ public class SendStatusFragmentChild extends BaseBackFragment {
 //                .multiSelect(true,3)//多选,最多3个
                 .showCamera(true)                     // 是否现实相机按钮  默认：false
                 .build();
-        selectImage.setOnClickListener(v -> {
+        rvResultPhoto.setOnClickListener(v -> {
             if (initPermissions()) {
-//                selectorConfig.getPathList().clear();//清除已选择的图片
                 ImageSelector.getInstance().setSelectorConfig(selectorConfig).open(_mActivity);
             }
         });
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 3);
         gridLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        rvResultPhoto.setLayoutManager(gridLayoutManager);
-
-        photoAdapter = new PhotoAdapter(getActivity(), path);
-        rvResultPhoto.setAdapter(photoAdapter);
-
-
     }
 
     // 授权管理
@@ -140,13 +141,13 @@ public class SendStatusFragmentChild extends BaseBackFragment {
      */
     private void postStatus() {
         ToastUtil.showToast(_mActivity, "正在发布中...");
-        backToHome();
+//        backToHome();
         StatusApi api = BaseRetrofit.retrofit(new SignInterceptor()).create(StatusApi.class);
-        if (path.size() > 0) {//带图片
+        if (imageUrl != null) {//带图片
             RequestBody status = RequestBody.create(MediaType.parse("text/plain"), editText.getText().toString());
             //TODO 如果不是gif则压缩图片
             Luban.with(_mActivity)
-                    .load(path.get(0))
+                    .load(imageUrl)
                     .ignoreBy(1024 * 2)//2MB
                     .putGear(4)
                     .setCompressListener(new OnCompressListener() {
@@ -154,6 +155,7 @@ public class SendStatusFragmentChild extends BaseBackFragment {
                         public void onStart() {
 
                         }
+
                         @Override
                         public void onSuccess(File file) {
                             RequestBody photo = RequestBody.create(MediaType.parse("multipart/form-data"), file);
@@ -191,9 +193,7 @@ public class SendStatusFragmentChild extends BaseBackFragment {
                 if (response.code() == 200) {
                     //清除页面已填数据
                     editText.setText("");
-                    path.clear();
-                    photoAdapter.setResult(path);
-                    photoAdapter.notifyDataSetChanged();
+                    rvResultPhoto.setWillNotDraw(true);
                     ToastUtil.showToast(_mActivity, "发布消息成功");
                 } else {
                     ToastUtil.showToast(_mActivity, "发布消息失败\n" + response.message());
@@ -218,12 +218,12 @@ public class SendStatusFragmentChild extends BaseBackFragment {
             @Override
             public void onSuccess(List<String> photoList) {
                 Log.i(TAG, "onSuccess: 返回数据");
-                path.clear();
-                for (String s : photoList) {
-                    Log.i(TAG, s);
-                    path.add(s);
+                if (photoList.size() > 0) {
+                    Glide.with(getContext())
+                            .load(photoList.get(0))
+                            .into(rvResultPhoto);
+                    imageUrl = photoList.get(0);
                 }
-                photoAdapter.notifyDataSetChanged();
             }
 
             @Override

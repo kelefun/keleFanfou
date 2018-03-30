@@ -35,50 +35,13 @@
             </LinearLayout>
         </ScrollView>
 
-        <android.support.v7.widget.RecyclerView
+        <ImageView
             android:id="@+id/rvResultPhoto"
-            android:layout_marginTop="120dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_marginTop="140dp"
+            android:layout_width="60dp"
+            android:background="@drawable/ic_action_camera"
+            android:layout_height="60dp"
             android:layout_below="@+id/rl_text"/>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
-            android:gravity="center_vertical">
-
-            <ImageButton
-                android:id="@+id/action_location"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:background="@null"
-                android:paddingLeft="16dp"
-                android:paddingRight="16.0dp"
-                app:srcCompat="@drawable/ic_at_black" />
-
-            <ImageButton
-                android:id="@+id/select_image"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_toRightOf="@id/action_location"
-                android:background="@null"
-                android:paddingLeft="16.0dip"
-                android:paddingRight="16.0dip"
-                app:srcCompat="@drawable/ic_action_camera" />
-
-            <Button
-                android:id="@+id/action_commit"
-                android:layout_width="60dp"
-                android:layout_height="30dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="16dp"
-                android:background="@drawable/drawable_text_accent"
-                android:text="发送"
-                android:textColor="@color/white"
-                android:textSize="14.0sp" />
-        </RelativeLayout>
     </RelativeLayout>
 
 
