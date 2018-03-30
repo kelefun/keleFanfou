@@ -74,7 +74,6 @@ public class SendStatusFragmentChild extends BaseBackFragment {
     private void initView(View view) {
         mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
         mToolbar.setTitle("+Fun");
-        mToolbar.setNavigationIcon(R.drawable.ic_action_close);
         mToolbar.inflateMenu(R.menu.send_menu);
         mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
