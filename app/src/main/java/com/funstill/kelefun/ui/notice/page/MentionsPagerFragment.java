@@ -174,7 +174,6 @@ public class MentionsPagerFragment extends SupportFragment implements SwipeRefre
                             data.addAll(statusList);
                         }
                         mAdapter.notifyDataSetChanged();
-                        ToastUtil.showToast(_mActivity,"Fun+ "+data.size());
                     }else{
                         if(data.size()>0){
                             ToastUtil.showToast(_mActivity,"没有更多了");
