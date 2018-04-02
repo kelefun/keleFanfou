@@ -4,7 +4,7 @@ android {
     buildToolsVersion '27.0.3'
     defaultConfig {
         vectorDrawables.useSupportLibrary = true
-        applicationId "com.zua.kelefun"
+        applicationId 'com.funstill.kelefun'
         minSdkVersion 21
         targetSdkVersion 23
         versionCode 1
@@ -25,12 +25,14 @@ android {
         targetCompatibility 1.8
         sourceCompatibility 1.8
     }
+    productFlavors {
+    }
 }
 ext {
     supportVersion = '26.1.0'
 }
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -38,7 +40,6 @@ dependencies {
     implementation "com.android.support:design:$supportVersion"
     implementation "com.android.support:cardview-v7:$supportVersion"
     implementation "com.android.support:recyclerview-v7:$supportVersion"
-
     //网络请求
     implementation 'com.squareup.okhttp3:okhttp:3.4.1'
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
@@ -51,23 +52,21 @@ dependencies {
     implementation 'net.wujingchao.android.view:simple-tag-imageview:1.0.1'
     //图片圆角
     implementation 'de.hdodenhof:circleimageview:2.1.0'
-
     implementation 'me.yokeyword:fragmentation-swipeback:1.3.3'
     implementation 'me.yokeyword:fragmentation:1.3.3'
-
     implementation 'com.jaeger.statusbarutil:library:1.4.0'
-//    // ButterKnife
-//    implementation 'com.jakewharton:butterknife:8.4.0'
-//    // AutoValue
-//    implementation 'com.google.auto.value:auto-value:1.2'
-//    apt 'com.google.auto.value:auto-value:1.2'
-//    // reactive database wrapper
-//    implementation 'com.squareup.sqlbrite:sqlbrite:0.8.0'
+    //    // ButterKnife
+    //    implementation 'com.jakewharton:butterknife:8.4.0'
+    //    // AutoValue
+    //    implementation 'com.google.auto.value:auto-value:1.2'
+    //    apt 'com.google.auto.value:auto-value:1.2'
+    //    // reactive database wrapper
+    //    implementation 'com.squareup.sqlbrite:sqlbrite:0.8.0'
     // RxBinding
-//    implementation 'com.jakewharton.rxbinding:rxbinding:1.0.0'
-//    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    //    implementation 'com.jakewharton.rxbinding:rxbinding:1.0.0'
+    //    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
     implementation 'io.reactivex.rxjava2:rxjava:2.1.0'
-//     EventBus
+    //     EventBus
     implementation 'org.greenrobot:eventbus:3.0.0'
     //图片压缩
     implementation 'top.zibin:Luban:1.1.3'

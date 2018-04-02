@@ -192,7 +192,7 @@ public class SendStatusFragmentChild extends BaseBackFragment {
                 if (response.code() == 200) {
                     //清除页面已填数据
                     editText.setText("");
-                    rvResultPhoto.setWillNotDraw(true);
+                    rvResultPhoto.setImageDrawable(null);
                     ToastUtil.showToast(_mActivity, "发布消息成功");
                 } else {
                     ToastUtil.showToast(_mActivity, "发布消息失败\n" + response.message());

@@ -39,7 +39,7 @@
             android:id="@+id/rvResultPhoto"
             android:layout_marginTop="140dp"
             android:layout_width="60dp"
-            android:background="@drawable/ic_action_camera"
+            android:background="@mipmap/ic_camera"
             android:layout_height="60dp"
             android:layout_below="@+id/rl_text"/>
     </RelativeLayout>

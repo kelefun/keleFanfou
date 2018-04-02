@@ -22,30 +22,7 @@
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:titleEnabled="true">
 
-                <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    app:layout_collapseMode="pin"
-                    app:popupTheme="@style/PopupOverlay">
-
-                    <ImageView
-                        android:id="@+id/direct_message"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-                        android:layout_marginRight="@dimen/icon_distance"
-                        android:src="@drawable/ic_action_message" />
-
-                    <ImageView
-                        android:id="@+id/status_mention"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-                        android:layout_marginRight="@dimen/icon_distance"
-                        android:src="@drawable/ic_at_white" />
-                </android.support.v7.widget.Toolbar>
-
+                <include layout="@layout/toolbar" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="225dp"
