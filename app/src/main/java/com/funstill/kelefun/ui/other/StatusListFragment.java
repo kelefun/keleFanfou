@@ -3,7 +3,6 @@ package com.funstill.kelefun.ui.other;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.ArrayMap;
@@ -13,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.funstill.kelefun.R;
 import com.funstill.kelefun.adapter.StatusAdapter;
+import com.funstill.kelefun.config.KelefunConst;
 import com.funstill.kelefun.data.api.StatusApi;
 import com.funstill.kelefun.data.model.Status;
 import com.funstill.kelefun.http.BaseRetrofit;
@@ -34,40 +34,40 @@ import retrofit2.Response;
  * @author liukaiyang
  * @since 2017/10/18 16:56
  */
-public class StatusListFragment extends Fragment{
+public class StatusListFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
     List<Status> data = new ArrayList<>();
-    private static String tuserId;
+    private String tuserId;
     private StatusAdapter mAdapter;
     private boolean isLoadingMore = false;
 
     public static StatusListFragment newInstance(String userId) {
         StatusListFragment fragment = new StatusListFragment();
-        tuserId = userId;
-//        Bundle bundle = new Bundle();
-//        bundle.putString(KEY, title);
-//        fragment.setArguments(bundle);
+        Bundle bundle = new Bundle();
+        bundle.putString(KelefunConst.USER_ID, userId);
+        //fragment保存参数，传入一个Bundle对象
+        fragment.setArguments(bundle);
         return fragment;
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_status_no_toolbar, container, false);
+        View view = inflater.inflate(R.layout.fragment_status_no_toolbar_refresh, container, false);
         initView(view);
         return view;
     }
 
     protected void initView(View view) {
-        SwipeRefreshLayout mRefreshLayout=(SwipeRefreshLayout) view.findViewById(R.id.line_swipe_refresh);
-        mRefreshLayout.setEnabled(false);//禁用下拉刷新
         mRecyclerView = (RecyclerView) view.findViewById(R.id.line_recycler);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new StatusAdapter(getActivity(), data);
         mRecyclerView.setAdapter(mAdapter);
-
+        if (getArguments() != null) {
+            tuserId = getArguments().getString(KelefunConst.USER_ID);
+        }
 
         Map<String, String> map = new ArrayMap<>();
         map.put("id", tuserId);
@@ -118,7 +118,7 @@ public class StatusListFragment extends Fragment{
                     } else {
                         ToastUtil.showToast(getContext(), "没有更多了");
                     }
-                }else if(response.code()==403){
+                } else if (response.code() == 403) {
                     ToastUtil.showToast(getContext(), "对方设置了隐私,需先请求关注");
                 }
             }

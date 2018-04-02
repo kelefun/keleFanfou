@@ -70,7 +70,7 @@ public class MentionsPagerFragment extends SupportFragment implements SwipeRefre
         mLayoutManager = new LinearLayoutManager(_mActivity);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.line_swipe_refresh);
+        mRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.no_toolbar_swipe_refresh);
         mRefreshLayout.setColorSchemeResources(R.color.colorPrimary, R.color.colorOrange, R.color.colorRed);
         mRefreshLayout.setOnRefreshListener(this);
         mRefreshLayout.post(() -> mRefreshLayout.setRefreshing(true));

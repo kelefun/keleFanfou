@@ -14,6 +14,8 @@ import android.view.View;
 import com.funstill.kelefun.ui.other.SearchActivity;
 import com.funstill.kelefun.ui.other.UserHomeActivity;
 
+import static com.funstill.kelefun.config.KelefunConst.USER_ID;
+
 /**
  * span点击跳转至activity
  * (比如应用于类似微博的@用户 点击跳转至用户主页)
@@ -36,7 +38,7 @@ public class ActivitySpan extends URLSpan {
         if (getURL().startsWith("http://fanfou.com/")) {//用户主页
             Intent intent = new Intent(context, UserHomeActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-            intent.putExtra(UserHomeActivity.USER_ID, getURL().replace("http://fanfou.com/", ""));
+            intent.putExtra(USER_ID, getURL().replace("http://fanfou.com/", ""));
             context.startActivity(intent);
         } else if ((getURL().startsWith("/q/"))) {//话题
             Intent intent = new Intent(context, SearchActivity.class);

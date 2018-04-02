@@ -29,6 +29,8 @@ import net.wujingchao.android.view.SimpleTagImageView;
 
 import java.util.List;
 
+import static com.funstill.kelefun.config.KelefunConst.USER_ID;
+
 public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context mContext;
@@ -74,8 +76,8 @@ public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     private void goUserHome(int position) {
         Intent intent = new Intent(mContext, UserHomeActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-        intent.putExtra(UserHomeActivity.USER_ID, data.get(position).getUser().getId());
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.putExtra(USER_ID, data.get(position).getUser().getId());
         mContext.startActivity(intent);
     }
 

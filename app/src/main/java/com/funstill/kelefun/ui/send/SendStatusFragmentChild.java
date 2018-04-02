@@ -128,13 +128,6 @@ public class SendStatusFragmentChild extends BaseBackFragment {
         }
     }
 
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-    }
-
-
     /**
      * 发送
      */
@@ -162,7 +155,6 @@ public class SendStatusFragmentChild extends BaseBackFragment {
                             Call<Status> call = api.uploadPhoto(status, body);
                             enqueue(call);
                         }
-
                         @Override
                         public void onError(Throwable e) {
                         }
@@ -180,11 +172,7 @@ public class SendStatusFragmentChild extends BaseBackFragment {
             Call<Status> call = api.postStatus(partMap);
             enqueue(call);
         }
-
-
     }
-
-    //
     private void enqueue(Call<Status> call) {
         call.enqueue(new Callback<Status>() {
             @Override
@@ -198,7 +186,6 @@ public class SendStatusFragmentChild extends BaseBackFragment {
                     ToastUtil.showToast(_mActivity, "发布消息失败\n" + response.message());
                 }
             }
-
             @Override
             public void onFailure(Call<Status> call, Throwable t) {
                 ToastUtil.showToast(_mActivity, "发布消息失败");
@@ -245,9 +232,9 @@ public class SendStatusFragmentChild extends BaseBackFragment {
     /**
      * 返回首页
      */
-    private void backToHome() {
-        _mActivity.onBackPressed();
-    }
+//    private void backToHome() {
+//        _mActivity.onBackPressed();
+//    }
 
 
 }

@@ -9,7 +9,7 @@ import com.funstill.kelefun.ui.notice.page.OtherPagerFragment;
 
 
 public class NoticeFragmentAdapter extends FragmentPagerAdapter {
-    private String[] mTab = new String[]{ "@我","私信","通知"};
+    private String[] mTab = new String[]{ "私信","@我","通知"};
 
     public NoticeFragmentAdapter(FragmentManager fm) {
         super(fm);
@@ -18,8 +18,8 @@ public class NoticeFragmentAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         switch (position){
-            case 0:return MentionsPagerFragment.newInstance();
-            case 1:return  OtherPagerFragment.newInstance(position);
+            case 0:return OtherPagerFragment.newInstance(position);
+            case 1:return  MentionsPagerFragment.newInstance();
             default:return  OtherPagerFragment.newInstance(position);
         }
     }

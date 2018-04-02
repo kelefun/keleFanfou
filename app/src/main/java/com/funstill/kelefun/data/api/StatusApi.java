@@ -36,6 +36,12 @@ public interface StatusApi {
      */
     @GET("/statuses/user_timeline.json?mode=lite&format=html")
     Call<List<Status>> getUserTimeLine(@QueryMap Map<String, String> paramMap);
+
+    /**
+     * 用户收藏的消息
+     * @param paramMap
+     * @return
+     */
     @GET("/favorites.json?mode=lite&format=html")
     Call<List<Status>> getFavourites(@QueryMap Map<String, String> paramMap);
 

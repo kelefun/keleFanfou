@@ -3,7 +3,6 @@ package com.funstill.kelefun.ui.other;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.ArrayMap;
@@ -13,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.funstill.kelefun.R;
 import com.funstill.kelefun.adapter.ImageAdapter;
+import com.funstill.kelefun.config.KelefunConst;
 import com.funstill.kelefun.data.api.StatusApi;
 import com.funstill.kelefun.data.model.Status;
 import com.funstill.kelefun.http.BaseRetrofit;
@@ -45,19 +45,24 @@ public class ImageListFragment extends Fragment {
     // 是否在加载中 ( 上拉加载更多 )
     private boolean isLoadingMore = false;
     private ImageAdapter mAdapter;
-    private static String tuserId;
+    private String tuserId;
 
     public static ImageListFragment newInstance(String userId) {
         ImageListFragment fragment = new ImageListFragment();
-        tuserId = userId;
+        Bundle bundle = new Bundle();
+        bundle.putString(KelefunConst.USER_ID, userId);
+        fragment.setArguments(bundle);
         return fragment;
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_status_no_toolbar, container, false);
+        View view = inflater.inflate(R.layout.fragment_status_no_toolbar_refresh, container, false);
         initView(view);
+        if (getArguments() != null) {
+            tuserId = getArguments().getString(KelefunConst.USER_ID);
+        }
         Map<String, String> map = new ArrayMap<>();
         map.put("count", "15");
         getStatusWithImage(map);
@@ -65,8 +70,6 @@ public class ImageListFragment extends Fragment {
     }
 
     private void initView(View view) {
-        SwipeRefreshLayout mRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.line_swipe_refresh);
-        mRefreshLayout.setEnabled(false);//禁用下拉刷新
         mRecyclerView = (RecyclerView) view.findViewById(R.id.line_recycler);
         StaggeredGridLayoutManager   mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);

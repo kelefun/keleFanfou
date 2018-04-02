@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/attention_request"
+        android:title="关注"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/attention_cancel"
+        android:title="已关注"
+        android:visible="false"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/direct_message"
+        android:title="私信"
+        app:showAsAction="ifRoom" />
+</menu>
