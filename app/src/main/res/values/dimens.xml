@@ -13,6 +13,7 @@
 
     <dimen name="icon_distance">14dp</dimen>
     <dimen name="avatar_length">36dp</dimen>
+    <dimen name="avatar_length_middle">66dp</dimen>
     <dimen name="bottombar_height">48dp</dimen>
 
     <dimen name="userhome_bar_height">38dp</dimen>

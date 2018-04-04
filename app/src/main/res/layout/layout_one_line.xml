@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!--item的上分割线-->
+    <View
+        android:id="@+id/divider_top"
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:background="#efefef" />
+
+    <!--item内容部分的容器-->
+    <LinearLayout
+        android:id="@+id/ll_root"
+        android:paddingStart="@dimen/base_dimen_24dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@android:color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        >
+
+        <!--item左边的Icon-->
+        <ImageView
+            android:id="@+id/iv_left_icon"
+            android:layout_width="@dimen/avatar_length"
+            android:layout_height="@dimen/avatar_length" />
+
+        <!--item中间部分的文字-->
+        <TextView
+            android:id="@+id/tv_text_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_weight="1"
+            android:textSize="16sp" />
+
+        <!--item右边的Icon 默认是向右的箭头-->
+        <ImageView
+            android:id="@+id/iv_right_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="10dp"
+            android:src="@drawable/ic_action_chevron_right" />
+    </LinearLayout>
+
+    <!--item的下分割线-->
+    <View
+        android:id="@+id/divider_bottom"
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:background="@color/colorWhiteDark" />
+
+</LinearLayout>
