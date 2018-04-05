@@ -72,6 +72,7 @@ public class ImageListFragment extends Fragment {
     private void initView(View view) {
         mRecyclerView = (RecyclerView) view.findViewById(R.id.line_recycler);
         StaggeredGridLayoutManager   mLayoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
+        mLayoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         mAdapter = new ImageAdapter(getActivity(), data);
