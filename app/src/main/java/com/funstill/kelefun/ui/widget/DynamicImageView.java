@@ -28,7 +28,7 @@ private  int width,height;
              height = (int) Math.ceil((float) width * (float) drawable.getIntrinsicHeight() / (float) drawable.getIntrinsicWidth());
 
             //如果图片高度大于屏幕的3/5,则截取图片
-            int maxHeight= (int) (dm.heightPixels*(0.6));
+            int maxHeight= (int) (dm.heightPixels*(0.28));
             if(height>maxHeight){
                 height=maxHeight;
             }

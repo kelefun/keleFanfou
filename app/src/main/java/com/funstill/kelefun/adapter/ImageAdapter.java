@@ -39,9 +39,11 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder holder, int position) {
         Status status=result.get(position);
         if(status!=null){
-            Glide.with(context)
-                    .load(status.getPhoto().getImageurl())
-                    .into(holder.image);
+            if(status.getPhoto()!=null){
+                Glide.with(context)
+                        .load(status.getPhoto().getLargeurl())
+                        .into(holder.image);
+            }
             holder.imageText.setText(status.getText());
         }
     }

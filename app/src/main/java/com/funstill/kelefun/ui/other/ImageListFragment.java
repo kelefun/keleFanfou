@@ -71,7 +71,7 @@ public class ImageListFragment extends Fragment {
 
     private void initView(View view) {
         mRecyclerView = (RecyclerView) view.findViewById(R.id.line_recycler);
-        StaggeredGridLayoutManager   mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        StaggeredGridLayoutManager   mLayoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         mAdapter = new ImageAdapter(getActivity(), data);
@@ -96,7 +96,7 @@ public class ImageListFragment extends Fragment {
                     if (data.size() > 0) {
                         Map<String, String> loadMoreParam = new ArrayMap<>();
                         loadMoreParam.put("max_id", data.get(data.size() - 1).getId());
-                        loadMoreParam.put("count", "25");
+                        loadMoreParam.put("count", "15");
                         loadMoreMentions(loadMoreParam);
                     }
                 }
