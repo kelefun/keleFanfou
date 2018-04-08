@@ -11,15 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.funstill.kelefun.R;
-import com.funstill.kelefun.adapter.StatusAdapter;
-import com.funstill.kelefun.data.api.StatusApi;
-import com.funstill.kelefun.data.model.Status;
+import com.funstill.kelefun.adapter.MsgConvListAdapter;
+import com.funstill.kelefun.data.api.MsgApi;
+import com.funstill.kelefun.data.model.MsgConversation;
 import com.funstill.kelefun.event.TabSelectedEvent;
 import com.funstill.kelefun.http.BaseRetrofit;
 import com.funstill.kelefun.http.SignInterceptor;
 import com.funstill.kelefun.ui.MainActivity;
 import com.funstill.kelefun.util.LogHelper;
-import com.funstill.kelefun.util.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -38,21 +37,21 @@ import retrofit2.Response;
  * @since 2017/5/12 9:11
  */
 
-public class MentionsPagerFragment extends SupportFragment implements SwipeRefreshLayout.OnRefreshListener{
+public class MsgPagerFragment extends SupportFragment implements SwipeRefreshLayout.OnRefreshListener {
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
     private SwipeRefreshLayout mRefreshLayout;
-    private List<Status> data = new ArrayList<>();
+    private List<MsgConversation> data = new ArrayList<>();
     // 是否在加载中 ( 上拉加载更多 )
     private boolean isLoadingMore = false;
-    private StatusAdapter mAdapter;
+    private MsgConvListAdapter mAdapter;
 
     private boolean mInAtTop = true;
     private int mScrollTotal;
 
-    public static MentionsPagerFragment newInstance() {
+    public static MsgPagerFragment newInstance() {
         Bundle args = new Bundle();
-        MentionsPagerFragment fragment = new MentionsPagerFragment();
+        MsgPagerFragment fragment = new MsgPagerFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -75,7 +74,7 @@ public class MentionsPagerFragment extends SupportFragment implements SwipeRefre
         mRefreshLayout.setOnRefreshListener(this);
         mRefreshLayout.post(() -> mRefreshLayout.setRefreshing(true));
 
-        mAdapter = new StatusAdapter(getActivity(),data);
+        mAdapter = new MsgConvListAdapter(getActivity(), data);
         mRecyclerView.setAdapter(mAdapter);
 
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -85,16 +84,16 @@ public class MentionsPagerFragment extends SupportFragment implements SwipeRefre
                 mScrollTotal += dy;
                 mInAtTop = mScrollTotal <= 0;
             }
+
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 if (newState == RecyclerView.SCROLL_STATE_IDLE
-                        && (mLayoutManager.findLastVisibleItemPosition()+1== mLayoutManager.getItemCount())
-                        &&!isLoadingMore) {
-                    if(data.size()>0){
-                        Map<String,String> loadMoreParam = new ArrayMap<>();
-                        loadMoreParam.put("max_id",data.get(data.size()-1).getId());
-                        loadMoreParam.put("count","20");
-                        loadMoreMentions(loadMoreParam);
+                        && (mLayoutManager.findLastVisibleItemPosition() + 1 == mLayoutManager.getItemCount())
+                        && !isLoadingMore) {
+                    if (data.size() > 0) {
+                        Map<String, String> loadMoreParam = new ArrayMap<>();
+                        loadMoreParam.put("count", "20");
+                        loadMore(loadMoreParam);
                     }
                 }
             }
@@ -104,13 +103,9 @@ public class MentionsPagerFragment extends SupportFragment implements SwipeRefre
     @Override
     public void onRefresh() {
         mRefreshLayout.post(() -> mRefreshLayout.setRefreshing(true));
-        Map<String,String> map = new ArrayMap<>();
-        if(data.size()>0){
-            map.put("since_id",data.get(0).getId());
-        }else {
-            map.put("count","20");
-        }
-        getMentions(map);
+        Map<String, String> map = new ArrayMap<>();
+        map.put("count", "20");
+        getMsgInbox(map);
     }
 
     private void scrollToTop() {
@@ -136,86 +131,47 @@ public class MentionsPagerFragment extends SupportFragment implements SwipeRefre
         mRecyclerView.setAdapter(null);
         EventBus.getDefault().unregister(this);
     }
+
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {//懒加载数据,为了防止veiwpager的预加载
-        if(data.size()>0){
+        if (data.size() > 0) {
 //            map.put("since_id",data.get(0).getId());
-        }else {
+        } else {
             //初始化数据
-            Map<String,String> map = new ArrayMap<>();
-            map.put("count","20");
-            getMentions(map);
+            Map<String, String> map = new ArrayMap<>();
+            map.put("count", "20");
+            getMsgInbox(map);
         }
     }
-
 
     /**
      * 请求提到我的数据
      */
-    private void getMentions(Map<String,String> param) {
-        StatusApi api = BaseRetrofit.retrofit(new SignInterceptor()).create(StatusApi.class);
-        Call<List<Status>> call = api.getMentions(param);
-        call.enqueue(new Callback<List<Status>>() {
+    private void getMsgInbox(Map<String, String> param) {
+        MsgApi api = BaseRetrofit.retrofit(new SignInterceptor()).create(MsgApi.class);
+        Call<List<MsgConversation>> call = api.getConversationList(param);
+        call.enqueue(new Callback<List<MsgConversation>>() {
             @Override
-            public void onResponse(Call<List<Status>> call, Response<List<Status>> response) {
+            public void onResponse(Call<List<MsgConversation>> call, Response<List<MsgConversation>> response) {
                 LogHelper.d("请求响应code", String.valueOf(response.code()));
-                if (response.code() == 200 ) {
-                    List<Status> statusList = response.body();
-                    if(statusList.size()>0){
-                        if(data.size()>0){ //让新增的数据在前面
-                            List<Status> tempList  = new ArrayList<>();
-                            tempList.addAll(data);
-                            data.clear();
-                            data.addAll(statusList);
-                            data.addAll(tempList);
-                        }else {
-                            data.addAll(statusList);
-                        }
-                        mAdapter.notifyDataSetChanged();
-                    }else{
-                        if(data.size()>0){
-                            ToastUtil.showToast(_mActivity,"没有更多了");
-                        }else {
-                            //暂时还没有数据
-                            ToastUtil.showToast(_mActivity,"还没有相关数据");
-                        }
-                    }
+                if (response.code() == 200) {
+                    List<MsgConversation> msgList = response.body();
+                    data.clear();
+                    data.addAll(msgList);
+                    mAdapter.notifyDataSetChanged();
                 }
                 mRefreshLayout.setRefreshing(false);
             }
 
             @Override
-            public void onFailure(Call<List<Status>> call, Throwable t) {
+            public void onFailure(Call<List<MsgConversation>> call, Throwable t) {
                 mRefreshLayout.setRefreshing(false);
                 t.printStackTrace();
                 LogHelper.e("请求失败", t.getMessage());
             }
         });
     }
-    private void loadMoreMentions(Map<String, String> param) {
-        StatusApi api = BaseRetrofit.retrofit(new SignInterceptor()).create(StatusApi.class);
-        Call<List<Status>> call = api.getMentions(param);
-        call.enqueue(new Callback<List<Status>>() {
-            @Override
-            public void onResponse(Call<List<Status>> call, Response<List<Status>> response) {
-                if (response.code() == 200) {
-                    List<Status> statusList = response.body();
-                    if (statusList.size() > 0) {
-                        data.addAll(statusList);
-                        mAdapter.notifyDataSetChanged();
-                    } else {
-                        ToastUtil.showToast(_mActivity, "没有更多了");
-                    }
-                }
-                isLoadingMore=false;
-            }
 
-            @Override
-            public void onFailure(Call<List<Status>> call, Throwable t) {
-                t.printStackTrace();
-                LogHelper.e("请求失败", t.getMessage());
-                isLoadingMore=false;
-            }
-        });
+    private void loadMore(Map<String, String> param) {
     }
 }

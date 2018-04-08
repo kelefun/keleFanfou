@@ -52,7 +52,7 @@ public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 int position = holder.getAdapterPosition();
                 ToastUtil.showToast(mContext, "点击了卡片");
             });
-            holder.userHomeClickArea.setOnClickListener(v -> {
+            holder.screenNameView.setOnClickListener(v -> {
                 int position = holder.getAdapterPosition();
                 goUserHome(position);
             });
@@ -155,7 +155,6 @@ public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     private static class ItemViewHolder extends RecyclerView.ViewHolder {
         final View mView;
-        private View userHomeClickArea;
         private TextView screenNameView;
         private TextView timeSourceView;
         private TextView statusView;
@@ -165,7 +164,6 @@ public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         private ItemViewHolder(View view) {
             super(view);
             mView = view;
-            userHomeClickArea = itemView.findViewById(R.id.user_home_click_area);
             screenNameView = (TextView) itemView.findViewById(R.id.screenNameView);
             timeSourceView = (TextView) itemView.findViewById(R.id.timeSourceView);
             statusView = (TextView) itemView.findViewById(R.id.statusView);

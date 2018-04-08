@@ -29,7 +29,6 @@
             android:gravity="left"
             android:orientation="vertical">
             <LinearLayout
-                android:id="@+id/user_home_click_area"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/avatar_length"
                 android:layout_marginLeft="@dimen/base_dimen_8dp"
@@ -37,7 +36,7 @@
                 <!--昵称 -->
                 <TextView
                     android:id="@+id/screenNameView"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:text="昵称"
@@ -46,7 +45,7 @@
                 <!--发布时间及发布平台-->
                 <TextView
                     android:id="@+id/timeSourceView"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:ellipsize="end"

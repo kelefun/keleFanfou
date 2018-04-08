@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.funstill.kelefun.ui.notice.page.MentionsPagerFragment;
+import com.funstill.kelefun.ui.notice.page.MsgPagerFragment;
 import com.funstill.kelefun.ui.notice.page.OtherPagerFragment;
 
 
@@ -18,7 +19,7 @@ public class NoticeFragmentAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         switch (position){
-            case 0:return OtherPagerFragment.newInstance(position);
+            case 0:return MsgPagerFragment.newInstance();
             case 1:return  MentionsPagerFragment.newInstance();
             default:return  OtherPagerFragment.newInstance(position);
         }
