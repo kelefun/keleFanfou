@@ -14,7 +14,7 @@ import android.widget.EditText;
 import com.funstill.kelefun.R;
 import com.funstill.kelefun.config.AccountStore;
 import com.funstill.kelefun.data.model.OAuthToken;
-import com.funstill.kelefun.data.model.UserInfo;
+import com.funstill.kelefun.data.service.AccountService;
 import com.funstill.kelefun.data.service.OAuthTokenService;
 import com.funstill.kelefun.util.LogHelper;
 
@@ -96,13 +96,11 @@ public class LoginActivity extends AppCompatActivity {
         protected Boolean doInBackground(Void... params) {
             try {
                 //xauth请求获取token
-                OAuthToken auth = new OAuthTokenService().getAccessToken(username, password);
-                //获取用户信息
-                // TODO: 2017/2/20  测试
-                UserInfo u =  new UserInfo();
-                u.setId("test");
-                //保存用户信息
-                saveAccount(auth,u);
+                OAuthToken authToken = new OAuthTokenService().getAccessToken(username, password);
+                //save token
+                new AccountStore(getBaseContext()).saveAccessToken(authToken);
+                //存储用户信息
+               new AccountService().saveUserInfo(getBaseContext());
             } catch (Exception e) {
                 LogHelper.e("UserLoginTask异常",e.getMessage());
                 return false;
@@ -136,10 +134,7 @@ public class LoginActivity extends AppCompatActivity {
             LogHelper.d("progress结束");
         }
     }
-    private void  saveAccount(OAuthToken auth,UserInfo info){
-        AccountStore store = new AccountStore(this);
-        store.saveAccount(auth,info);
-    }
+
 
     //显示主页
     private void showHome(Context context) {

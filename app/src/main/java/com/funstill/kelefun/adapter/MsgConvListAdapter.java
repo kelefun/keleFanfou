@@ -13,9 +13,9 @@ import com.bumptech.glide.Glide;
 import com.funstill.kelefun.R;
 import com.funstill.kelefun.data.model.DirectMessage;
 import com.funstill.kelefun.data.model.MsgConversation;
+import com.funstill.kelefun.ui.notice.MsgActivity;
 import com.funstill.kelefun.ui.other.UserHomeActivity;
 import com.funstill.kelefun.util.DateUtil;
-import com.funstill.kelefun.util.ToastUtil;
 
 import java.util.List;
 
@@ -37,7 +37,10 @@ public class MsgConvListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         final ItemViewHolder holder = new ItemViewHolder(view);
         holder.itemView.setOnClickListener(v -> {
             int position = holder.getAdapterPosition();
-            ToastUtil.showToast(mContext, "点击了卡片");
+            Intent intent = new Intent(mContext, MsgActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            intent.putExtra(USER_ID, data.get(position).getDirectMessage().getSender().getId());
+            mContext.startActivity(intent);
         });
         holder.msgInboxAvatar.setOnClickListener(v -> {
             int position = holder.getAdapterPosition();

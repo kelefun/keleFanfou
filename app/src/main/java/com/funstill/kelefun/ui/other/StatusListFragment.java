@@ -37,7 +37,7 @@ import retrofit2.Response;
 public class StatusListFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
-    List<Status> data = new ArrayList<>();
+    private List<Status> data = new ArrayList<>();
     private String tuserId;
     private StatusAdapter mAdapter;
     private boolean isLoadingMore = false;

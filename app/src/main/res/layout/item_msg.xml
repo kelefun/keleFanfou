@@ -6,31 +6,34 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/left_msg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/base_dimen_8dp"
         android:orientation="horizontal">
-
         <!--头像 -->
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/msg_avatar_left"
-            android:layout_width="@dimen/avatar_length"
-            android:layout_height="@dimen/avatar_length"
+            android:layout_width="@dimen/avatar_length_msg"
+            android:layout_height="@dimen/avatar_length_msg"
             android:layout_gravity="right"
-            android:layout_marginTop="2dp" />
+            android:layout_marginLeft="@dimen/base_dimen_4dp"
+            android:layout_marginTop="@dimen/base_dimen_8dp" />
         <!--消息体 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <!--发布时间-->
+
             <TextView
                 android:id="@+id/msg_text_left"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/base_dimen_8dp"
+                android:paddingStart="@dimen/base_dimen_12dp"
                 android:layout_marginTop="@dimen/base_dimen_4dp"
+                android:background="@drawable/bg_msg_left"
+                android:gravity="left|center"
                 android:lineSpacingExtra="@dimen/base_dimen_4dp"
+                android:maxWidth="@dimen/msg_max_width"
                 android:text="你好,韩梅梅"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
@@ -40,7 +43,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/base_dimen_8dp"
-                android:layout_marginTop="@dimen/base_dimen_4dp"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="1秒前"
@@ -50,46 +52,47 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/right_msg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/base_dimen_8dp"
-        android:orientation="horizontal">
-        <!--消息体 -->
+        android:gravity="right">
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="right"
+            android:layout_gravity="right"
             android:orientation="vertical">
-            <!--发布时间-->
+
             <TextView
                 android:id="@+id/msg_text_right"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/base_dimen_8dp"
                 android:layout_marginTop="@dimen/base_dimen_4dp"
+                android:background="@drawable/bg_msg_right"
+                android:gravity="left|center"
                 android:lineSpacingExtra="@dimen/base_dimen_4dp"
+                android:maxWidth="@dimen/msg_max_width"
                 android:text="你好,李雷"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
+
             <TextView
                 android:id="@+id/msg_time_right"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/base_dimen_8dp"
-                android:layout_marginTop="@dimen/base_dimen_4dp"
+                android:layout_marginRight="@dimen/base_dimen_8dp"
                 android:ellipsize="end"
+                android:gravity="right"
                 android:maxLines="1"
                 android:text="1秒前"
                 android:textColor="@color/colorGrey"
                 android:textSize="10sp" />
         </LinearLayout>
-        <!--头像 -->
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/msg_avatar_right"
-            android:layout_gravity="right"
-            android:src="@mipmap/ic_launcher"
-            android:layout_width="@dimen/avatar_length"
-            android:layout_height="@dimen/avatar_length"
-            android:layout_marginTop="2dp" />
+            android:layout_width="@dimen/avatar_length_msg"
+            android:layout_height="@dimen/avatar_length_msg"
+            android:layout_marginRight="@dimen/base_dimen_4dp"
+            android:layout_marginTop="@dimen/base_dimen_8dp"/>
     </LinearLayout>
 </LinearLayout>

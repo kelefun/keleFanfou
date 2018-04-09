@@ -9,10 +9,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.funstill.kelefun.R;
+import com.funstill.kelefun.config.AccountStore;
 import com.funstill.kelefun.data.model.DirectMessage;
 import com.funstill.kelefun.ui.other.UserHomeActivity;
 import com.funstill.kelefun.util.DateUtil;
+import com.funstill.kelefun.util.SharedPreferencesUtil;
 import com.funstill.kelefun.util.ToastUtil;
 
 import java.util.List;
@@ -23,7 +26,7 @@ public class MsgAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context mContext;
     private List<DirectMessage> data;
-
+private String  myUserId;
     public MsgAdapter(Context mContext, List data) {
         this.mContext = mContext;
         this.data = data;
@@ -41,6 +44,9 @@ public class MsgAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             int position = holder.getAdapterPosition();
             goUserHome(position);
         });
+
+        myUserId= SharedPreferencesUtil.getInstance().read(mContext,AccountStore.STORE_NAME,
+                AccountStore.KEY_USER_ID,"");
         return holder;
 
     }
@@ -54,13 +60,26 @@ public class MsgAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof ItemViewHolder) {
-            ItemViewHolder itemHolder = (ItemViewHolder) holder;
+        ItemViewHolder itemHolder = (ItemViewHolder) holder;
 
-            if (data.size() != 0) {
-                DirectMessage directMessage = data.get(position);
+        if (data.size() > 0) {
+            DirectMessage directMessage = data.get(position);
+            if(directMessage.getSender().getId().equals(myUserId)){
+                itemHolder.leftMsg.setVisibility(View.GONE);
+                itemHolder.rightMsg.setVisibility(View.VISIBLE);
+                itemHolder.msgTextRight.setText(directMessage.getText());
+                itemHolder.msgTimeRight.setText(DateUtil.toAgo(directMessage.getCreatedAt()));
+                Glide.with(mContext)
+                        .load(directMessage.getSender().getProfileImageUrl())
+                        .into(itemHolder.msgAvatarRight);
+            }else {
+                itemHolder.leftMsg.setVisibility(View.VISIBLE);
+                itemHolder.rightMsg.setVisibility(View.GONE);
                 itemHolder.msgTextLeft.setText(directMessage.getText());
-                itemHolder.msgTextLeft.setText(DateUtil.toAgo(directMessage.getCreatedAt()));
+                itemHolder.msgTimeLeft.setText(DateUtil.toAgo(directMessage.getCreatedAt()));
+                Glide.with(mContext)
+                        .load(directMessage.getSender().getProfileImageUrl())
+                        .into(itemHolder.msgAvatarLeft);
             }
         }
     }
@@ -71,6 +90,8 @@ public class MsgAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     private static class ItemViewHolder extends RecyclerView.ViewHolder {
+        private View leftMsg;
+        private View rightMsg;
         private TextView msgTimeLeft;
         private TextView msgTextLeft;
         private ImageView msgAvatarLeft;
@@ -80,12 +101,14 @@ public class MsgAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         private ItemViewHolder(View view) {
             super(view);
+            leftMsg = itemView.findViewById(R.id.left_msg);
+            rightMsg = itemView.findViewById(R.id.right_msg);
             msgTimeLeft = (TextView) itemView.findViewById(R.id.msg_time_left);
             msgTextLeft = (TextView) itemView.findViewById(R.id.msg_text_left);
             msgAvatarLeft = (ImageView) itemView.findViewById(R.id.msg_avatar_left);
-            msgTimeLeft = (TextView) itemView.findViewById(R.id.msg_time_right);
-            msgTextLeft = (TextView) itemView.findViewById(R.id.msg_text_right);
-            msgAvatarLeft = (ImageView) itemView.findViewById(R.id.msg_avatar_right);
+            msgTimeRight = (TextView) itemView.findViewById(R.id.msg_time_right);
+            msgTextRight = (TextView) itemView.findViewById(R.id.msg_text_right);
+            msgAvatarRight = (ImageView) itemView.findViewById(R.id.msg_avatar_right);
         }
     }
 

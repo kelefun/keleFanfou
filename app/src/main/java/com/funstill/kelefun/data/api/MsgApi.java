@@ -21,4 +21,7 @@ public interface MsgApi {
     //以对话的形式返回当前用户的私信列表
     @GET("/direct_messages/conversation_list.json?mode=lite")
     Call<List<MsgConversation>> getConversationList(@QueryMap Map<String, String> paramMap);
+    //以对话的形式返回当前用户的私信
+    @GET("/direct_messages/conversation.json?mode=lite")
+    Call<List<DirectMessage>> getConversation(@QueryMap Map<String, String> paramMap);
 }

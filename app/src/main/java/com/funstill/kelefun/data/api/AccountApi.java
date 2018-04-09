@@ -1,7 +1,8 @@
 package com.funstill.kelefun.data.api;
 
 
-import okhttp3.ResponseBody;
+import com.funstill.kelefun.data.model.UserInfo;
+
 import retrofit2.Call;
 import retrofit2.http.POST;
 
@@ -17,6 +18,6 @@ public interface AccountApi {
      * @param
      * @return
      */
-    @POST("/account/verify_credentials.json")
-    Call<ResponseBody> verifyCred();
+    @POST("/account/verify_credentials.json?mode=lite")
+    Call<UserInfo> verifyCred();
 }

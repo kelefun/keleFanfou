@@ -15,8 +15,8 @@ import com.funstill.kelefun.data.model.UserInfo;
  * 账号信息存储(SharedPreferences进行数据存储)
  */
 public class AccountStore {
-    private static final String STORE_NAME = "account_store";
-    private static final String KEY_USER_ID = "user_id";
+    public static final String STORE_NAME = "account_store";
+    public static final String KEY_USER_ID = "user_id";
     private static final String KEY_SCREEN_NAME = "screen_name";
     private static final String KEY_PROFILE_IMAGE = "profile_image";
     private static final String KEY_ACCESS_TOKEN = "access_token";
@@ -63,20 +63,13 @@ public class AccountStore {
         editor.apply();
     }
 
-    public synchronized void saveAccount(AccountInfo info) {
+    public synchronized void saveAccount(UserInfo info) {
         if (info == null) {
             return;
         }
         Editor editor = mPreferences.edit();
-
-        editor.putString(KEY_USER_ID, info.getUserId());
+        editor.putString(KEY_USER_ID, info.getId());
         editor.putString(KEY_SCREEN_NAME, info.getScreenName());
-        editor.putString(KEY_PROFILE_IMAGE, info.getProfileImage());
-
-
-        editor.putString(KEY_ACCESS_TOKEN, info.getToken());
-        editor.putString(KEY_ACCESS_TOKEN_SECRET, info.getTokenSecret());
-
         editor.commit();
     }
     public synchronized void saveAccount(OAuthToken token, UserInfo userInfo) {
