@@ -19,6 +19,7 @@ import com.funstill.kelefun.util.DateUtil;
 
 import java.util.List;
 
+import static com.funstill.kelefun.config.KelefunConst.USERNAME;
 import static com.funstill.kelefun.config.KelefunConst.USER_ID;
 
 public class MsgConvListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -40,6 +41,7 @@ public class MsgConvListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             Intent intent = new Intent(mContext, MsgActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             intent.putExtra(USER_ID, data.get(position).getDirectMessage().getSender().getId());
+            intent.putExtra(USERNAME, data.get(position).getDirectMessage().getSender().getScreenName());
             mContext.startActivity(intent);
         });
         holder.msgInboxAvatar.setOnClickListener(v -> {

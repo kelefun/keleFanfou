@@ -5,7 +5,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.ArrayMap;
+import android.view.View;
 
 import com.funstill.kelefun.R;
 import com.funstill.kelefun.adapter.MsgAdapter;
@@ -24,6 +26,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.funstill.kelefun.config.KelefunConst.USERNAME;
 import static com.funstill.kelefun.config.KelefunConst.USER_ID;
 
 /**
@@ -36,6 +39,7 @@ public class MsgActivity extends AppCompatActivity {
     private List<DirectMessage> data = new ArrayList<>();
     private RecyclerView mRecyclerView;
     private boolean isLoadingMore = false;
+    private Toolbar mToolbar;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,6 +50,17 @@ public class MsgActivity extends AppCompatActivity {
     }
 
     protected void initView() {
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar.setTitle(getIntent().getStringExtra(USERNAME));
+        setSupportActionBar(mToolbar);
+        mToolbar.setNavigationIcon(R.drawable.ic_action_close);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         tuserId = getIntent().getStringExtra(USER_ID);
         mRecyclerView = (RecyclerView) findViewById(R.id.msg_recycler);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getBaseContext());
