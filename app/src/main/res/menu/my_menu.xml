@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/send_button"
+        android:id="@+id/exchange_account"
         android:title="切换账号"
         android:icon="@drawable/ic_action_exchange"
         app:showAsAction="ifRoom" />

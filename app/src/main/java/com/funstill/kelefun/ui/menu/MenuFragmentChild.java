@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -22,6 +23,7 @@ import com.funstill.kelefun.base.BaseBackFragment;
 import com.funstill.kelefun.config.AccountStore;
 import com.funstill.kelefun.ui.widget.LineView;
 import com.funstill.kelefun.util.SharedPreferencesUtil;
+import com.funstill.kelefun.util.ToastUtil;
 
 public class MenuFragmentChild extends BaseBackFragment {
     private Toolbar mToolbar;
@@ -48,6 +50,21 @@ public class MenuFragmentChild extends BaseBackFragment {
         mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
         mToolbar.setTitle("我的饭碗");
         mToolbar.inflateMenu(R.menu.my_menu);
+        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.exchange_account:
+                        ToastUtil.showToast(getContext(),"切换账号");
+                        break;
+                    default:
+                        ToastUtil.showToast(getContext(),"error menu");
+                        break;
+                }
+                return true;
+
+            }
+        });
         initToolbarNav(mToolbar);
         linearLayout = (LinearLayout) view.findViewById(R.id.my_home_linerlayout);
         myAvatar = (ImageView) view.findViewById(R.id.my_avatar);
