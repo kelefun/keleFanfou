@@ -114,7 +114,6 @@ public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 //图片加载
                 Glide.with(mContext)
                         .load(status.getUser().getProfileImageUrl())
-//                    .placeholder(R.drawable.tab_item_bg)
                         .into(itemHolder.avatarView);
                 if (status.getPhoto() != null) {
                     itemHolder.photoView.setVisibility(View.VISIBLE);
@@ -125,7 +124,6 @@ public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     }
                     Glide.with(mContext)
                             .load(status.getPhoto().getImageurl())
-//                    .placeholder(R.drawable.tab_item_bg)
                             .into(itemHolder.photoView);
                 } else {
                     itemHolder.photoView.setVisibility(View.GONE);

@@ -93,8 +93,8 @@ public class ImageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     .load(new File(image.getPath()))
                     .centerCrop()
                     .thumbnail(0.5f)
-                    .placeholder(R.drawable.image_placeholder)
-                    .error(R.drawable.image_placeholder)
+                    .placeholder(R.mipmap.ic_placeholder)
+                    .error(R.mipmap.ic_placeholder)
                     .dontAnimate()
                     .into(contentHolder.picture);
 
@@ -134,7 +134,7 @@ public class ImageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private void changeCheckboxState(ViewHolder contentHolder, LocalMedia image) {
         boolean isChecked = contentHolder.check.isSelected();
         if (selectImages.size() >= maxSelectNum && !isChecked) {
-            Toast.makeText(context, context.getString(R.string.message_max_num, maxSelectNum), Toast.LENGTH_LONG).show();
+            Toast.makeText(context, context.getString(R.string.message_max_num, new Object[]{maxSelectNum}), Toast.LENGTH_LONG).show();
             return;
         }
         if (isChecked) {

@@ -11,7 +11,7 @@ buildscript {
 
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
     buildToolsVersion '27.0.3'
     lintOptions {
         abortOnError false
@@ -35,14 +35,14 @@ android {
     }
 }
 ext {
-    supportVersion = '26.1.0'
+    supportVersion = '27.1.1'
 }
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     testImplementation 'junit:junit:4.12'
     implementation "com.android.support:appcompat-v7:$supportVersion"
     implementation "com.android.support:recyclerview-v7:$supportVersion"
-    api 'com.github.bumptech.glide:glide:3.7.0'
+    api 'com.github.bumptech.glide:glide:3.8.0'
     //图片缩放等操作
     api 'com.github.chrisbanes:PhotoView:2.0.0'
 }

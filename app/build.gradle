@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
     buildToolsVersion '27.0.3'
     defaultConfig {
         vectorDrawables.useSupportLibrary = true
@@ -29,7 +29,7 @@ android {
     }
 }
 ext {
-    supportVersion = '26.1.0'
+    supportVersion = '27.1.1'
 }
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
@@ -41,13 +41,12 @@ dependencies {
     implementation "com.android.support:cardview-v7:$supportVersion"
     implementation "com.android.support:recyclerview-v7:$supportVersion"
     //网络请求
-    implementation 'com.squareup.okhttp3:okhttp:3.4.1'
-    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
     // about json translate
     implementation 'com.google.code.gson:gson:2.8.0'
-    implementation 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
     //图片标签
     implementation 'net.wujingchao.android.view:simple-tag-imageview:1.0.1'
     //图片圆角
@@ -65,7 +64,7 @@ dependencies {
     // RxBinding
     //    implementation 'com.jakewharton.rxbinding:rxbinding:1.0.0'
     //    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    implementation 'io.reactivex.rxjava2:rxjava:2.1.0'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.12'
     //     EventBus
     implementation 'org.greenrobot:eventbus:3.0.0'
     //图片压缩
