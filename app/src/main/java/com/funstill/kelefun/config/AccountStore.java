@@ -19,7 +19,7 @@ public class AccountStore {
     public static final String KEY_USER_ID = "user_id";
     public static final String KEY_SCREEN_NAME = "screen_name";
     public static final String KEY_USER_AVATAR = "user_avatar";
-    public static final String KEY_USER_BACKGROUND_IMAGE = "profile_background_image";
+//    public static final String KEY_USER_BACKGROUND_IMG= "user_background_img";
     private static final String KEY_ACCESS_TOKEN = "access_token";
     private static final String KEY_ACCESS_TOKEN_SECRET = "access_token_secret";
     private Context mContext;
@@ -71,7 +71,6 @@ public class AccountStore {
         Editor editor = mPreferences.edit();
         editor.putString(KEY_USER_ID, info.getId());
         editor.putString(KEY_USER_AVATAR, info.getProfileImageUrlLarge());
-        editor.putString(KEY_USER_BACKGROUND_IMAGE, info.getId());
         editor.putString(KEY_SCREEN_NAME, info.getScreenName());
         editor.commit();
     }
