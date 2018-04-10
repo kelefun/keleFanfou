@@ -12,8 +12,8 @@ import com.funstill.kelefun.base.BaseMainFragment;
 public class NoticeFragment extends BaseMainFragment {
 
     public static NoticeFragment newInstance() {
-        Bundle args = new Bundle();
         NoticeFragment fragment = new NoticeFragment();
+        Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
     }

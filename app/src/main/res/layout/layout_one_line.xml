@@ -16,7 +16,7 @@
         android:id="@+id/ll_root"
         android:paddingStart="@dimen/base_dimen_24dp"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:background="@android:color/white"
         android:gravity="center_vertical"
         android:orientation="horizontal"
@@ -49,7 +49,7 @@
     <!--item的下分割线-->
     <View
         android:id="@+id/divider_bottom"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="@color/colorWhiteDark" />
 

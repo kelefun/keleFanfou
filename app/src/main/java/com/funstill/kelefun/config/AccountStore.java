@@ -17,8 +17,9 @@ import com.funstill.kelefun.data.model.UserInfo;
 public class AccountStore {
     public static final String STORE_NAME = "account_store";
     public static final String KEY_USER_ID = "user_id";
-    private static final String KEY_SCREEN_NAME = "screen_name";
-    private static final String KEY_PROFILE_IMAGE = "profile_image";
+    public static final String KEY_SCREEN_NAME = "screen_name";
+    public static final String KEY_USER_AVATAR = "user_avatar";
+    public static final String KEY_USER_BACKGROUND_IMAGE = "profile_background_image";
     private static final String KEY_ACCESS_TOKEN = "access_token";
     private static final String KEY_ACCESS_TOKEN_SECRET = "access_token_secret";
     private Context mContext;
@@ -69,25 +70,27 @@ public class AccountStore {
         }
         Editor editor = mPreferences.edit();
         editor.putString(KEY_USER_ID, info.getId());
+        editor.putString(KEY_USER_AVATAR, info.getProfileImageUrlLarge());
+        editor.putString(KEY_USER_BACKGROUND_IMAGE, info.getId());
         editor.putString(KEY_SCREEN_NAME, info.getScreenName());
         editor.commit();
     }
-    public synchronized void saveAccount(OAuthToken token, UserInfo userInfo) {
-        Editor editor = mPreferences.edit();
-
-        editor.putString(KEY_USER_ID, userInfo.getId());
-        editor.putString(KEY_SCREEN_NAME, userInfo.getScreenName());
-        editor.putString(KEY_PROFILE_IMAGE, userInfo.getProfileImageUrl());
-
-        editor.putString(KEY_ACCESS_TOKEN, token.getToken());
-        editor.putString(KEY_ACCESS_TOKEN_SECRET, token.getTokenSecret());
-        editor.commit();
-    }
+//    public synchronized void saveAccount(OAuthToken token, UserInfo userInfo) {
+//        Editor editor = mPreferences.edit();
+//
+//        editor.putString(KEY_USER_ID, userInfo.getId());
+//        editor.putString(KEY_SCREEN_NAME, userInfo.getScreenName());
+//        editor.putString(KEY_USER_AVATAR, userInfo.getProfileImageUrl());
+//
+//        editor.putString(KEY_ACCESS_TOKEN, token.getToken());
+//        editor.putString(KEY_ACCESS_TOKEN_SECRET, token.getTokenSecret());
+//        editor.commit();
+//    }
     public static AccountInfo readAccount() {
         AccountInfo info = new AccountInfo();
         info.setUserId(mPreferences.getString(KEY_USER_ID, null));
         info.setScreenName(mPreferences.getString(KEY_SCREEN_NAME, null));
-        info.setProfileImage(mPreferences.getString(KEY_PROFILE_IMAGE, null));
+        info.setProfileImage(mPreferences.getString(KEY_USER_AVATAR, null));
         info.setTokenAndSecret(mPreferences.getString(KEY_ACCESS_TOKEN, null),
                 mPreferences.getString(KEY_ACCESS_TOKEN_SECRET, null));
 
