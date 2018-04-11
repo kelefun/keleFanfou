@@ -171,7 +171,7 @@ public class UserHomeActivity extends AppCompatActivity {
     }
     private void cancelFriend() {
         FriendShipApi friendShipApi = BaseRetrofit.retrofit(new SignInterceptor()).create(FriendShipApi.class);
-        Call<UserInfo> friendAddCall = friendShipApi.create(getIntent().getStringExtra(USER_ID));
+        Call<UserInfo> friendAddCall = friendShipApi.destroy(getIntent().getStringExtra(USER_ID));
         friendAddCall.enqueue(new Callback<UserInfo>() {
             @Override
             public void onResponse(Call<UserInfo> call, Response<UserInfo> response) {

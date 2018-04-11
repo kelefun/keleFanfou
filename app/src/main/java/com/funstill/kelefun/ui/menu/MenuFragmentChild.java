@@ -1,8 +1,5 @@
 package com.funstill.kelefun.ui.menu;
 
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
@@ -16,20 +13,21 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.funstill.kelefun.R;
 import com.funstill.kelefun.base.BaseBackFragment;
 import com.funstill.kelefun.config.AccountStore;
 import com.funstill.kelefun.ui.widget.LineView;
 import com.funstill.kelefun.util.SharedPreferencesUtil;
 import com.funstill.kelefun.util.ToastUtil;
+import com.github.glomadrian.grav.GravView;
 
 public class MenuFragmentChild extends BaseBackFragment {
     private Toolbar mToolbar;
     private LinearLayout linearLayout;
     private TextView myUsername;
     private ImageView myAvatar;
+    private GravView gravView;
+    private boolean isRunning = true;
 
     public static MenuFragmentChild newInstance() {
         Bundle args = new Bundle();
@@ -55,10 +53,10 @@ public class MenuFragmentChild extends BaseBackFragment {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.exchange_account:
-                        ToastUtil.showToast(getContext(),"切换账号");
+                        ToastUtil.showToast(getContext(), "切换账号");
                         break;
                     default:
-                        ToastUtil.showToast(getContext(),"error menu");
+                        ToastUtil.showToast(getContext(), "error menu");
                         break;
                 }
                 return true;
@@ -69,6 +67,7 @@ public class MenuFragmentChild extends BaseBackFragment {
         linearLayout = (LinearLayout) view.findViewById(R.id.my_home_linerlayout);
         myAvatar = (ImageView) view.findViewById(R.id.my_avatar);
         myUsername = (TextView) view.findViewById(R.id.my_username);
+        gravView = (GravView) view.findViewById(R.id.grav);
         //icon + 文字 + 箭头
         linearLayout.addView(new LineView(getContext())
                 .initMine(R.drawable.menu_icon_1, "我的关注", true));
@@ -91,19 +90,30 @@ public class MenuFragmentChild extends BaseBackFragment {
         String avatarUri = SharedPreferencesUtil.getInstance().read(getContext(), AccountStore.STORE_NAME, AccountStore.KEY_USER_AVATAR, "");
         if (!TextUtils.isEmpty(avatarUri)) {
             Glide.with(getContext()).load(avatarUri).into(myAvatar);
-            Glide.with(getContext()).load(avatarUri).asBitmap().into(new SimpleTarget<Bitmap>() {
-                @Override
-                public void onResourceReady(Bitmap resource, GlideAnimation glideAnimation) {
-                    Drawable drawable = new BitmapDrawable(getActivity().getResources(), resource);
-                    linearLayout.setBackground(drawable);
-                }
-            });
+//            Glide.with(getContext()).load(avatarUri).asBitmap().into(new SimpleTarget<Bitmap>() {
+//                @Override
+//                public void onResourceReady(Bitmap resource, GlideAnimation glideAnimation) {
+//                    Drawable drawable = new BitmapDrawable(getActivity().getResources(), resource);
+//                    linearLayout.setBackground(drawable);
+//                }
+//            });
+        }
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!isRunning) {//TODO start没用,grav组件的bug
+            gravView.start();
+            isRunning = true;
         }
     }
 
     @Override
-    public void onDestroyView() {
-
-        super.onDestroyView();
+    public void onPause() {
+        super.onPause();
+        gravView.stop();
+        isRunning = false;
     }
 }

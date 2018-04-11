@@ -25,8 +25,8 @@
         <!--item左边的Icon-->
         <ImageView
             android:id="@+id/iv_left_icon"
-            android:layout_width="@dimen/avatar_length"
-            android:layout_height="@dimen/avatar_length" />
+            android:layout_width="@dimen/menu_icon_length"
+            android:layout_height="@dimen/menu_icon_length" />
 
         <!--item中间部分的文字-->
         <TextView
@@ -42,7 +42,7 @@
             android:id="@+id/iv_right_icon"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:paddingLeft="10dp"
+            android:paddingRight="@dimen/base_dimen_24dp"
             android:src="@drawable/ic_action_chevron_right" />
     </LinearLayout>
 
