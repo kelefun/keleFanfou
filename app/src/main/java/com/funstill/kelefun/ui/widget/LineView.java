@@ -11,14 +11,13 @@ import android.widget.TextView;
 import com.funstill.kelefun.R;
 
 public class LineView extends LinearLayout {
-    //各各控件
     private View dividerTop, dividerBottom;
     private LinearLayout llRoot;
     private ImageView ivLeftIcon;
     private TextView tvTextContent;
     private ImageView ivRightIcon;
 
-    public LineView(Context context) {  //该构造函数使其，可以在Java代码中创建
+    public LineView(Context context) {
         super(context);
     }
 
@@ -30,7 +29,6 @@ public class LineView extends LinearLayout {
      * 初始化各个控件
      */
     public LineView init() {
-        //引入之前的xml布局
         LayoutInflater.from(getContext()).inflate(R.layout.layout_one_line, this, true);
         llRoot = (LinearLayout) findViewById(R.id.ll_root);
         dividerTop = findViewById(R.id.divider_top);
@@ -40,20 +38,6 @@ public class LineView extends LinearLayout {
         ivRightIcon = (ImageView) findViewById(R.id.iv_right_icon);
         return this;
     }
-    /**
-     * 默认情况下的样子  icon + 文字 + 右箭头 + 下分割线
-     *
-     * @param iconRes     icon图片
-     * @param textContent 文字内容
-     */
-    public LineView init(int iconRes, String textContent) {
-        init();
-        showDivider(false, true);
-        setLeftIcon(iconRes);
-        setTextContent(textContent);
-        showArrow(true);
-        return this;
-    }
 
     /**
      * 我的页面每一行  icon + 文字 + 右箭头（显示/不显示） + 右箭头左边的文字（显示/不显示）+ 下分割线
@@ -61,18 +45,30 @@ public class LineView extends LinearLayout {
      * @param iconRes     icon图片
      * @param textContent 文字内容
      */
-    public LineView initMine(int iconRes, String textContent, boolean showArrow) {
-        init(iconRes, textContent);
+    public LineView init(int iconRes, String textContent, boolean showArrow) {
+        init();
+        showDivider(false, true);
+        setLeftIcon(iconRes);
+        setTextContent(textContent);
         showArrow(showArrow);
         return this;
     }
-
-
     /**
-
-    //---------------------下面是对每个部分的一些设置     上面是应用中常用场景封装-----------------------//
-
-
+     * 整个一行被点击
+     */
+    public static interface OnLineClickListener {
+        void onLineClick(View view);
+    }
+    public LineView setOnRootClickListener(final OnLineClickListener onRootClickListener, final String lineTag) {
+        llRoot.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                llRoot.setTag(lineTag);
+                onRootClickListener.onLineClick(llRoot);
+            }
+        });
+        return this;
+    }
     /**
      * 设置上下分割线的显示情况
      *
