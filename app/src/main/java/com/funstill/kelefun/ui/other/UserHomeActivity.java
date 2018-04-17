@@ -26,7 +26,11 @@ import com.funstill.kelefun.http.SignInterceptor;
 import com.funstill.kelefun.util.DateUtil;
 import com.funstill.kelefun.util.LogHelper;
 import com.funstill.kelefun.util.ToastUtil;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.jaeger.library.StatusBarUtil;
+
+import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -156,7 +160,10 @@ public class UserHomeActivity extends AppCompatActivity {
                     attentionRequest.setVisible(false);
                 } else if(response.code()==403){
                     try {
-                        ToastUtil.showToast(getApplicationContext(), response.errorBody().string());
+                        //{"request":"\/friendships\/create.json?mode=lite&user_id=kelefun","error":"\u5df2\u5411 kelefun \u53d1\u51fa\u5173\u6ce8\u8bf7\u6c42\uff0c\u8bf7\u7b49\u5f85\u786e\u8ba4\u3002"}
+                       String errStr= response.errorBody().string();
+                       JsonObject errJson= new JsonParser().parse(errStr).getAsJsonObject();
+                        ToastUtil.showToast(getApplicationContext(),errJson.get("error").getAsString());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -179,7 +186,11 @@ public class UserHomeActivity extends AppCompatActivity {
                     attentionCancel.setVisible(false);
                     attentionRequest.setVisible(true);
                 } else {
-                    ToastUtil.showToast(getApplicationContext(), response.message());
+                    try {
+                        ToastUtil.showToast(getApplicationContext(), response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
                 }
             }

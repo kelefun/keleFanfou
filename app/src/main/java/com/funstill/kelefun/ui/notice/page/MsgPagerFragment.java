@@ -59,7 +59,7 @@ public class MsgPagerFragment extends SupportFragment implements SwipeRefreshLay
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_status_no_toolbar, container, false);
+        View view = inflater.inflate(R.layout.fragment_recycler_with_refresh, container, false);
         initView(view);
         return view;
     }

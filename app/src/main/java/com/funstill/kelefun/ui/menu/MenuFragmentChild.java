@@ -84,6 +84,7 @@ public class MenuFragmentChild extends BaseBackFragment {
 
     }
 
+    //TODO 还是要从接口请求,否则改头像昵称不能及时更新
     private void initData() {
         String username = SharedPreferencesUtil.getInstance().read(getContext(), AccountStore.STORE_NAME, AccountStore.KEY_SCREEN_NAME, "我");
         myUsername.setText(username);

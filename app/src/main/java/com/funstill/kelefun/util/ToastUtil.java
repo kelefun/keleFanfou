@@ -2,6 +2,7 @@ package com.funstill.kelefun.util;
 
 import android.content.Context;
 import android.os.Handler;
+import android.view.Gravity;
 import android.widget.Toast;
 
 public class ToastUtil {
@@ -19,7 +20,7 @@ public class ToastUtil {
             } else {
                 toast = Toast.makeText(mContext.getApplicationContext(), text, Toast.LENGTH_SHORT);
             }
-//            toast.setGravity(Gravity.TOP | Gravity.LEFT, 0, 30);
+            toast.setGravity(Gravity.TOP , 0, 220);
             toast.show();
         });
     }

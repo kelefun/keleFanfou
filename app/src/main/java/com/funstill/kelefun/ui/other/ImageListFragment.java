@@ -58,7 +58,7 @@ public class ImageListFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_status_no_toolbar_refresh, container, false);
+        View view = inflater.inflate(R.layout.fragment_recycler, container, false);
         initView(view);
         if (getArguments() != null) {
             tuserId = getArguments().getString(KelefunConst.USER_ID);
