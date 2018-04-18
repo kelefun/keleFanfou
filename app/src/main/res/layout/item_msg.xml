@@ -36,7 +36,7 @@
                 android:maxWidth="@dimen/msg_max_width"
                 android:text="你好,韩梅梅"
                 android:textColor="@color/black"
-                android:textSize="15sp" />
+                android:textSize="@dimen/msg_text_size" />
 
             <TextView
                 android:id="@+id/msg_time_left"

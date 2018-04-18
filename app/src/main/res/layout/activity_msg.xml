@@ -8,24 +8,28 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/msg_recycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="0dp"
+        android:layout_weight="1" />
     <LinearLayout
-        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <EditText
             android:id="@+id/input_text"
             android:layout_width="0dp"
+            android:padding="10dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="输入"
-            android:maxLines="2"
+            android:textSize="@dimen/msg_text_size"
+            android:background="@drawable/underline_selector"
+            android:maxLines="3"
             />
-        <Button
+        <ImageView
             android:id="@+id/send_msg"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="send"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:paddingHorizontal="@dimen/base_dimen_12dp"
+            android:src="@drawable/ic_action_send_primary"
             />
     </LinearLayout>
 </LinearLayout>

@@ -3,6 +3,7 @@ package com.funstill.kelefun.ui.menu;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -107,7 +108,16 @@ public class MenuFragmentChild extends BaseBackFragment implements LineView.OnLi
                 .init(R.drawable.menu_icon_6, SETUP, true)
                 .setOnRootClickListener(this, SETUP));
         logoutButton.setOnClickListener((v) -> {
-            logout();
+            new AlertDialog.Builder(getContext())
+                    .setMessage("退出登录")
+                    .setNegativeButton(android.R.string.cancel,
+                            (dialog, which) -> dialog.dismiss())
+                    .setPositiveButton(android.R.string.ok,
+                            (dialog, which) -> {
+                                logout();
+                                dialog.dismiss();
+                            })
+                    .show();
         });
         myProfileEdit.setOnClickListener((v) -> {
             ToastUtil.showToast(getContext(), "个人资料编辑");
