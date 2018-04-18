@@ -1,9 +1,5 @@
 # keleFanfou
 ###### 可乐饭--饭否第三方android客户端
-使用的主要UI组件
-* SwipeRefreshLayout 
-* RecyclerView
-* CardView
 
 依赖项目
 * [okhttp3](https://github.com/square/okhttp)
