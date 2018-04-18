@@ -1,4 +1,4 @@
-package com.funstill.kelefun.ui.other;
+package com.funstill.kelefun.ui.userhome;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

@@ -14,7 +14,7 @@ import com.funstill.kelefun.R;
 import com.funstill.kelefun.data.model.DirectMessage;
 import com.funstill.kelefun.data.model.MsgConversation;
 import com.funstill.kelefun.ui.notice.MsgActivity;
-import com.funstill.kelefun.ui.other.UserHomeActivity;
+import com.funstill.kelefun.ui.userhome.UserHomeActivity;
 import com.funstill.kelefun.util.DateUtil;
 
 import java.util.List;

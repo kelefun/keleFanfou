@@ -39,7 +39,7 @@
         <activity android:name="com.funstill.kelefun.ui.MainActivity"
             android:label="@string/fan_fou"/>
         <activity android:name=".ui.widget.ImagePreview"/>
-        <activity android:name="com.funstill.kelefun.ui.other.UserHomeActivity"/>
+        <activity android:name="com.funstill.kelefun.ui.userhome.UserHomeActivity"/>
         <activity android:name="com.funstill.kelefun.ui.notice.MsgActivity"/>
       <!--  <activity android:name="com.funstill.kelefun.ui.widget.ImagePreview"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>-->

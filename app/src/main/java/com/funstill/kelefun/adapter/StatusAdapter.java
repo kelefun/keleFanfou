@@ -20,7 +20,7 @@ import com.bumptech.glide.Glide;
 import com.funstill.kelefun.R;
 import com.funstill.kelefun.data.model.Status;
 import com.funstill.kelefun.event.ActivitySpan;
-import com.funstill.kelefun.ui.other.UserHomeActivity;
+import com.funstill.kelefun.ui.userhome.UserHomeActivity;
 import com.funstill.kelefun.ui.widget.ImagePreview;
 import com.funstill.kelefun.util.DateUtil;
 import com.funstill.kelefun.util.ToastUtil;

@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.funstill.kelefun.R;
 import com.funstill.kelefun.data.model.DirectMessage;
-import com.funstill.kelefun.ui.other.UserHomeActivity;
+import com.funstill.kelefun.ui.userhome.UserHomeActivity;
 import com.funstill.kelefun.util.DateUtil;
 import com.funstill.kelefun.util.ToastUtil;
 

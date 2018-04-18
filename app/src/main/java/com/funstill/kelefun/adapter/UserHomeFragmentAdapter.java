@@ -4,9 +4,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.funstill.kelefun.ui.other.FavouriteStatusListFragment;
-import com.funstill.kelefun.ui.other.ImageListFragment;
-import com.funstill.kelefun.ui.other.StatusListFragment;
+import com.funstill.kelefun.ui.userhome.FavouriteStatusListFragment;
+import com.funstill.kelefun.ui.userhome.ImageListFragment;
+import com.funstill.kelefun.ui.userhome.StatusListFragment;
 
 
 public class UserHomeFragmentAdapter extends FragmentPagerAdapter {

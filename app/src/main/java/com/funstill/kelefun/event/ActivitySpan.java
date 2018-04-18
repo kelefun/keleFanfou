@@ -12,7 +12,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.funstill.kelefun.ui.other.SearchActivity;
-import com.funstill.kelefun.ui.other.UserHomeActivity;
+import com.funstill.kelefun.ui.userhome.UserHomeActivity;
 
 import static com.funstill.kelefun.config.KelefunConst.USER_ID;
 

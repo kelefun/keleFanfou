@@ -23,7 +23,7 @@ import com.funstill.kelefun.data.model.UserInfo;
 import com.funstill.kelefun.http.BaseRetrofit;
 import com.funstill.kelefun.http.SignInterceptor;
 import com.funstill.kelefun.ui.LoginActivity;
-import com.funstill.kelefun.ui.other.UserHomeActivity;
+import com.funstill.kelefun.ui.userhome.UserHomeActivity;
 import com.funstill.kelefun.ui.widget.LineView;
 import com.funstill.kelefun.util.SharedPreferencesUtil;
 import com.funstill.kelefun.util.ToastUtil;
