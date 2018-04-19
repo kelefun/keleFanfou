@@ -67,7 +67,6 @@ public class MsgActivity extends AppCompatActivity {
                 finish();
             }
         });
-
         tuserId = getIntent().getStringExtra(USER_ID);
         sendMsg = (ImageView) findViewById(R.id.send_msg);
         sendMsg.setOnClickListener((v) -> {
