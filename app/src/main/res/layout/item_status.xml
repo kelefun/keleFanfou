@@ -3,11 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:clickable="true"
     android:layout_marginTop="1dp"
-    app:cardElevation="0.1dp"
+    android:clickable="true"
     android:foreground="?android:attr/selectableItemBackground"
-    >
+    app:cardElevation="0.1dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,64 +20,59 @@
             android:layout_width="@dimen/avatar_length"
             android:layout_height="@dimen/avatar_length"
             android:layout_marginTop="2dp"
-            />
+            android:src="@color/colorWhiteDark" />
         <!--消息体 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="left"
+            android:layout_marginLeft="@dimen/base_dimen_4dp"
             android:orientation="vertical">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/avatar_length"
-                android:layout_marginLeft="@dimen/base_dimen_8dp"
-                android:orientation="vertical">
-                <!--昵称 -->
-                <TextView
-                    android:id="@+id/screenNameView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:text="昵称"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="14sp" />
-                <!--发布时间及发布平台-->
-                <TextView
-                    android:id="@+id/timeSourceView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:text="1秒前 可乐饭"
-                    android:textColor="@color/colorGrey"
-                    android:textSize="10sp" />
-            </LinearLayout>
+            <!--昵称 -->
+            <TextView
+                android:id="@+id/screenNameView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_weight="1"
+                android:text="昵称"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp" />
+            <!--发布时间及发布平台-->
+            <TextView
+                android:id="@+id/timeSourceView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="1秒前 可乐饭"
+                android:textColor="@color/colorGrey"
+                android:textSize="10sp" />
+
 
             <TextView
                 android:id="@+id/statusView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/base_dimen_8dp"
                 android:layout_marginTop="@dimen/base_dimen_4dp"
                 android:lineSpacingExtra="@dimen/base_dimen_4dp"
-                android:textColor="@color/black"
                 android:text="饭否是一个 140 字的迷你博客目前，饭否支持 饭否网页、手机上网、手机短信、手机彩信（发照片）、QQ、MSN、GTalk机器人 和 API 等方式来发布消息以及同步个人签名，发布一句话博客"
+                android:textColor="@color/black"
                 android:textSize="15sp" />
-            <net.wujingchao.android.view.SimpleTagImageView
-                xmlns:simple="http://schemas.android.com/apk/res-auto"
+
+            <net.wujingchao.android.view.SimpleTagImageView xmlns:simple="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/photoView"
-                android:layout_marginTop="@dimen/base_dimen_6dp"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                simple:simple_tag_textSize="12sp"
+                android:layout_marginTop="@dimen/base_dimen_6dp"
                 simple:simple_corner_distance="30dp"
-                simple:simple_tag_text="动图"
                 simple:simple_tag_background_color="@color/colorPrimary"
+                simple:simple_tag_enable="false"
                 simple:simple_tag_orientation="left_top"
-                simple:simple_tag_width="20dip"
+                simple:simple_tag_text="动图"
                 simple:simple_tag_textColor="@android:color/white"
-                simple:simple_tag_enable="false"/>
+                simple:simple_tag_textSize="12sp"
+                simple:simple_tag_width="20dip" />
         </LinearLayout>
 
 
