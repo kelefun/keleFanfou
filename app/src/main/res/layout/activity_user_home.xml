@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:fitsSystemWindows="true"
-            app:contentScrim="?attr/colorPrimary"
+            app:contentScrim="@drawable/toolbar_collapsing_background"
             app:expandedTitleGravity="center_vertical"
             app:expandedTitleMarginStart="142dp"
             app:expandedTitleTextAppearance="@style/user_title"

@@ -49,9 +49,14 @@ public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         if (viewType == TYPE_ITEM) {
             View view = LayoutInflater.from(mContext).inflate(R.layout.item_status, parent, false);
             final ItemViewHolder holder = new ItemViewHolder(view);
-            holder.itemView.setOnClickListener(v -> {
+            holder.mView.setOnClickListener(v -> {
                 int position = holder.getAdapterPosition();
                 ToastUtil.showToast(mContext, "点击了卡片");
+            });
+            holder.mView.setOnLongClickListener(v -> {
+                int position = holder.getAdapterPosition();
+                ToastUtil.showToast(mContext, "长按了卡片");
+                return true;
             });
             holder.screenNameView.setOnClickListener(v -> {
                 int position = holder.getAdapterPosition();
