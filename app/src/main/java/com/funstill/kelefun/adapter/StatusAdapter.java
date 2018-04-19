@@ -9,6 +9,7 @@ import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
+import android.text.style.TextAppearanceSpan;
 import android.text.style.URLSpan;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -102,6 +103,7 @@ public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 //处理文本点击跳转
                 Spannable statusSpan = (Spannable) Html.fromHtml(status.getText());//格式化<a herf ,mobile等标签
                 CharSequence text = statusSpan.toString();
+                statusSpan.getSpans(0,text.length(), TextAppearanceSpan.class);
                 URLSpan[] urls = statusSpan.getSpans(0, text.length(), URLSpan.class);
                 SpannableStringBuilder activitySpan = new SpannableStringBuilder(statusSpan);
                 activitySpan.clearSpans();

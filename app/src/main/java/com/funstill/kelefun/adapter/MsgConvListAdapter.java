@@ -19,7 +19,6 @@ import com.funstill.kelefun.util.DateUtil;
 
 import java.util.List;
 
-import static com.funstill.kelefun.config.KelefunConst.USERNAME;
 import static com.funstill.kelefun.config.KelefunConst.USER_ID;
 
 public class MsgConvListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -40,8 +39,7 @@ public class MsgConvListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             int position = holder.getAdapterPosition();
             Intent intent = new Intent(mContext, MsgActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            intent.putExtra(USER_ID, data.get(position).getDirectMessage().getSender().getId());
-            intent.putExtra(USERNAME, data.get(position).getDirectMessage().getSender().getScreenName());
+            intent.putExtra(USER_ID, data.get(position).getOtherId());
             mContext.startActivity(intent);
         });
         holder.msgInboxAvatar.setOnClickListener(v -> {
@@ -67,10 +65,18 @@ public class MsgConvListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             if (data.size() != 0) {
                 DirectMessage directMessage = data.get(position).getDirectMessage();
                 itemHolder.msgInboxText.setText(directMessage.getText());
-                itemHolder.msgInboxUsername.setText(directMessage.getSenderScreenName());
                 itemHolder.msgInboxTime.setText(DateUtil.toAgo(directMessage.getCreatedAt()));
+                String avatarUrl;
+                //如果最近一条消息发送人不是自己
+                if(directMessage.getSenderId().equals(data.get(position).getOtherId())){
+                    avatarUrl=directMessage.getSender().getProfileImageUrlLarge();
+                    itemHolder.msgInboxUsername.setText(directMessage.getSenderScreenName());
+                }else {
+                    avatarUrl=directMessage.getRecipient().getProfileImageUrlLarge();
+                    itemHolder.msgInboxUsername.setText(directMessage.getRecipientScreenName());
+                }
                 Glide.with(mContext)
-                        .load(directMessage.getSender().getProfileImageUrl())
+                        .load(avatarUrl)
                         .into(itemHolder.msgInboxAvatar);
             }
         }

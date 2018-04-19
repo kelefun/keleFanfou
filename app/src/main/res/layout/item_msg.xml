@@ -7,6 +7,7 @@
 
     <LinearLayout
         android:id="@+id/left_msg"
+        android:layout_margin="@dimen/base_dimen_8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -15,9 +16,9 @@
             android:id="@+id/msg_avatar_left"
             android:layout_width="@dimen/avatar_length_msg"
             android:layout_height="@dimen/avatar_length_msg"
-            android:layout_gravity="right"
-            android:layout_marginLeft="@dimen/base_dimen_4dp"
-            android:layout_marginTop="@dimen/base_dimen_8dp" />
+            android:src="@color/colorOrange"
+            android:layout_marginTop="@dimen/base_dimen_4dp"
+            android:layout_marginLeft="@dimen/base_dimen_4dp" />
         <!--消息体 -->
         <LinearLayout
             android:layout_width="match_parent"
@@ -53,6 +54,7 @@
 
     <LinearLayout
         android:id="@+id/right_msg"
+        android:layout_margin="@dimen/base_dimen_8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="right">
@@ -93,6 +95,6 @@
             android:layout_width="@dimen/avatar_length_msg"
             android:layout_height="@dimen/avatar_length_msg"
             android:layout_marginRight="@dimen/base_dimen_4dp"
-            android:layout_marginTop="@dimen/base_dimen_8dp"/>
+            android:layout_marginTop="7dp"/>
     </LinearLayout>
 </LinearLayout>

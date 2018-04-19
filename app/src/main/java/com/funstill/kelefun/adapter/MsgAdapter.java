@@ -36,15 +36,19 @@ private String  myUserId;
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.item_msg, parent, false);
         final ItemViewHolder holder = new ItemViewHolder(view);
-        holder.itemView.setOnClickListener(v -> {
+        holder.itemView.setOnLongClickListener(v -> {
             int position = holder.getAdapterPosition();
-            ToastUtil.showToast(mContext, "点击了卡片");
+            ToastUtil.showToast(mContext, "长按了卡片");
+            return true;
         });
         holder.msgAvatarLeft.setOnClickListener(v -> {
             int position = holder.getAdapterPosition();
             goUserHome(position);
         });
-
+        holder.msgAvatarRight.setOnClickListener(v -> {
+            int position = holder.getAdapterPosition();
+            goUserHome(position);
+        });
         myUserId= SharedPreferencesUtil.getInstance().read(mContext,AccountStore.STORE_NAME,
                 AccountStore.KEY_USER_ID,"");
         return holder;

@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.ArrayMap;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.funstill.kelefun.R;
 import com.funstill.kelefun.adapter.MsgAdapter;
@@ -16,7 +18,10 @@ import com.funstill.kelefun.data.model.DirectMessage;
 import com.funstill.kelefun.http.BaseRetrofit;
 import com.funstill.kelefun.http.SignInterceptor;
 import com.funstill.kelefun.util.ToastUtil;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -38,6 +43,8 @@ public class MsgActivity extends AppCompatActivity {
     private String tuserId;//对话用户的id
     private List<DirectMessage> data = new ArrayList<>();
     private RecyclerView mRecyclerView;
+    private ImageView sendMsg;
+    private EditText inputMsg;
     private boolean isLoadingMore = false;
     private Toolbar mToolbar;
 
@@ -62,6 +69,11 @@ public class MsgActivity extends AppCompatActivity {
         });
 
         tuserId = getIntent().getStringExtra(USER_ID);
+        sendMsg = (ImageView) findViewById(R.id.send_msg);
+        sendMsg.setOnClickListener((v) -> {
+            sendMsg();
+        });
+        inputMsg = (EditText) findViewById(R.id.input_msg);
         mRecyclerView = (RecyclerView) findViewById(R.id.msg_recycler);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getBaseContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -115,6 +127,42 @@ public class MsgActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<DirectMessage>> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
+    private void sendMsg() {
+        MsgApi api = BaseRetrofit.retrofit(new SignInterceptor()).create(MsgApi.class);
+        if ("".equals(inputMsg.getText().toString())) {
+            ToastUtil.showToast(getBaseContext(), "输入不能为空");
+            return;
+        }
+
+        Call<DirectMessage> call = api.sendMsg(tuserId, inputMsg.getText().toString(), null);
+        call.enqueue(new Callback<DirectMessage>() {
+            @Override
+            public void onResponse(Call<DirectMessage> call, Response<DirectMessage> response) {
+                if (response.code() == 200) {
+                    DirectMessage msg = response.body();
+                    inputMsg.setText(null);
+                    data.add(msg);
+                    mAdapter.notifyDataSetChanged();
+                } else if (response.code() == 403) {
+                    ToastUtil.showToast(getBaseContext(), "对方设置了隐私,需先请求关注");
+                }else {
+                    try {
+                        String errStr= response.errorBody().string();
+                        JsonObject errJson= new JsonParser().parse(errStr).getAsJsonObject();
+                        ToastUtil.showToast(getBaseContext(), errJson.get("error").getAsString());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DirectMessage> call, Throwable t) {
                 t.printStackTrace();
             }
         });
