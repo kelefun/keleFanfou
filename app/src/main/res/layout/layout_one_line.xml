@@ -40,9 +40,9 @@
         <!--item右边的Icon 默认是向右的箭头-->
         <ImageView
             android:id="@+id/iv_right_icon"
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="match_parent"
-            android:paddingRight="@dimen/base_dimen_24dp"
+            android:paddingHorizontal="@dimen/base_dimen_12dp"
             android:src="@drawable/ic_action_chevron_right" />
     </LinearLayout>
 
