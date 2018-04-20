@@ -27,9 +27,9 @@ import com.funstill.kelefun.data.model.Status;
 import com.funstill.kelefun.http.BaseRetrofit;
 import com.funstill.kelefun.http.SignInterceptor;
 import com.funstill.kelefun.util.ToastUtil;
-import com.funstill.library.config.IHandlerCallBack;
-import com.funstill.library.config.ImageSelector;
-import com.funstill.library.config.SelectorConfig;
+import com.funstill.lib.image.config.IHandlerCallBack;
+import com.funstill.lib.image.config.ImageSelector;
+import com.funstill.lib.image.config.SelectorConfig;
 
 import java.io.File;
 import java.util.List;

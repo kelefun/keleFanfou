@@ -27,7 +27,7 @@
     </android.support.v7.widget.Toolbar>
 
 
-    <com.funstill.library.widget.PreviewViewPager
+    <com.funstill.lib.image.widget.PreviewViewPager
         android:id="@+id/preview_pager"
         android:layout_below="@id/toolbar"
         android:layout_width="match_parent"

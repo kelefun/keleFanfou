@@ -1,4 +1,4 @@
-package com.funstill.library;
+package com.funstill.lib.image;
 
 import org.junit.Test;
 

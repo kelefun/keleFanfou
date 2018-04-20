@@ -1,4 +1,4 @@
-package com.funstill.library;
+package com.funstill.lib.image;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

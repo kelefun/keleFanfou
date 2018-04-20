@@ -20,7 +20,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.Target;
 import com.funstill.kelefun.R;
 import com.funstill.kelefun.util.ToastUtil;
-import com.funstill.library.utils.FileUtils;
+import com.funstill.lib.image.utils.FileUtils;
 import com.github.chrisbanes.photoview.PhotoView;
 
 import java.io.File;
