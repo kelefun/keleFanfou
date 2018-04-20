@@ -2,13 +2,11 @@ package com.funstill.kelefun.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
-import android.text.method.LinkMovementMethod;
 import android.text.style.TextAppearanceSpan;
 import android.text.style.URLSpan;
 import android.view.LayoutInflater;
@@ -21,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.funstill.kelefun.R;
 import com.funstill.kelefun.data.model.Status;
 import com.funstill.kelefun.event.ActivitySpan;
+import com.funstill.kelefun.event.TextLinkMovementMethod;
 import com.funstill.kelefun.ui.userhome.UserHomeActivity;
 import com.funstill.kelefun.ui.widget.ImagePreview;
 import com.funstill.kelefun.util.DateUtil;
@@ -49,19 +48,7 @@ public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         if (viewType == TYPE_ITEM) {
             View view = LayoutInflater.from(mContext).inflate(R.layout.item_status, parent, false);
             final ItemViewHolder holder = new ItemViewHolder(view);
-            holder.mView.setOnClickListener(v -> {
-                int position = holder.getAdapterPosition();
-                ToastUtil.showToast(mContext, "点击了卡片");
-            });
-            holder.mView.setOnLongClickListener(v -> {
-                int position = holder.getAdapterPosition();
-                ToastUtil.showToast(mContext, "长按了卡片");
-                return true;
-            });
-            holder.screenNameView.setOnClickListener(v -> {
-                int position = holder.getAdapterPosition();
-                goUserHome(position);
-            });
+
             holder.photoView.setOnClickListener(v -> {
                 int position = holder.getAdapterPosition();
                 ImagePreview.startPreview(mContext, data.get(position).getPhoto().getLargeurl());
@@ -69,6 +56,19 @@ public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             holder.avatarView.setOnClickListener(v -> {
                 int position = holder.getAdapterPosition();
                 goUserHome(position);
+            });
+            holder.screenNameView.setOnClickListener(v -> {
+                int position = holder.getAdapterPosition();
+                goUserHome(position);
+            });
+            holder.itemView.setOnClickListener(v -> {
+                int position = holder.getAdapterPosition();
+                ToastUtil.showToast(mContext, "点击了卡片");
+            });
+            holder.itemView.setOnLongClickListener(v -> {
+                int position = holder.getAdapterPosition();
+                ToastUtil.showToast(mContext, "长按了卡片");
+                return true;
             });
             return holder;
         } else if (viewType == TYPE_FOOTER) {
@@ -91,24 +91,16 @@ public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ItemViewHolder) {
             ItemViewHolder itemHolder = (ItemViewHolder) holder;
-            // 把每个图片视图设置不同的Transition名称, 防止在一个视图内有多个相同的名称, 在变换的时候造成混乱
-            // Fragment支持多个View进行变换, 使用适配器时, 需要加以区分
-            ViewCompat.setTransitionName(itemHolder.screenNameView, String.valueOf(position) + "_screenNameView");
-            ViewCompat.setTransitionName(itemHolder.timeSourceView, String.valueOf(position) + "_timeSourceView");
-            ViewCompat.setTransitionName(itemHolder.statusView, String.valueOf(position) + "_statusView");
-            ViewCompat.setTransitionName(itemHolder.avatarView, String.valueOf(position) + "_avatarView");
-            ViewCompat.setTransitionName(itemHolder.photoView, String.valueOf(position) + "_photoView");
 
             if (data.size() != 0) {
                 Status status = data.get(position);
                 itemHolder.screenNameView.setText(status.getUser().getScreenName());
                 itemHolder.timeSourceView.setText(DateUtil.toAgo(status.getCreatedAt()) + Html.fromHtml(status.getSource()).toString());
 
-
                 //处理文本点击跳转
                 Spannable statusSpan = (Spannable) Html.fromHtml(status.getText());//格式化<a herf ,mobile等标签
                 CharSequence text = statusSpan.toString();
-                statusSpan.getSpans(0,text.length(), TextAppearanceSpan.class);
+                statusSpan.getSpans(0, text.length(), TextAppearanceSpan.class);
                 URLSpan[] urls = statusSpan.getSpans(0, text.length(), URLSpan.class);
                 SpannableStringBuilder activitySpan = new SpannableStringBuilder(statusSpan);
                 activitySpan.clearSpans();
@@ -117,7 +109,7 @@ public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     activitySpan.setSpan(myURLSpan, statusSpan.getSpanStart(url), statusSpan.getSpanEnd(url), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
                 itemHolder.statusView.setText(activitySpan);
-                itemHolder.statusView.setMovementMethod(LinkMovementMethod.getInstance());//使标签可点击
+                itemHolder.statusView.setOnTouchListener(TextLinkMovementMethod.getInstance());//使标签可点击
                 //图片加载
                 Glide.with(mContext)
                         .load(status.getUser().getProfileImageUrl())
@@ -146,6 +138,7 @@ public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     /**
      * 获取onCreateViewHolder(ViewGroup parent, int viewType)viewType
+     *
      * @param position
      * @return
      */
@@ -159,7 +152,6 @@ public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     private static class ItemViewHolder extends RecyclerView.ViewHolder {
-        final View mView;
         private TextView screenNameView;
         private TextView timeSourceView;
         private TextView statusView;
@@ -168,9 +160,10 @@ public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         private ItemViewHolder(View view) {
             super(view);
-            mView = view;
             screenNameView = (TextView) itemView.findViewById(R.id.screenNameView);
+            screenNameView.setTag(1);
             timeSourceView = (TextView) itemView.findViewById(R.id.timeSourceView);
+            timeSourceView.setTag(1);
             statusView = (TextView) itemView.findViewById(R.id.statusView);
             avatarView = (ImageView) itemView.findViewById(R.id.avatarView);
             photoView = (SimpleTagImageView) itemView.findViewById(R.id.photoView);
