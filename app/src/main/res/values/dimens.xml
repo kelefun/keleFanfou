@@ -12,7 +12,7 @@
     <dimen name="base_dimen_12dp">12dp</dimen>
     <dimen name="base_dimen_24dp">24dp</dimen>
 
-    <dimen name="menu_icon_length">32dp</dimen>
+    <dimen name="menu_icon_length">30dp</dimen>
     <dimen name="avatar_length">36dp</dimen>
     <dimen name="avatar_length_msg">50dp</dimen>
     <dimen name="avatar_length_middle">66dp</dimen>

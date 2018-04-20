@@ -81,7 +81,7 @@ public class MenuFragmentChild extends BaseBackFragment implements LineView.OnLi
 
             }
         });
-        initToolbarNav(mToolbar);
+//        initToolbarNav(mToolbar);
         linearLayout = (LinearLayout) view.findViewById(R.id.my_home_linerlayout);
         logoutButton = (Button) view.findViewById(R.id.logout_button);
         myAvatar = (ImageView) view.findViewById(R.id.my_avatar);

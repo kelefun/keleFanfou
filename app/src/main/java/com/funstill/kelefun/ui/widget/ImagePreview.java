@@ -95,7 +95,7 @@ public class ImagePreview extends AppCompatActivity {
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mToolbar.setTitle(R.string.image_preview);
 //       mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
-        mToolbar.setNavigationIcon(R.drawable.ic_action_arrow_back);
+        mToolbar.setNavigationIcon(R.drawable.ic_action_close);
         mToolbar.setNavigationOnClickListener(v -> finish());
         mToolbar.setBackgroundColor(getResources().getColor(R.color.black));
         mImageViewSave = new ImageView(this);

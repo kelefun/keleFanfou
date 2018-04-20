@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:clickable="true"
     android:layout_marginTop="1dp"
+    android:clickable="true"
     app:cardElevation="0.1dp">
 
     <LinearLayout
@@ -26,16 +26,29 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/base_dimen_4dp"
             android:orientation="vertical">
-            <!--昵称 -->
-            <TextView
-                android:id="@+id/screenNameView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:layout_weight="1"
-                android:text="昵称"
-                android:textColor="@color/colorPrimary"
-                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <!--昵称 -->
+                <TextView
+                    android:id="@+id/screenNameView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:layout_weight="1"
+                    android:text="昵称"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp" />
+                <ImageView
+                    android:id="@+id/expand_more_menu"
+                    android:src="@drawable/ic_action_expand_more"
+                    android:paddingHorizontal="@dimen/base_dimen_12dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+
             <!--发布时间及发布平台-->
             <TextView
                 android:id="@+id/timeSourceView"
@@ -61,11 +74,11 @@
 
             <net.wujingchao.android.view.SimpleTagImageView xmlns:simple="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/photoView"
-                android:duplicateParentState="true"
-                android:clickable="false"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:layout_marginTop="@dimen/base_dimen_6dp"
+                android:clickable="false"
+                android:duplicateParentState="true"
                 simple:simple_corner_distance="30dp"
                 simple:simple_tag_background_color="@color/colorPrimary"
                 simple:simple_tag_enable="false"

@@ -53,9 +53,18 @@ public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 int position = holder.getAdapterPosition();
                 ImagePreview.startPreview(mContext, data.get(position).getPhoto().getLargeurl());
             });
+            holder.photoView.setOnLongClickListener(v -> {
+                int position = holder.getAdapterPosition();
+                ToastUtil.showToast(mContext,"长按了卡片");
+                return true;
+            });
             holder.avatarView.setOnClickListener(v -> {
                 int position = holder.getAdapterPosition();
                 goUserHome(position);
+            });
+            holder.expandMenu.setOnClickListener(v -> {
+                int position = holder.getAdapterPosition();
+                ToastUtil.showToast(mContext,"展开菜单");
             });
             holder.screenNameView.setOnClickListener(v -> {
                 int position = holder.getAdapterPosition();
@@ -156,6 +165,7 @@ public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         private TextView timeSourceView;
         private TextView statusView;
         private ImageView avatarView;
+        private ImageView expandMenu;
         private SimpleTagImageView photoView;
 
         private ItemViewHolder(View view) {
@@ -163,8 +173,8 @@ public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             screenNameView = (TextView) itemView.findViewById(R.id.screenNameView);
             screenNameView.setTag(1);
             timeSourceView = (TextView) itemView.findViewById(R.id.timeSourceView);
-            timeSourceView.setTag(1);
             statusView = (TextView) itemView.findViewById(R.id.statusView);
+            expandMenu=(ImageView) itemView.findViewById(R.id.expand_more_menu);
             avatarView = (ImageView) itemView.findViewById(R.id.avatarView);
             photoView = (SimpleTagImageView) itemView.findViewById(R.id.photoView);
         }
